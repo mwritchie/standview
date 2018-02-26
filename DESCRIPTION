@@ -1,0 +1,17 @@
+Package: standview
+Type: Package
+Title: R Package for Density Management Diagrams
+Version: 0.1.1.9001
+Authors@R: person("Martin","Ritchie", email="mritchie@fs.fed.us", role=c("aut", "cre"))
+Maintainer: Martin Ritchie <mritchie@fs.fed.us>
+Depends: R (>= 3.4.3)
+Imports: graphics, grDevices
+Description: This package was developed to provide flexible development of density management diagrams (DMD) for forestry applications. 
+    It requires that you don't act stupidly.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
