@@ -5,7 +5,8 @@
 Density Mangement Diagram generator
 }
 \description{
-This package provides function(s) to generate customizable stand density management diagrams.
+This package provides function(s) to generate customizable stand density management diagrams
+  in translated Reineke space, with log of qmd on the y-axis and log of tpa on the x-axis.
 }
 \usage{
 dmd.view(ineq = 1, inul = TRUE, insdi = TRUE, inply = TRUE,
@@ -24,16 +25,27 @@ dmd.view(ineq = 1, inul = TRUE, insdi = TRUE, inply = TRUE,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ineq}{
-Selects volume and dominant height equations. This must be an integer value from 0 to 2.
+Selects the values from a published DMD source (ineq=1-9) or a generic
+DMD with user-specified thresholds as well as published DMD volume and
+dominant height equations if available. This must be an integer value from 1 to 9.
+
     Value of 1 generates a generic DMD space, no published volumes.
-    Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
-    Value of 3 for Ritchie and Zhang (unpublished) Ponderosa pine equations.
-    Value of 4 for Edminster (1988) Ponderosa pine.
-    Value of 5 for Cochran and Barrett (1992) Ponderosa pine.
+
+    Value is 2 for Long and Shaw (2005) ponderosa pine equations,
+
+    Value of 3 for Ritchie and Zhang (unpublished) ponderosa pine equations.
+
+    Value of 4 for Edminster (1988) ponderosa pine.
+
+    Value of 5 for Cochran and Barrett (1992) ponderosa pine.
+
     Value of 6 for Long and Shaw (2012) California mixed-conifer.
+
     Value of 7 for Long et al. (1988) Douglas-fir.
-    Value of 8 for white fir.
-    Value of 9 for lodgepole pine (McCarter and Long 1986).
+
+    Value of 8 for Zhang et al. (2007) white fir.
+
+    Value of 9 for McCarter and Long (1986) lodgepole pine.
     Default=1.
 }
   \item{inul}{
@@ -115,6 +127,10 @@ Returns error code e.code; value of zero indicates success in rendering figure.
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
     J. Ag. Res. 46:627-638.
 
+    Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
+    dynamics in white fir (Abies concolor) forests in northeast California, USA.
+    For. Ecol. and Manage. 244:50-59.
+
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
@@ -128,8 +144,7 @@ It is important to note that the dmd.view function is designed to render a 6wx8h
     See Examples below for how this can be done. Also, the reineke.term for Coastal Douglas-fir
     was derived as 1.605, but from Drew and Flewelling there should be a 6 percent adjustment at
     lower densities. If one wishes to account for this a reineke.term of 1.71 is a compromise
-    slope to remove some of this apparent error in 1.605 suggested by Drew and Flewelling.
-    See Drew and Flewelling (1979), page 521.
+    slope to remove some of this apparent error. See Drew and Flewelling (1979), page 521.
 }
 
 \examples{
