@@ -59,7 +59,7 @@ Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre), stand heig
     Long, J.N. J.D. Shaw, J.D. (2012) A density management diagram for even-aged
       Sierra Nevada mixed-conifer Stands. West. J. Appl. For. 27(4):187-195.
 
-    McCarter, J.D., and J.N. Long (1986) A logdepole pine density management diagram.
+    McCarter, J.D. and J.N. Long (1986) A logdepole pine density management diagram.
       West. J. Appl. For 1:6-11.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
