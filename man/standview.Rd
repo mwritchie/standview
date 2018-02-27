@@ -10,6 +10,11 @@ The standview package provides functions to create a forest density management d
   and volume is cubic feet per acre. Functions for creating DMDs in Reineke-space (dmd.view)
   and Gingrich-space are provided.
 }
+\details{
+    Typical usages are:
+    \preformatted{dmd.view(ineq, ...)}
+    \preformatted{gdmd.view(ineq, ...)}
+}
 \seealso{
   \code{\link{dmd.view}}
   \code{\link{gdmd.view}}
@@ -24,7 +29,7 @@ The standview package provides functions to create a forest density management d
 
     Cochran, P.H. (1992) Stocking Levels and Underlying Assumptions for Uneven-Aged
       Ponderosa Pine Stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest For.
-      and Range Exp. Stn. 10p
+      and Range Exp. Stn. 10p.
 
     Drew, T.J. and J.W. Flewelling (1979). Stand density management: an alternative
       approach and its application to Douglas-fir plantations. For. Sci. 25(3):518-532

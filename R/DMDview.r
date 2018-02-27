@@ -72,7 +72,7 @@ main.t  <- switch(ineq,
                   "Ponderosa Pine (Cochran 1992)",               #5
                   "Mixed-Conifer (Long and Shaw 2012)",          #6
                   "Coastal Douglas-Fir (Long et al 1988)",       #7
-                  "White Fir (Zhang et al. 2007)",                #8
+                  "White Fir (Zhang et al. 2007)",               #8
                   "Lodgepole Pine McCarter and Long (1986)")     #9
 
 max.sdi <- switch(ineq,
@@ -95,7 +95,7 @@ gridcol <- switch(ineq, "grey","grey","grey","grey","grey","grey","grey","grey",
 gridlw  <- switch(ineq, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2)
 
 # min for x and y axis
-min.x   <- switch(ineq, 40, 40, 15, 40, 20, 40, 50, 50, 80)
+min.x   <- switch(ineq, 40, 40, 15, 40, 40, 40, 50, 50, 80)
 min.y   <- switch(ineq,  1,  1,  1,  1,  1,  1,  1,  1,  1)
 
 # max for x and y axis
@@ -149,7 +149,7 @@ x.at    <- switch(ineq,
                     200, 250, 300, 350, 400, 500, 600, 700, 800, 900, max.x),
                   c(min.x, 50, 60, 70, 80, 90, 100, 120, 140, 170,
                     200, 250, 300, 350, 400, 500, 600, 700, 800, 900, 1000, 1100, max.x),
-                  c(min.x, seq(from=30, to=100, by=10), 120, 140, 170,
+                  c(min.x, seq(from=50, to=100, by=10), 120, 140, 170,
                     200, 250, 300, 350, 400, 500, 600, 700, 800, max.x),
                   c(min.x, 50, 60, 70, 80, 90, 100, 120, 140, 170,
                     200, 250, 300, 350, 400, 500, 600, 700, 800, 900, max.x),
@@ -172,7 +172,7 @@ xaxl    <- switch(ineq,
                     300, 400, 600, 800, max.x),
                   c(min.x, 60, 80, 100, 140, 200, 300, 400,
                     600, 800, max.x),
-                  c(min.x, 30, 40, 60, 80, 100, 140, 200, 300,
+                  c(min.x, 60, 80, 100, 140, 200, 300,
                     400, 600, 800, max.x),
                   c(min.x, 60, 80, 100, 140, 200, 300, 400,
                     600, 800, max.x),
@@ -215,7 +215,7 @@ v.grid <- switch(ineq,
                    200,250,300,350,400,500,600, 700, 800, 900, 1000), #3
                  c(50, 60, 70, 80, 90, 100, 120, 140, 170, 200, 250,
                    300,350,400,500,600, 700, 800, 900, 1000, 1100, 1200), #4
-                 c(30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 170,
+                 c(50, 60, 70, 80, 90, 100, 120, 140, 170,
                    200,250,300,350,400,500,600, 700, 800, 900, 1000), #5
                  c(60, 70, 80, 90, 100, 120, 140, 170,
                    200,250,300,350,400,500,600, 700, 800, 900, 1000), #6
@@ -240,7 +240,7 @@ h.grid <- switch(ineq,
 grid.lw <- switch(ineq, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2)
 
 # this is the tx[] array offset for starting the plot of max sdi line
-sdi.strt<- switch(ineq, 1, 7, 4, 4, 4, 4, 4, 4, 4 )
+sdi.strt<- switch(ineq, 1, 7, 4, 4, 1, 4, 4, 4, 4 )
 
 # this is the adjustments on the upper limit annotation
 ul.loc<- switch(ineq,
@@ -248,7 +248,7 @@ ul.loc<- switch(ineq,
                 c(2.21, 1.08, 0.94, 1.25),
                 c(2.21, 1.08, 0.94, 1.25),
                 c(2.21, 1.08, 0.94, 1.25),
-                c(3.00, 1.08, 0.94, 1.60),
+                c(2.51, 1.08, 0.94, 1.60),
                 c(2.21, 1.08, 0.94, 1.25),
                 c(2.21, 1.08, 0.94, 1.25),
                 c(2.21, 1.08, 0.94, 1.25),
@@ -271,7 +271,7 @@ lx.mz    <- switch(ineq,
                    50,
                    20,
                    50,
-                   40,
+                   min.x+1,
                    min.x+1,
                    min.x+1,
                    min.x+1,
@@ -279,6 +279,7 @@ lx.mz    <- switch(ineq,
 
 # upper limit of the mz in x dim
 ux.mz      <- switch(ineq, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x)
+
 # these are who knows? not used now.
 mx.parms<- switch(ineq,
                   c(sdi.lines[5], sdi.lines[3], min.x*(1+2/3), max.x),  #1
@@ -301,6 +302,10 @@ isod.adj<- switch(ineq,
                   c(210, 300, 12, 5),
                   c(210, 300, 12, 5),
                   c(210, 400, 12, 5))
+
+# this is an annotation vert adjustment for max sdi
+ulanny<-switch(ineq, 0.0, 0.0, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+
 # not used right now
 sdl.x <- switch(ineq,                #placeholder
                 c(1,2,3,4,5,6,7),
@@ -485,22 +490,23 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                   ((max.sdi/tx[sdi.strt:length(tx)])^islp)*10,
                   type="l", col=sdicol, lwd=sdilw)
 
-# sdi legend elements
+# sdi annotation elements
   if(inul){
-    graphics::text((max.sdi*(max.y/10)^(-slp))*ul.loc[1], max.y*ul.loc[2] ,
+    yyloc <- max.y + ulanny
+    graphics::text((max.sdi*(yyloc/10)^(-slp))*ul.loc[1], yyloc*ul.loc[2] ,
                    "Stand Density Index",      cex=scex, col=sdicol)
-    graphics::text((max.sdi*(max.y/10)^(-slp))*ul.loc[1], max.y      ,
+    graphics::text((max.sdi*(yyloc/10)^(-slp))*ul.loc[1], yyloc      ,
                    paste("Upper Limit of:", max.sdi), cex=scex, col=sdicol)
-    graphics::text((max.sdi*(max.y/10)^(-slp))*ul.loc[1], max.y*ul.loc[3] ,
+    graphics::text((max.sdi*(yyloc/10)^(-slp))*ul.loc[1], yyloc*ul.loc[3] ,
                    paste("Reineke Value of", slp), cex=scex, col=sdicol)
     if(inply){
-      graphics::text((max.sdi*(max.y/10)^(-slp))*ul.loc[1],
-                     max.y*ul.loc[3]*0.92,
+      graphics::text((max.sdi*(yyloc/10)^(-slp))*ul.loc[1],
+                     yyloc*ul.loc[3]*0.92,
                      paste("UMZ of ", usd), cex=scex, col="darkgrey")
     }
 
-    graphics::segments( (max.sdi*(max.y/10)^(-slp)),           max.y,
-                        (max.sdi*(max.y/10)^(-slp))*ul.loc[4], max.y,
+    graphics::segments( (max.sdi*(yyloc/10)^(-slp)),           yyloc,
+                        (max.sdi*(yyloc/10)^(-slp))*ul.loc[4], yyloc,
                         lwd=1, col=sdicol)
   }
 
