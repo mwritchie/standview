@@ -102,7 +102,7 @@ min.y   <- switch(ineq,  1,  1,  1,  1,  1,  1,  1,  1,  1)
 max.x   <- switch(ineq, 1000,     1000,   1000,  1200,  1000,  1000,  1000,  2000, 2000 )
 max.y   <- switch(ineq,   36,       36,    36,    30,    36,    36,     36,    36,   26 )
 
-#
+# This is the slope term from Reineke Space
 slp     <- switch(ineq,
                   reineke.term,
                   1.6000,
@@ -115,6 +115,7 @@ slp     <- switch(ineq,
                   1.600)
 islp    <- 1/slp              # inverse of the slope
 
+# x-array for some plots
 tx <- seq(from=min.x, to=max.x, by=1)
 
 ylim.adj<- switch(ineq,
