@@ -4,7 +4,7 @@
 \title{Goosenest Adaptive Management Area Data from 2005}
 \description{
   This data file has 20 observations on plots from four different
-  treatments. It includes qmd, ba, and tpa (English units)for each plot.
+  treatments. It includes qmd, ba, and tpa (English units) for each plot.
   The file also includes a plot number called UNIT and a treatment
   identifier (character string) for each plot.
 }
@@ -28,5 +28,8 @@
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
     J. Ag. Res. 46:627-638.
 }
-
+\author{
+Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
+  Email: \email{mritchie@fs.fed.us}
+}
 \keyword{ datasets }

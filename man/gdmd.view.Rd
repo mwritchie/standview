@@ -118,6 +118,9 @@ Returns error code e.code; value of zero indicates success in rendering figure.
       Ponderosa Pine Stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest For.
       and Range Exp. Stn. 10p
 
+    Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
+      hardwood forests in the central states. For. Sci. 13(1):38-53.
+
     Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa
       pine stands. West. J. Appl. For. 20(4):205-215.
 

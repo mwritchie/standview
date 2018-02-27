@@ -4,7 +4,11 @@
 Density Management Volume Estimation
 }
 \description{
-This package provides functions to generate volumes and dominant height and (when available) biomass for stand density management diagrams.
+This package provides functions to generate volumes and dominant height for stand density management diagrams.
+
+Typically in a DMD the volume is roughly interpolated between plotted lines. With dmd.volume
+  the user can specify qmd and tpa values as input to generate estimated volumes from published
+  volume equations
 }
 \usage{
 dmd.volume(ineq  = 1,
@@ -85,10 +89,12 @@ library(standview)
 DF<-dmd.volume(ineq=3, qmd=c(2, 2.5, 13, 14.2, 19), tpa=c(300, 150, 140, 80, 80))
 DF
 
-# 2. Obtaining volume estimates for a file using gama05 data
+# 2. Obtaining volume estimates for a file using gama05 data example
 mygama<-gama05  # make a copy of the data file provided with standview package
-DF<-dmd.volume(ineq=3, qmd=mygama$qmd, tpa=mygama$tpa)
-mygama$volume<-DF$volume
+DF<-dmd.volume(ineq=3, qmd=mygama$qmd, tpa=mygama$tpa) # generate volume and dom. ht.
+# append values to the dataframe.
+mygama$volume <- DF$volume
+mygama$height <- DF$height
 
 }
 
