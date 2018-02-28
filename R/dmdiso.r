@@ -1,5 +1,5 @@
 
-dmd.iso<-function(eq           = 2,
+dmd.iso<-function(ineq         = 2,
                   v.at         = c(200, 400, 600, 800, 1000, 2000,
                                    3000, 4000, 6000, 8000),
                   range.x      = c(15,1000),
@@ -11,12 +11,12 @@ dmd.iso<-function(eq           = 2,
                   v.ann        = TRUE,
                   show.vol     = TRUE){
 
-if(!(eq %in% c(2, 3, 6, 7, 9))){
+if(!(ineq %in% c(2, 3, 6, 7, 9))){
   message("Invalid equation number provided to dmd.iso, iso lines not rendered")
   return()
 }
 
-max.sdi <- switch(eq,
+max.sdi <- switch(ineq,
                   ifelse(max.sdi<=1000 & max.sdi>=300, max.sdi , 400),
                   450,
                   400,
@@ -66,7 +66,7 @@ if(show.vol){
   v.array<-sort(v.array)
   for(k in 1:length(v.array)){
 
-    ivol<- switch(eq,
+    ivol<- switch(ineq,
                   NULL,
                   vf2(v.array[k], tx),
                   vf3(v.array[k], tx),

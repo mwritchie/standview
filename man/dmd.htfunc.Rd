@@ -8,7 +8,9 @@ Density management height functions
 }
 \description{
 This suite of functions estimates height for forest stands as a function
-  of trees per acre and quadratic mean diameter.
+  of trees per acre and quadratic mean diameter. Since the dmd.volume function
+  calls these functions, it is not necessary that user's access these
+  directly.
 }
 \usage{
 rzheight(tpa, qmd)

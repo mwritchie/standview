@@ -590,7 +590,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                NULL,
                c(50, 200, 400, 600, 800, 1000, 1500, 2000,
                  3000, 4000, 5000, 6000, 7000, 8000))
-    dmd.iso(eq=ineq,
+    dmd.iso(ineq,
             v.at=vol.levels,
             range.x=c(min.x, max.x),
             max.sdi=max.sdi,

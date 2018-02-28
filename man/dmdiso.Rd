@@ -7,7 +7,7 @@ Density Management Iso Line Rendering
 This package provides functions to iso lines for volume.
 }
 \usage{
-dmd.iso(eq           = 2,
+dmd.iso(ineq           = 2,
         v.at         = c(200, 400, 600, 800, 1000, 2000,
                          3000, 4000, 6000, 8000),
         range.x      = c(15,1000),
@@ -21,7 +21,7 @@ dmd.iso(eq           = 2,
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{eq}{
+  \item{ineq}{
   Selects volume and dominant height equations. This must be an integer value: 2, 3, 6, 7
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
     Value of 3 for Ritchie and Zhang (unpublished) Ponderosa pine equations.
@@ -62,7 +62,7 @@ dmd.iso(eq           = 2,
 }
 \value{
 Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre),
-  stand height (feet) and (if available) above-ground biomass (pounds       per acre).
+  stand height (feet) and (if available) above-ground biomass (pounds per acre).
 }
 \references{
     Long, J.N. and J.D. Shaw (2005) A density management diagram for
@@ -98,7 +98,7 @@ pdf("Douglasfir.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=7, insdr=FALSE)
-dmd.iso(eq=7)
+dmd.iso(ineq=7)
 
 par(opar)
 dev.off()
