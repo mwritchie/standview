@@ -98,7 +98,16 @@ pdf("Douglasfir.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=7, insdr=FALSE)
-dmd.iso(ineq=7)
+dmd.iso(ineq=7, range.x=c(50, 1000))
+
+par(opar)
+dev.off()
+
+# 2. A similar result may be obtained with:
+pdf("Douglasfir2.pdf", width=6, height=8)
+opar <- par(mar = c(2.0,2.0,2.0,2.0))
+
+dmd.view(ineq=7, insdr=FALSE, invol=2)
 
 par(opar)
 dev.off()
