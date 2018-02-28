@@ -4,7 +4,7 @@
 R Package for Density Management Diagrams
 }
 \description{
-The standview package provides functions to create a forest density management diagrams (DMD):
+The standview package provides functions to create forest density management diagrams (DMD):
   dmd.view, gdmd.view, dmd.volume, and dmd.iso. All DMD are rendered in English units.
   Quadratic mean diameter is in inches, basal area is square feet per acre, height is in feet,
   and volume is cubic feet per acre. Functions for creating DMDs in Reineke-space (dmd.view)
