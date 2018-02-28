@@ -134,10 +134,10 @@ Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Resea
   Email: \email{mritchie@fs.fed.us}
 }
 \note{
-It is important to note that the gdmd.view function is designed to render a 8x4 inch canvas (pdf).
+It is important to note that the gdmd.view function is designed to render a 8x6 inch canvas (pdf).
     Any other size than that and the annotations and axis labels may not place correctly.
     For this reason, it is suggested that one open a pdf with the function call:
-    pdf("myfile.pdf", width=8, height=4) prior to invoking the gdmd.view function. When the figure
+    pdf("myfile.pdf", width=8, height=6) prior to invoking the gdmd.view function. When the figure
     is completely rendered, then one must close the device with dev.off().
     See Examples below for how this can be done.
 }
