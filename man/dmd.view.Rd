@@ -152,7 +152,7 @@ It is important to note that the dmd.view function is designed to render a 6wx8h
 
 #setwd("c:/mydir") # optional, to specify location (directory) for file input and output
 
-pdf("myplot1.pdf", width=6, height=8) # optional, open a pdf file called myplot1.pdf
+pdf("myplotr1.pdf", width=6, height=8) # optional, open a pdf file called myplot1.pdf
 opar <- par(mar = c(3.0,2.0,2.5,2.5)) # set some reasonable margins
 
 dmd.view() # When called with no arguments, displays generic space with default values
@@ -164,18 +164,46 @@ dev.off()  # close the pdf file
 
 #setwd("c:/mydir") # optional to select location for read and write
 
-pdf("myplot2.pdf", width=6, height=8)
+pdf("myplotr2.pdf", width=6, height=8)
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
-dmd.view(ineq=2 ) # call dmd.view and request volume iso lines.
+dmd.view(ineq=3, invol=TRUE ) # call dmd.view and request volume iso lines.
 
 par(opar)
 dev.off()
 
-pdf("myplot3.pdf", width=6, height=8)
+# 3. This example shows a plot of data separating controls from treatments
+
+pdf("myplotr3.pdf", width=6, height=8)
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
-dmd.view(ineq=3 ) # call dmd.view and request volume iso lines & tabluar output.
+dmd.view(ineq=2 ) # call dmd.view to generate DMD.
+
+gama05$ppch<-21  # create a default character for plot
+gama05[gama05$treatment=="Control",]$ppch<-2 # set plotting character for Control
+points(x=gama05$tpa,
+       y=gama05$qmd,
+       cex=0.75, pch=gama05$ppch, col="black") # overlay data points
+
+par(opar)
+dev.off()
+
+# 4. Example calculating volumes for prescription, potting and annotations
+DF<-dmd.volume(ineq=2, qmd=c(2, 2.5, 14, 15.5, 19), tpa=c(300, 150, 140, 80, 80))
+DF
+pdf("myplotv1.pdf", width=6, height=8)
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+
+dmd.view(ineq=2 ) # call dmd.view.
+
+points(x=DF$tpa, y=DF$qmd, cex=0.75, pch=21, col="black")
+segments(300, 1, DF[1,]$tpa, DF[1,]$qmd, lwd=2)
+for(i in 1:4){
+  segments(DF$tpa[i], DF$qmd[i], DF$tpa[i+1], DF$qmd[i+1], lwd=2)
+}
+arrows(280, 19, 120, 14.8, length=0.10 )
+text(300, 22, "Commercial thin")
+text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "c.f. removed"))
 
 par(opar)
 dev.off()

@@ -4,7 +4,9 @@
 Gingrich Density Mangement Diagram generator
 }
 \description{
-This package provides function(s) to generate customizable stand density management diagrams.
+This package provides function(s) to generate customizable stand density management diagrams
+  using Gingrich (1967) space. Note that this figure is designed for a 8x6 aspect ratio in contrast
+  to the 6x8 ratio for dmd.view in translated Reineke space (Reineke 1933).
 }
 \usage{
 gdmd.view(ineq  = 1,
@@ -145,7 +147,7 @@ It is important to note that the gdmd.view function is designed to render a 8x4 
 
 #setwd("c:/mydir") # optional, to specify location (directory) for file input and output
 
-pdf("myplot0.pdf", width=8, height=6) # optional, open a pdf file called myplot0.pdf
+pdf("myplotg1.pdf", width=8, height=6) # optional, open a pdf file called myplot0.pdf
 opar <- par(mar = c(3.0,2.0,2.5,2.5)) # set some reasonable margins
 # build a dmd for Long and Shaw Ponderosa pine
 
@@ -153,6 +155,22 @@ gdmd.view(ineq=2)
 
 par(opar)  # reset margins to default settings
 dev.off()  # close the pdf file
+
+# 2. This example shows a plot of data from gama05 for treated plots
+#       and calls for volume calculation.
+
+pdf("myplotg2.pdf", width=8, height=6)
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+
+gdmd.view(ineq=3 ) # call dmd.view and request volume iso lines.
+
+points(x=gama05[!gama05$treatment=="Control",]$tpa,
+       y=gama05[!gama05$treatment=="Control",]$ba,
+       cex=0.75, pch=21, col="black")
+
+par(opar)
+dev.off()
+
 
 }
 \keyword{ color }

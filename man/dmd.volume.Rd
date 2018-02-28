@@ -83,11 +83,28 @@ This function returns a dataframe that could represent observations for a stand 
 }
 
 \examples{
-# 1. This example generate a prescription using equations from Ritchie and Zhang:
+# 1. This example generates a prescription and plots over Long and Shaw (2005)
 
 library(standview)
-DF<-dmd.volume(ineq=3, qmd=c(2, 2.5, 13, 14.2, 19), tpa=c(300, 150, 140, 80, 80))
+DF<-dmd.volume(ineq=2, qmd=c(2, 2.5, 14, 15.5, 19), tpa=c(300, 150, 140, 80, 80))
 DF
+pdf("myplotv1.pdf", width=6, height=8)
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+
+dmd.view(ineq=2 ) # call dmd.view.
+
+points(x=DF$tpa, y=DF$qmd, cex=0.75, pch=21, col="black")
+segments(300, 1, DF[1,]$tpa, DF[1,]$qmd, lwd=2)
+for(i in 1:4){
+  segments(DF$tpa[i], DF$qmd[i], DF$tpa[i+1], DF$qmd[i+1], lwd=2)
+}
+arrows(280, 19, 120, 14.8, length=0.10 )
+text(300, 22, "Commercial thin")
+text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "c.f. removed"))
+
+par(opar)
+dev.off()
+
 
 # 2. Obtaining volume estimates for a file using gama05 data example
 mygama<-gama05  # make a copy of the data file provided with standview package
