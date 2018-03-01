@@ -20,7 +20,8 @@ dmd.view(ineq = 1, inul = TRUE, insdi = TRUE, inply = TRUE,
     bsi=90,
     sdicol="red",
     invol=FALSE,
-    vcol="blue")
+    vcol="blue",
+    use.metric=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -97,6 +98,9 @@ Draws iso volume lines. Default=FALSE.
 }
   \item{vcol}{
 Specifies color for volume iso-lines. Default="blue".
+}
+  \item{use.metric}{
+Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet
 }
 
 }

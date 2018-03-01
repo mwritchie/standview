@@ -14,7 +14,8 @@ dmd.view<-function(ineq         = 1,
                    bsi          = 90,
                    sdicol       = "red",
                    invol        = FALSE,
-                   vcol         = "blue"){
+                   vcol         = "blue",
+                   use.metric   = FALSE){
 
 ineq<-as.numeric(ineq)
 max.sdi<-as.numeric(max.sdi)

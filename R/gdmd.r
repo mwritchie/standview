@@ -14,7 +14,8 @@ gdmd.view<-function(ineq         = 1,
                     bsi          = 90,
                     dcol         = "blue",
                     rdcol        = "black",
-                    dmd.title    = " "){
+                    dmd.title    = " ",
+                    use.metric   = FALSE){
 
 ineq         <- as.numeric(ineq)
 max.sdi      <- as.numeric(max.sdi)
@@ -69,7 +70,7 @@ if(!(length(mgt.zone)==2)){
   return()
 }
 
-fk <- pi/576   #Foresters constant
+fk <- switch(use.metric+1, pi/576, pi*0.0001/4)   #Foresters constant
 mzcol        = "lightgrey"
 
 dmd.title<-switch(ineq,

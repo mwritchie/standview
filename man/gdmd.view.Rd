@@ -24,7 +24,8 @@ gdmd.view(ineq  = 1,
           bsi=90,
           dcol = "blue",
           rdcol= "black",
-          dmd.title    = " ")
+          dmd.title = " ",
+          use.metric=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -102,6 +103,9 @@ This is the color for the relative density lines: default is black. Must be a co
 }
   \item{dmd.title}{
 This is the title for the management zone: default is lightgrey. Must be a color from the r colorpallette.
+}
+  \item{use.metric}{
+Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet.
 }
 
 }
