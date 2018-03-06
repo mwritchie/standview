@@ -8,10 +8,17 @@ The standview package provides functions to create forest density management dia
   dmd.view, gdmd.view, dmd.volume, and dmd.iso. All DMD are rendered in English units.
   Quadratic mean diameter is in inches, basal area is square feet per acre, height is in feet,
   and volume is cubic feet per acre. Functions for creating DMDs in Reineke-space (dmd.view)
-  and Gingrich-space are provided. The package also includes a sample dataframe: gama05, which
-  contains has observations on 20 research plots at the Goosenest Adaptive Management Area from 2005.
+  and Gingrich-space are provided.
 }
 \details{
+    Note that the default arguments of the functions in the standview package are set for English
+      units. If use.metric (logical) is set to true, these default settings will no longer serve.
+      The user must specifically set values for any arguments which have units associated. So,
+      for example if use.metric=TRUE, then the user must change values accordingly.
+
+    The package also includes a sample dataframe: gama05, which contains has observations on
+      20 research plots at the Goosenest Adaptive Management Area from 2005.
+
     Typical usages are:
     \preformatted{dmd.view(ineq, ...)}
     \preformatted{gdmd.view(ineq, ...)}

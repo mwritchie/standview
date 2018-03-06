@@ -9,12 +9,15 @@ This package provides function(s) to generate customizable stand density managem
   in translated Reineke space, with log of qmd on the y-axis and log of tpa on the x-axis.
 }
 \usage{
-dmd.view(ineq = 1, inul = TRUE, insdi = TRUE, inply = TRUE,
+dmd.view(ineq = 3,
+    inul = TRUE,
+    insdi = TRUE,
+    inply = TRUE,
     insdr = FALSE,
     insdl = TRUE,
-    max.sdi=550,
-    dmd.title,
-    sdi.lines=c(50, 100, 150, 200, 250, 350),
+    max.sdi=NA,
+    dmd.title=" ",
+    sdi.lines=NA,
     mgt.zone=c(0.35,0.60),
     reineke.term=1.605,
     bsi=90,
@@ -27,8 +30,9 @@ dmd.view(ineq = 1, inul = TRUE, insdi = TRUE, inply = TRUE,
 \arguments{
   \item{ineq}{
 Selects the values from a published DMD source (ineq=1-9) or a generic
-DMD with user-specified thresholds as well as published DMD volume and
-dominant height equations if available. This must be an integer value from 1 to 9.
+  DMD with user-specified thresholds as well as published DMD volume and
+  dominant height equations if available. This must be an integer value from 1 to 9.
+  Default value is 3.
 
     Value of 1 generates a generic DMD space, no published volumes.
 
@@ -68,14 +72,20 @@ Selects for annotation of sdi lines on right of graph. Default=FALSE. Note that 
 Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that selecting true for this variable makes no sense unless insdi=TRUE.
 }
   \item{max.sdi}{
-Defines upper limit of stand density index (maximum sdi). Default is 450.
+Defines upper limit of stand density index (maximum sdi). There is no default limit to SDI. This value is set
+  by the selection of ineq. If ineq=1, the user must specify a value. If use.metric=TRUE this value must be in
+  metric units. Currently ineq=1 (generic DMD) and ineq=6 (Long and Shaw 2012) are the only DMD options where the
+  user may actually specify this value. For most published DMDs the upper limit is fixed by the author. For those, any
+  user-specified upper limit will be ignored and the published value will be used to render the DMD.
 }
   \item{dmd.title}{
 Character string for title to be displayed. As an example could take the form of dmd.title="Ponderosa Pine".
 }
   \item{sdi.lines}{
-An array of values for plotting sdi iso-lines in the density management diagram. Default value is
-    sdi.lines=c(50, 100, 150, 200, 250, 350).
+An array of values for plotting sdi iso-lines in the density management diagram. There is no default
+    value in English units (trees per acre). Note that, as with max.sdi, the sdi.lines are fixed
+    unless a generic DMD (ineq=1) is chosen. If the user selects to make a generic DMD in metric
+    units, then this argument must be set to metric units.
 }
   \item{mgt.zone}{
 Explicitly sets the upper and lower limits of the management zone by proportion of the max.sdi.
@@ -88,7 +98,9 @@ Explicitly sets the upper and lower limits of the management zone by proportion 
 This is the inverse of the slope of sdi lines in sdi space. Default=1.605, the value derived by Reineke (1933).
 }
   \item{bsi}{
-This is Barrett's site index (Barrett 1978) for use in the Cochran (1992) pine DMD.
+This is Barrett's site index (Barrett 1978) for use in the Cochran (1992) pine DMD (ineq=5). The default units
+  for this argument is feet. If use.metric=TRUE is selected then the value for bsi should be reset by the user
+  to meters.
 }
   \item{sdicol}{
 Specifies color for stand density index lines. Default="red".
@@ -159,7 +171,11 @@ It is important to note that the dmd.view function is designed to render a 6wx8h
 pdf("myplotr1.pdf", width=6, height=8) # optional, open a pdf file called myplot1.pdf
 opar <- par(mar = c(3.0,2.0,2.5,2.5)) # set some reasonable margins
 
-dmd.view() # When called with no arguments, displays generic space with default values
+dmd.view(ineq=1, use.metric=FALSE,
+         sdi.lines=c(50, 100, 150, 200, 300, 400),
+         max.sdi=420,
+         insdr=TRUE,
+         dmd.title="DMD with limit at 420")
 
 par(opar)  # reset margins to default settings
 dev.off()  # close the pdf file
