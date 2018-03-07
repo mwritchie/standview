@@ -16,9 +16,9 @@ gdmd.view(ineq  = 1,
           inply = TRUE,
           inqmd = TRUE,
           inspace=TRUE,
-          max.sdi=400,
-          umz=250,
-          lmz=100,
+          max.sdi=NA,
+          umz=NA,
+          lmz=NA,
           mgt.zone = c(0.35,0.60),
           reineke.term=1.6,
           bsi=90,
@@ -82,8 +82,8 @@ Defines lower limit of management zone, only used when mgt.zone[1] is NA.
 }
   \item{mgt.zone}{
 Defines upper and lower limit of management zone for generic diagram only as
-    prop. of max. sdi. These value will override values in umz and lmz. vector
-    of length 2; mgt.zone[1] is proportion of sdi.max for lower limit;
+    prop. of max. sdi. These values take precedence over values in umz and lmz.
+    Vector of length 2; mgt.zone[1] is proportion of sdi.max for lower limit;
     mgt.zone[2] is the proportion of sdi.max for upper limit.
 }
   \item{reineke.term}{
@@ -92,7 +92,8 @@ This is the inverse of the slope of sdi lines in sdi space. Default=1.605,
 }
   \item{bsi}{
 This is Barrett's (1978) site index for use in Cochrans (1992)diagram only;
-  it sets the upper mgt. zone limit.
+  it sets the upper mgt. zone limit. Use feet for use.metric=FALSE, and
+  meters for use.metric=TRUE.
 }
   \item{dcol}{
 This is the color for the diameter lines: default is blue. Must be a color

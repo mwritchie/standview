@@ -45,7 +45,7 @@ if(!is.character(dmd.title)){
 if(ineq==5){
   if(!use.metric){
     if(!(bsi>=70 & bsi<=110)){
-      message("Invalid argument bsi; Barrett's SI must be between 70 and 110 feet when use.metric is FALSE")
+      message("Invalid argument bsi; Barrett's SI must be between 70 and 110 feet")
       return()
     }
   } else{
