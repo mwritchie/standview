@@ -110,7 +110,7 @@ dmd.title<-switch(ineq,
                   "Ponderosa Pine (Cochran 1992)",               #5
                   "Mixed-Conifer (Long and Shaw 2012)",          #6
                   "Coastal Douglas-Fir (Long et al 1988)",       #7
-                  "White Fir (Zhang et al 2007)",                #8
+                  "California White Fir (Zhang et al 2007)",     #8
                   "Lodgepole pine (McCarter and Long 1988)" )    #9
 
 #                        1      2     3     4     5     6     7     8      9
