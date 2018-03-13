@@ -33,7 +33,7 @@ sdi.index    <- ifelse(!use.metric, 10, 25.4 )
 fk           <- ifelse(!use.metric, pi/576, pi*0.0001/4)   #Foresters constant
 feet.to.m    <- 0.3048
 
-axis4.off    <- ifelse(!use.metric, 60, 100)
+axis4.off    <- ifelse(!use.metric, 60, 130)
 
 # test for acceptable reineke term must be between 1.50 and 2.0
 if(!(reineke.term>=1.50 | reineke.term<=2.00)){
@@ -164,7 +164,7 @@ rdl   <- seq(from=0.2, to=1.0, by=0.1)      # relative density levels
 if(!use.metric){
   diso  <- c(3:11, seq(from=12, to=24, by=2)) #diameter lines
 } else {
-  diso  <- c(seq(8,28,2), seq(from=30, to=60, by=5)) #diameter lines
+  diso  <- c(seq(8,32,2), seq(from=35, to=60, by=5)) #diameter lines
 }
 # limits for the density lines
 frt   <- max(diso)
@@ -257,11 +257,17 @@ if(!use.metric){
 #                c(10, 20, 40, 50, 70, 80, 90, 100))
 
 # bump of RD annotation on the y-axis (multiplied by rd percent)
-y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.070, 0.200, 0.065)
+if(!use.metric){
+  y.off <- 6
+  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.070, 0.200, 0.065)
+} else {
+  y.off <- 1.3
+  y.bump  <- switch(ineq, 0.025, 0.010, 0.010, 0.015, 0.000, 0.0400, 0.070, 0.200, 0.065)
+}
 #location of diameter annotations
 d.l <- switch(use.metric+1,
               c(10, 5, 50, 12),
-              c(30, 0, 50, 2 ))
+              c(35, 0, 150, 2 ))
 
 # now draft the plot
 graphics::plot(NA,
@@ -285,15 +291,18 @@ if(!use.metric){
                  lwd=1.25)
 } else {
   graphics::axis(side=1,
-                 at= seq(0, max.x+50, by=50),
+                 at= seq(0, max.x+100, by=50),
                  labels=FALSE,
                  pos=0,
                  cex=0.3,
                  tck=+0.01,
                  lwd=1.25)
 }
-graphics::mtext( expression("Trees Acre"^-1), side=1, line=0.80, cex=1.2, font=2)
-
+if(!use.metric){
+  graphics::mtext( expression("Trees Acre"^-1), side=1, line=0.80, cex=1.2, font=2)
+} else {
+  graphics::mtext( expression("Trees Hectare"^-1), side=1, line=0.80, cex=1.2, font=2)
+}
 for(i in seq(from=0, to=max.x, by=100)){
   graphics::mtext(side=1, at=i, paste(i), cex=1.0, line=-0.8)
 }
@@ -307,8 +316,9 @@ if(!use.metric){
     graphics::segments(i, 0, i, 2, lwd=1.25)
   }
 }
-# add spacing to x axis
+# add square spacing to x axis
 if(inspace){
+#  atspc<-ifelse(!use.metric, 43560/(space*space),10000/(space*space))
   if(!use.metric){
     atspc <- 43560/(space*space)
   } else {
@@ -316,7 +326,12 @@ if(inspace){
   }
 
   for(i in 1:length(space)){
-    graphics::segments(atspc, -5, atspc, 0, lwd=1.25, col="red")
+    if(!use.metric){
+      graphics::segments(atspc, -.013*max.y, atspc, +.011*max.y, lwd=1.25, col="red")
+    } else{
+      graphics::segments(atspc, -.013*max.y, atspc, +.011*max.y, lwd=1.25, col="red")
+    }
+
     graphics::mtext(side=1, at=atspc[i], paste(space[i]), cex=0.8, col="red", line=-0.1)
   }
   if(!use.metric) {graphics::mtext(side=1, at=50, paste("Square"), cex=0.8, col="red", line=-0.75)}
@@ -387,8 +402,14 @@ if(!use.metric){
 }
 
 #Enhance tick marks for axis 4
-for(i in seq(from=0, to=max.y, by=50)){
-  graphics::segments(max.x+45,  i, max.x+60,   i,  lwd=1.25)
+if(!use.metric){
+  for(i in seq(from=0, to=max.y, by=50)){
+    graphics::segments(max.x+45,  i, max.x+60,   i,  lwd=1.25)
+  }
+} else {
+  for(i in seq(from=0, to=max.y, by=10)){
+    graphics::segments(max.x+100,  i, max.x+130,   i,  lwd=1.25)
+  }
 }
 #make the management zone
 if(inply){
@@ -486,12 +507,13 @@ for(i in 1:length(diso)){
   graphics::lines(x=t.n, y=t.b, lwd=1, col=dcol, lty=1)
 
 # write annotations for diameters
-    if(ar.n[i,2]>= max.x){
-    graphics::text(ar.n[i,2]+d.l[1], ar.b[i,2]+d.l[2], paste(diso[i]), col=dcol)
+    if(ar.n[i,2]>= max.x){       # annotations on side
+    graphics::text(ar.n[i,2]+d.l[1], ar.b[i,2]+d.l[2],
+                   paste(diso[i]), col=dcol, cex=0.9)
   }else{
-    if(ar.n[i,2]<= max.x-d.l[3]){
+    if(ar.n[i,2]<= max.x-d.l[3]){ # annotations along the top
       graphics::text(ar.n[i,2], ar.b[i,2]+d.l[4],
-                     paste(diso[i]), col=dcol)
+                     paste(diso[i]), col=dcol, cex=0.9)
     }
   }
 }
@@ -519,17 +541,15 @@ if(inul){
 if(rdlabel){
   for(j in 1:length(rdl)){
     rdpct<-100*rev(rdl)[j]
-#    if(rdpct %in% rds){
-      graphics::text(eprd[j,1]*0.96,
-                     eprd[j,2]+6+y.bump*rdpct,
-                     paste0(rdpct,"%"), cex=0.80, col=rdcol)
-#    }
+    graphics::text(eprd[j,1]*0.96,
+                   eprd[j,2]+y.off+y.bump*rdpct,
+                   paste0(rdpct,"%"), cex=0.80, col=rdcol)
   }
   graphics::text(max.x*0.96,
-                 1.14*fk*(max.x)*(sdi.index*(max.sdi/(max.x))^islp)^2+6+y.bump*rdpct,
+                 1.14*fk*(max.x)*(sdi.index*(max.sdi/(max.x))^islp)^2+y.off+y.bump*rdpct,
                  "Relative", cex=0.80, col=rdcol)
   graphics::text(max.x*0.96,
-                 1.08*fk*(max.x)*(sdi.index*(max.sdi/(max.x))^islp)^2+6+y.bump*rdpct,
+                 1.08*fk*(max.x)*(sdi.index*(max.sdi/(max.x))^islp)^2+y.off+y.bump*rdpct,
                  "Density",  cex=0.80, col=rdcol)
 }
 
