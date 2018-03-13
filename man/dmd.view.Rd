@@ -73,10 +73,10 @@ Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that s
 }
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi). There is no default limit to SDI. This value is set
-  by the selection of ineq. If ineq=1, the user must specify a value. If use.metric=TRUE this value must be in
+  by the selection of ineq. If ineq=1, or ineq=6, the user must specify a value. If use.metric=TRUE this value must be in
   metric units. Currently ineq=1 (generic DMD) and ineq=6 (Long and Shaw 2012) are the only DMD options where the
-  user may actually specify this value. For most published DMDs the upper limit is fixed by the author. For those, any
-  user-specified upper limit will be ignored and the published value will be used to render the DMD.
+  user may actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
+  by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to render the DMD.
 }
   \item{dmd.title}{
 Character string for title to be displayed. As an example could take the form of dmd.title="Ponderosa Pine".

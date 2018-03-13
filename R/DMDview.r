@@ -63,31 +63,23 @@ if(ineq==5){
 
 #check values of max.sdi
 if(ineq==1|ineq==6){
+  if(is.na(max.sdi)){
+    message("Error: User must specify max.sdi if ineq=1 or 6. DMD not rendered")
+    return()
+  }
   if(!use.metric){
-    if(!(max.sdi>200)){
-      message("Invalid sdi upper limit")
+    if(!(max.sdi>200) | !(max.sdi<=1000)){
+      message("Invalid sdi upper limit, DMD not rendered")
       return()
     }
   } else{
-    if(!(max.sdi>494)){
-      message("Invalid sdi upper limit")
+    if(!(max.sdi>494) | !(max.sdi<=2470)){
+      message("Invalid sdi upper limit, DMD not rendered")
       return()
     }
   }
 }
-if(ineq==1|ineq==6){
-  if(!use.metric){
-    if(!(max.sdi<=1000)){
-      message("Invalid sdi upper limit")
-      return()
-    }
-  } else{
-    if(!(max.sdi<=2470)){
-      message("Invalid sdi upper limit")
-      return()
-    }
-  }
-}
+
 if(ineq==1){
   sdi.lines<-sort(sdi.lines)
   # check to see if the sdi.lines are less than max.sdi
