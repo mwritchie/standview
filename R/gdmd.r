@@ -32,6 +32,7 @@ bae.to.bam   <- 0.2295681
 sdi.index    <- ifelse(!use.metric, 10, 25.4 )
 fk           <- ifelse(!use.metric, pi/576, pi*0.0001/4)   #Foresters constant
 feet.to.m    <- 0.3048
+olap.warn    <- 0
 
 axis4.off    <- ifelse(!use.metric, 60, 130)
 
@@ -195,7 +196,7 @@ if(!use.metric){
                   seq(3,5.5,0.5),
                   seq(3,5.5,0.5))
 }
-message(paste("space=",space))
+
 # lower sdi limit of the management zone
 if(!use.metric){
   lsd     <- switch(ineq,
@@ -327,9 +328,9 @@ if(inspace){
 
   for(i in 1:length(space)){
     if(!use.metric){
-      graphics::segments(atspc, -.013*max.y, atspc, +.011*max.y, lwd=1.25, col="red")
+      graphics::segments(atspc, -.013*max.y, atspc, +.011*max.y, lwd=1.0, col="red")
     } else{
-      graphics::segments(atspc, -.013*max.y, atspc, +.011*max.y, lwd=1.25, col="red")
+      graphics::segments(atspc, -.013*max.y, atspc, +.011*max.y, lwd=1.0, col="red")
     }
 
     graphics::mtext(side=1, at=atspc[i], paste(space[i]), cex=0.8, col="red", line=-0.1)
@@ -447,8 +448,9 @@ if(inply){
   mzya<-append(mzyl, mzyu)
   graphics::polygon( x=mzxa, y=mzya, density=NA, border=NA,
                      col="lightgrey")
-  graphics::lines(x=mzxu, mzyu, lwd=1.5) # top of mz line
 
+  graphics::lines(x=mzxu, mzyu, lwd=1.5) # top of mz line
+  olap.warn<-min(mzyu) # this sets a variable for annotate check
   # now fix that goofy little triangle at the end of the mz
 
   if(max(mzxl) < max.x){
@@ -551,9 +553,12 @@ if(inul){
 if(rdlabel){
   for(j in 1:length(rdl)){
     rdpct<-100*rev(rdl)[j]
-    graphics::text(eprd[j,1]*0.96,
-                   eprd[j,2]+y.off+y.bump*rdpct,
-                   paste0(rdpct,"%"), cex=0.80, col=rdcol)
+    yspot<-eprd[j,2]+y.off+y.bump*rdpct
+    if(!(yspot < olap.warn*1.1 & yspot > olap.warn*0.90)){
+      graphics::text(eprd[j,1]*0.96,
+                     eprd[j,2]+y.off+y.bump*rdpct,
+                     paste0(rdpct,"%"), cex=0.80, col=rdcol)
+    }
   }
   graphics::text(max.x*0.96,
                  1.14*fk*(max.x)*(sdi.index*(max.sdi/(max.x))^islp)^2+y.off+y.bump*rdpct,
