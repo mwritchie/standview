@@ -262,7 +262,7 @@ if(!use.metric){
   y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.070, 0.200, 0.065)
 } else {
   y.off <- 1.3
-  y.bump  <- switch(ineq, 0.025, 0.010, 0.010, 0.015, 0.000, 0.0400, 0.070, 0.200, 0.065)
+  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0400, 0.070, 0.200, 0.065)
 }
 #location of diameter annotations
 d.l <- switch(use.metric+1,
@@ -283,7 +283,7 @@ graphics::plot(NA,
 # draw x axis
 if(!use.metric){
   graphics::axis(side=1,
-                 at= seq(0, max.x+50, by=50),
+                 at= seq(0, max.x+50, by=10),
                  labels=FALSE,
                  pos=0,
                  cex=0.3,
@@ -445,9 +445,19 @@ if(inply){
 
   mzxa<-append(mzxl, mzxu)
   mzya<-append(mzyl, mzyu)
-  graphics::polygon( x=mzxa, y=mzya, density=NA, border=NULL,
-                     col=grDevices::rgb(0.1, 0.1, 0.1, 0.25))
-  graphics::lines(x=mzxu, mzyu, lwd=2)
+  graphics::polygon( x=mzxa, y=mzya, density=NA, border=NA,
+                     col="lightgrey")
+  graphics::lines(x=mzxu, mzyu, lwd=1.5) # top of mz line
+
+  # now fix that goofy little triangle at the end of the mz
+
+  if(max(mzxl) < max.x){
+    graphics::polygon(x= c(max(mzxl),                    max.x, max.x),
+                      y= c(min(mzyl),     max.x*fk*min(diso)^2, min(mzyu)),
+                      density=NA, border=NA,
+                      col="lightgrey")
+  }
+# grDevices::rgb(0.1, 0.1, 0.1, 0.25)
 }
 # Draw relative density lines
 if(inrd){
@@ -464,7 +474,7 @@ if(inrd){
       tpa.ar<- c(tpa.ar,max.x)
       ba.ar <- fk*tpa.ar*(sdi.index*(max.sdi*ird/tpa.ar)^islp)^2
     }
-    graphics::lines(x=tpa.ar,  y=ba.ar, lwd=1.0, col=rdcol)
+    graphics::lines(x=tpa.ar,  y=ba.ar, lwd=0.8, col=rdcol)
     eprd[j,1] <- rev(tpa.ar)[1] # save x-endpoint of each line
     eprd[j,2] <- rev(ba.ar)[1] # save y-endpoint of each line
   }
