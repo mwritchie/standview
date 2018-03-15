@@ -31,8 +31,6 @@ dmd.view(ineq=2, insdr=TRUE, insdl=FALSE)
 
 par(opar)
 dev.off()
-#> png 
-#>   2
 ```
 
 Other Information

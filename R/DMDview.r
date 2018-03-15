@@ -678,9 +678,11 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                         type="l", col=sdicol, lwd=sdilw)
         xxann<-0.66*min.x
         yyann<-isd[1]
-        graphics::segments(0.87*min.x, yyann,
+        if(insdl){
+          graphics::segments(0.87*min.x, yyann,
                            min.x, yyann,
                            col=sdicol, lwd=sdilw)
+        }
       } else if(sdi.lines[jsd]>=isod.adj[2]){
         graphics::lines(tx[isod.adj[3]:length(tx)],
                         isd[isod.adj[3]:length(isd)],

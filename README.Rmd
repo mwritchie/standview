@@ -30,9 +30,9 @@ If the devtools package is not present, then the install.packages("devtools") ca
 
 This is a basic example which shows you how to generate a Long and Shaw (2005) density managment diagram in Reineke space for ponderosa pine with annotation on the right only. Note that the file produced will be placed in your working directory for R as defined by setwd():
 
-```{r example}
+```{r example, results=FALSE}
 library(standview)
-pdf("testg20.pdf", width=8, height=6)
+pdf("test20.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=2, insdr=TRUE, insdl=FALSE)
