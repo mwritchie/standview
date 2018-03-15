@@ -24,7 +24,7 @@ This is a basic example which shows you how to generate a Long and Shaw (2005) d
 
 ``` r
 library(standview)
-pdf("testg20.pdf", width=8, height=6)
+pdf("test20.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=2, insdr=TRUE, insdl=FALSE)
