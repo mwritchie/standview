@@ -34,11 +34,14 @@ fk           <- ifelse(!use.metric, pi/576, pi*0.0001/4)   #Foresters constant
 feet.to.m    <- 0.3048
 olap.warn    <- 0
 
-axis4.off    <- ifelse(!use.metric, 60, 130)
-
 # test for acceptable reineke term must be between 1.50 and 2.0
 if(!(reineke.term>=1.50 | reineke.term<=2.00)){
   message("Invalid argument reineke.term; must be between 1.50 and 2.00 diagram not rendered")
+  return()
+}
+
+if((ineq==1 |ineq ==6) & is.na(max.sdi)){
+  message("max.sdi must be specified for ineq=1 or ineq=6, diagram not rendered")
   return()
 }
 
@@ -101,6 +104,9 @@ if(!is.na(lmz)&!is.na(umz)){
     return()
   }
 }
+
+axis4.off    <- ifelse(!use.metric, 60, 149)
+
 mzcol        = "lightgrey"
 
 dmd.title<-switch(ineq,
@@ -120,14 +126,14 @@ if(!use.metric){
   max.x   <- switch(ineq,  600,  600,  600,  600,  600,  600,  600,  800,    900 )
   max.y   <- switch(ineq,  450,  350,  300,  350,  250,  450,  450,  700,    550 )
 } else{
-  max.x   <- switch(ineq,  1500,  1500,  1500,  1500,  1500,  1500,  2000,  2000, 2200 )
+  max.x   <- switch(ineq,  1500,  1500,  1500,  1500,  1500,  1500,  1500,  2000, 2200 )
   max.y   <- switch(ineq,   150,    80,    70,    80,    60,   100,   100,   150,  125 )
 }
 
 if(!use.metric){
-  max.sdi <- switch(ineq,  max.sdi,   450,  400,   410,  365,  550,  600,  800,    700)
+  max.sdi <- switch(ineq,  max.sdi,   450,  400,   410,  365,  max.sdi,  600,  800,    700)
 } else {
-  max.sdi <- switch(ineq,  max.sdi,  1110,  988,  1013,  901, 1358,  1482,  1977,  1730)
+  max.sdi <- switch(ineq,  max.sdi,  1110,  988,  1013,  901, max.sdi,  1482,  1977,  1730)
 }
 
 slp     <- switch(ineq,
@@ -148,7 +154,7 @@ mgt.zone <-switch(ineq,
                  c(0.30, 0.60),
                  c(0.20, 0.60),
                  c(0.35, 0.55),
-                 c(0.15, 0.55),
+                 c(0.35, 0.55),
                  c(0.20, 0.55),
                  c(0.20, 0.55),
                  c(0.20, 0.55))
@@ -260,11 +266,19 @@ if(!use.metric){
 # bump of RD annotation on the y-axis (multiplied by rd percent)
 if(!use.metric){
   y.off <- 6
-  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.070, 0.200, 0.065)
+  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.065, 0.200, 0.065)
 } else {
   y.off <- 1.3
-  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0400, 0.070, 0.200, 0.065)
+  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0380, 0.036, 0.200, 0.065)
 }
+
+# bump the qmd lable
+if(!use.metric){
+  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.06, 1.10, 1.10)
+} else {
+  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.045, 1.08, 1.08)
+}
+
 #location of diameter annotations
 d.l <- switch(use.metric+1,
               c(10, 5, 50, 12),
@@ -284,7 +298,7 @@ graphics::plot(NA,
 # draw x axis
 if(!use.metric){
   graphics::axis(side=1,
-                 at= seq(0, max.x+50, by=10),
+                 at= seq(0, max.x*1.1, by=10),
                  labels=FALSE,
                  pos=0,
                  cex=0.3,
@@ -292,7 +306,7 @@ if(!use.metric){
                  lwd=1.25)
 } else {
   graphics::axis(side=1,
-                 at= seq(0, max.x+100, by=50),
+                 at= seq(0, max.x*1.1, by=50),
                  labels=FALSE,
                  pos=0,
                  cex=0.3,
@@ -405,11 +419,11 @@ if(!use.metric){
 #Enhance tick marks for axis 4
 if(!use.metric){
   for(i in seq(from=0, to=max.y, by=50)){
-    graphics::segments(max.x+45,  i, max.x+60,   i,  lwd=1.25)
+    graphics::segments((max.x+axis4.off)*.98,  i, max.x+axis4.off,   i,  lwd=1.25)
   }
 } else {
   for(i in seq(from=0, to=max.y, by=10)){
-    graphics::segments(max.x+100,  i, max.x+130,   i,  lwd=1.25)
+    graphics::segments((max.x+axis4.off)*.98,  i, max.x+axis4.off,   i,  lwd=1.25)
   }
 }
 #make the management zone
@@ -533,10 +547,10 @@ for(i in 1:length(diso)){
 # Caption for diameters
 if(inqmd){
   if(!use.metric){
-    graphics::text(ar.n[length(diso),2], ar.b[length(diso),2]+32,
+    graphics::text(ar.n[length(diso),2], ar.b[length(diso),2]*q.offy,
                  "QMD (inches)", col=dcol)
   } else {
-    graphics::text(ar.n[length(diso),2], ar.b[length(diso),2]+32,
+    graphics::text(ar.n[length(diso),2], ar.b[length(diso),2]*q.offy,
                    "QMD (cm)", col=dcol)
   }
   graphics::segments(max.x, (min(diso)^2)*fk*max.x,
