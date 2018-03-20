@@ -105,7 +105,7 @@ if(!is.na(lmz)&!is.na(umz)){
   }
 }
 
-axis4.off    <- ifelse(!use.metric, 60, 149)
+axis4.off    <- ifelse(!use.metric, 1.1, 1.1)
 
 mzcol        = "lightgrey"
 
@@ -123,11 +123,11 @@ dmd.title<-switch(ineq,
 #                        1      2     3     4     5     6     7     8      9
 #inrd    <- switch(ineq, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,  TRUE )
 if(!use.metric){
-  max.x   <- switch(ineq,  600,  600,  600,  600,  600,  600,  600,  800,    900 )
+  max.x   <- switch(ineq,  600,  600,  600,  600,  600,  600,  600,  800,    800 )
   max.y   <- switch(ineq,  450,  350,  300,  350,  250,  450,  450,  700,    550 )
 } else{
-  max.x   <- switch(ineq,  1500,  1500,  1500,  1500,  1500,  1500,  1500,  2000, 2200 )
-  max.y   <- switch(ineq,   150,    80,    70,    80,    60,   100,   100,   150,  125 )
+  max.x   <- switch(ineq,  1500,  1500,  1500,  1500,  1500,  1500,  1500,  2000, 2000 )
+  max.y   <- switch(ineq,   150,    80,    70,    80,    60,   110,   110,   170,  125 )
 }
 
 if(!use.metric){
@@ -252,38 +252,30 @@ if(!use.metric){
                 10 * round((0.55*max.sdi/10),0))
 }
 
-#rds     <- switch(ineq,
-#                c(10, 20, 30, 40, 50, 60, 70, 80, 100),
-#                c(10, 20, 30, 50, 60, 80, 100),
-#                c(10, 20, 30, 50, 60, 70, 80, 90, 100),
-#                c(10, 20, 30, 50, 60, 70, 80, 90, 100),
-#                c(10, 20, 30, 40, 50, 70, 90, 100),
-#                c(10, 30, 40, 50, 60, 80, 90, 100),
-#                c(10, 50, 60, 70, 90, 100),
-#                c(10, 20, 30, 40, 50, 60, 70, 90, 100),
-#                c(10, 20, 40, 50, 70, 80, 90, 100))
 
 # bump of RD annotation on the y-axis (multiplied by rd percent)
 if(!use.metric){
   y.off <- 6
-  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.065, 0.200, 0.065)
+  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.069, 0.200, 0.063)
 } else {
   y.off <- 1.3
-  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0380, 0.036, 0.200, 0.065)
+  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0200, 0.044, 0.040, 0.030)
 }
 
 # bump the qmd lable
 if(!use.metric){
-  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.06, 1.10, 1.10)
+  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.07, 1.07, 1.08)
 } else {
-  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.045, 1.08, 1.08)
+  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.06, 1.08, 1.06)
 }
+# location of x-axis tpa lable increment
+x.ann.at<-switch(use.metric+1, 100, 200)
 
 #location of diameter annotations
 d.l <- switch(use.metric+1,
-              c(10, 5, 50, 12),
-              c(35, 0, 150, 2 ))
-
+              c(10, 5, 50,  1.03 ),
+              c(35, 0, 150, 1.03 ) )
+####################################################################################################
 # now draft the plot
 graphics::plot(NA,
                frame.plot=FALSE,
@@ -306,7 +298,7 @@ if(!use.metric){
                  lwd=1.25)
 } else {
   graphics::axis(side=1,
-                 at= seq(0, max.x*1.1, by=50),
+                 at= seq(0, max.x*1.1, by=25),
                  labels=FALSE,
                  pos=0,
                  cex=0.3,
@@ -318,17 +310,17 @@ if(!use.metric){
 } else {
   graphics::mtext( expression("Trees Hectare"^-1), side=1, line=0.80, cex=1.2, font=2)
 }
-for(i in seq(from=0, to=max.x, by=100)){
+for(i in seq(from=0, to=max.x, by=x.ann.at)){
   graphics::mtext(side=1, at=i, paste(i), cex=1.0, line=-0.8)
 }
 #Enhance tick marks for axis 1
 if(!use.metric){
-  for(i in seq(from=0, to=max.x, by=100)){
+  for(i in seq(from=0, to=max.x, by=x.ann.at)){
     graphics::segments(i, 0, i, 8, lwd=1.25)
   }
 } else {
-  for(i in seq(from=0, to=max.x, by=100)){
-    graphics::segments(i, 0, i, 2, lwd=1.25)
+  for(i in seq(from=0, to=max.x, by=x.ann.at)){
+    graphics::segments(i, 0, i, 3, lwd=1.25)
   }
 }
 # add square spacing to x axis
@@ -402,7 +394,7 @@ if(!use.metric){
   graphics::axis(side=4,
                at = seq(0, max.y, by=10),
                labels=FALSE,
-               pos=max.x+axis4.off,
+               pos=max.x*axis4.off,
                cex=0.3,
                tck=+0.012,
                lwd=1.25)
@@ -410,7 +402,7 @@ if(!use.metric){
   graphics::axis(side=4,
                at = seq(0, max.y, by=2),
                labels=FALSE,
-               pos=max.x+axis4.off,
+               pos=max.x*axis4.off,
                cex=0.3,
                tck=+0.012,
                lwd=1.25)
@@ -419,11 +411,11 @@ if(!use.metric){
 #Enhance tick marks for axis 4
 if(!use.metric){
   for(i in seq(from=0, to=max.y, by=50)){
-    graphics::segments((max.x+axis4.off)*.98,  i, max.x+axis4.off,   i,  lwd=1.25)
+    graphics::segments((max.x*axis4.off)*.98,  i, max.x*axis4.off,   i,  lwd=1.25)
   }
 } else {
   for(i in seq(from=0, to=max.y, by=10)){
-    graphics::segments((max.x+axis4.off)*.98,  i, max.x+axis4.off,   i,  lwd=1.25)
+    graphics::segments((max.x*axis4.off)*.98,  i, max.x*axis4.off,   i,  lwd=1.25)
   }
 }
 #make the management zone
@@ -533,13 +525,13 @@ for(i in 1:length(diso)){
   graphics::lines(x=t.n, y=t.b, lwd=1, col=dcol, lty=1)
 
 # write annotations for diameters
-    if(ar.n[i,2]>= max.x){       # annotations on side
+  if(ar.n[i,2]>= max.x){       # annotations on side
     graphics::text(ar.n[i,2]+d.l[1], ar.b[i,2]+d.l[2],
-                   paste(diso[i]), col=dcol, cex=0.9)
+                   paste(diso[i]), col=dcol, cex=0.85)
   }else{
     if(ar.n[i,2]<= max.x-d.l[3]){ # annotations along the top
-      graphics::text(ar.n[i,2], ar.b[i,2]+d.l[4],
-                     paste(diso[i]), col=dcol, cex=0.9)
+      graphics::text(ar.n[i,2], ar.b[i,2]*d.l[4],
+                     paste(diso[i]), col=dcol, cex=0.85)
     }
   }
 }
@@ -559,9 +551,9 @@ if(inqmd){
 }
 
 if(inul){
-  graphics::text(max.x-65, max.y*1.05, paste("Reineke Slope= -", slp ), col=rdcol)
-  graphics::text(max.x-65, max.y*1.00, paste("Max. SDI=", max.sdi), col=rdcol)
-  graphics::text(max.x-65, max.y*0.95, paste("UMZ=", round(mzl,0)), col=rdcol)
+  graphics::text(max.x*.90, max.y*1.05, paste("Reineke Slope= -", round(slp,3) ), col=rdcol)
+  graphics::text(max.x*.90, max.y*1.00, paste("Max. SDI=", max.sdi), col=rdcol)
+  graphics::text(max.x*.90, max.y*0.95, paste("UMZ=", round(mzl,0)), col=rdcol)
 }
 #Annotate RD
 if(rdlabel){
