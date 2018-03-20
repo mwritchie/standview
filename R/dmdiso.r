@@ -1,18 +1,27 @@
 
 dmd.iso<-function(ineq         = 2,
-                  v.at         = c(200, 400, 600, 800, 1000, 2000,
-                                   3000, 4000, 6000, 8000),
-                  range.x      = c(15,1000),
+                  v.at         = NULL,
+                  range.x      = NULL,
                   max.sdi      = 450,
                   reineke.term = 1.60,
                   vty          = 2,
                   vcex         = 0.75,
                   vcol         = "blue",
-                  v.ann        = TRUE,
-                  show.vol     = TRUE){
+                  show.vol     = TRUE,
+                  v.ann        = TRUE){
 
 if(!(ineq %in% c(2, 3, 6, 7, 9))){
-  message("Invalid equation number provided to dmd.iso, iso lines not rendered")
+  message("Invalid equation number provided to dmd.iso, iso-lines not rendered")
+  return()
+}
+
+if(is.null(range.x)){
+    message("Range of x values not specified by range.x for dmd.iso, iso-lines not rendered")
+    return()
+}
+
+if(is.null(v.at)){
+  message("Volumes not specified by v.at for dmd.iso, iso-lines not rendered")
   return()
 }
 

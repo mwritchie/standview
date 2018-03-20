@@ -719,7 +719,9 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
     }
   }
 #######################################################
+# volume iso lines:
   if(invol){
+    if(!use.metric){
     vol.levels<-switch(ineq,
                NULL,
                c(200, 400, 600, 800, 1000, 1500, 2000,
@@ -742,6 +744,9 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
             reineke.term=slp,
             show.vol=TRUE,
             v.ann=TRUE)
+    }else{
+      message("currently not able to do metric iso lines")
+    }
   }
-
+return()
 }

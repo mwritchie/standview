@@ -4,20 +4,19 @@
 Density Management Iso Line Rendering
 }
 \description{
-This package provides functions to iso lines for volume.
+This package provides functions to iso lines for volume. It is intended to work with a call to dmd.view function in standview.
 }
 \usage{
 dmd.iso(ineq           = 2,
-        v.at         = c(200, 400, 600, 800, 1000, 2000,
-                         3000, 4000, 6000, 8000),
-        range.x      = c(15,1000),
+        v.at         = NULL,
+        range.x      = NULL,
         max.sdi      = 450,
         reineke.term = 1.60,
         vty          = 2,
         vcex         = 0.75,
         vcol         = "blue",
-        v.ann        = TRUE,
-        show.vol     = TRUE)
+        show.vol     = TRUE,
+        v.ann        = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,7 +30,7 @@ dmd.iso(ineq           = 2,
     Default=2.
 }
   \item{v.at}{
-  Volume iso lines in cubic feet per acre.
+  A vector of volume iso lines in cubic feet per acre.
   }
   \item{range.x}{
   Range of trees per acre from range.x[1] to range.x[2] , must be a vector of
@@ -53,11 +52,11 @@ dmd.iso(ineq           = 2,
   \item{vcol}{
   This is the color for volume, default= "blue".
   }
+  \item{show.vol}{
+  Show volume iso-lines, default= TRUE.
+  }
   \item{v.ann}{
   Turn on volume annotations, default= FALSE.
-  }
-  \item{show.vol}{
-  Turn on volume annotations, default= TRUE.
   }
 }
 \value{
@@ -98,12 +97,14 @@ pdf("Douglasfir.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=7, insdr=FALSE)
-dmd.iso(ineq=7, range.x=c(50, 1000))
+dmd.iso(ineq=7,
+        range.x=c(50, 1000),
+        v.at=c(200, 400, 600, 800, 1000, 2000, 3000, 4000, 6000, 8000))
 
 par(opar)
 dev.off()
 
-# 2. A similar result may be obtained with:
+# 2. A similar result may be obtained with the invol argument in dmd.view:
 pdf("Douglasfir2.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
