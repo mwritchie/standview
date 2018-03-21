@@ -10,13 +10,14 @@ This package provides functions to iso lines for volume. It is intended to work 
 dmd.iso(ineq           = 2,
         v.at         = NULL,
         range.x      = NULL,
-        max.sdi      = 450,
+        max.sdi      = NULL,
         reineke.term = 1.60,
         vty          = 2,
         vcex         = 0.75,
         vcol         = "blue",
         show.vol     = TRUE,
-        v.ann        = TRUE)
+        v.ann        = TRUE,
+        use.metric   = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,15 +31,17 @@ dmd.iso(ineq           = 2,
     Default=2.
 }
   \item{v.at}{
-  A vector of volume iso lines in cubic feet per acre.
+  A vector of volume iso lines. Units are in cubic feet per acre if use.metric=FALSE, and
+  units are trees per hectare if use.metric=TRUE.
   }
   \item{range.x}{
-  Range of trees per acre from range.x[1] to range.x[2] , must be a vector of
-    length 2; e.g. range.x=c(50,500).
+  Range of tree density acre from range.x[1] to range.x[2] , must be a vector of
+    length 2; e.g. range.x=c(50,500). Units are trees per acre if use.metric=FALSE,
+    and units are trees per ha if use.metric=TRUE.
   }
   \item{max.sdi}{
-  Maximum stand density index, must be between 300 and 1000. If a number beyond
-    this range is provided, then it is coerced to 400
+  Maximum stand density index, must be expressed as trees per acre if use.metric=FALSE
+  and trees per ha if use.metric=TRUE. This value only needed for ineq=6.
   }
   \item{reineke.term}{
   This is the inverse of the slope of sdi lines in sdi space. Default=1.605, the value derived by Reineke (1933).
@@ -57,6 +60,9 @@ dmd.iso(ineq           = 2,
   }
   \item{v.ann}{
   Turn on volume annotations, default= FALSE.
+  }
+  \item{use.metric}{
+  Use metric units (logical), default= FALSE.
   }
 }
 \value{
