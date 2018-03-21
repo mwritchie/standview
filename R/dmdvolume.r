@@ -130,12 +130,14 @@ dmd.volume<-function(ineq  = 1,
     bae  <- ba
     max.sdie<- max.sdi
   }else{           #convert to English
-    tpae <- tpa/0.404686
+    tpae <- tpa*0.404686
     qmde <- qmd/2.54
     bae  <- ba*4.356
-    max.sdie<- max.sdi/0.404686
+    max.sdie<- max.sdi*0.404686
   }
 # calculate volumes
+  message(paste(tpae[5]))
+  message(paste(qmde[5]))
   stands$volume <- switch(ineq,
                           NA,
                           -152+0.017*tpae*qmde^2.8,
@@ -148,8 +150,8 @@ dmd.volume<-function(ineq  = 1,
                           (tpae/54.4)*((( qmde/(1-0.00759*tpae^0.446) )^(1/0.361))-5.14) )
 
   stands$volume <- (stands$volume+abs(stands$volume))/2                   #get rid of neg values
+  vole<-stands$volume
   if(use.metric){
-    vole<-stands$volume
     stands$volume <- stands$volume/14.2913
   }
 # calculate Dominant Height
