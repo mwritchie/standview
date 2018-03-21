@@ -35,16 +35,21 @@ Selects volume and dominant height equations. This must be an integer value  2, 
     Default=1.
 }
   \item{max.sdi}{
-Input of limiting stand density index; default=600.
+Input of limiting stand density index (units are trees per acre for use.metric=FALSE or
+trees per hectare for use.metric=TRUE); default=NULL.
 }
   \item{tpa}{
-Input of stand trees per acre as a vector of values. Function requires two of three stand descriptors (tpa, qmd, ba)
+Input of stand trees per unit area as a vector of values.
+Function requires two of three stand descriptors (tpa, qmd, ba).
+Units are trees per acre for use.metric=FALSE and trees per hectare for use.metric=TRUE.
 }
   \item{qmd}{
-Input of stand average diameter (inches). Function requires two of three stand descriptors (tpa, qmd, ba)
+Input of stand average diameter (inches for use.metric=FALSE or cm for use.metric=TRUE).
+Function requires two of three stand descriptors (tpa, qmd, ba)
 }
   \item{ba}{
-Input of stand basal area (square feet per acre). Function requires two of three stand descriptors (tpa, qmd, ba).
+Input of stand basal area (square feet per acre for use.metric=FALSE or square meters per
+hectare for use.metric=TRUE). Function requires two of three stand descriptors (tpa, qmd, ba).
 }
   \item{use.metric}{
 Use metric units (logical), default= FALSE.
@@ -93,7 +98,10 @@ This function returns a dataframe that could represent observations for a stand 
 # 1. This example generates a prescription and plots over Long and Shaw (2005)
 
 library(standview)
-DF<-dmd.volume(ineq=2, qmd=c(2, 2.5, 14, 15.5, 19), tpa=c(300, 150, 140, 80, 80))
+DF<-dmd.volume(ineq=2,
+               qmd=c(2, 2.5, 14, 15.5, 19),
+               tpa=c(300, 150, 140, 80, 80),
+               use.metric=FALSE)
 DF
 pdf("myplotv1.pdf", width=6, height=8)
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
@@ -115,7 +123,10 @@ dev.off()
 
 # 2. Obtaining volume estimates for a file using gama05 data example
 mygama<-gama05  # make a copy of the data file provided with standview package
-DF<-dmd.volume(ineq=3, qmd=mygama$qmd, tpa=mygama$tpa) # generate volume and dom. ht.
+DF<-dmd.volume(ineq=3,
+               qmd=mygama$qmd,
+               tpa=mygama$tpa,
+               use.metric=FALSE) # generate volume and dom. ht.
 # append values to the dataframe.
 mygama$volume <- DF$volume
 mygama$height <- DF$height

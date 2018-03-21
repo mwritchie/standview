@@ -6,7 +6,7 @@
   This data file has 20 observations on plots from four different
   treatments. It includes qmd, ba, and tpa (English units) for each plot.
   The file also includes a plot number called UNIT and a treatment
-  identifier (character string) for each plot.
+  identifier (character string) for each plot. when using gama05, use.metric=FALSE.
 }
 \usage{gama05}
 
