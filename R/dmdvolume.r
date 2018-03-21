@@ -136,8 +136,6 @@ dmd.volume<-function(ineq  = 1,
     max.sdie<- max.sdi*0.404686
   }
 # calculate volumes
-  message(paste(tpae[5]))
-  message(paste(qmde[5]))
   stands$volume <- switch(ineq,
                           NA,
                           -152+0.017*tpae*qmde^2.8,
