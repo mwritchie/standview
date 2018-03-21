@@ -12,10 +12,11 @@ Typically in a DMD the volume is roughly interpolated between plotted lines. Wit
 }
 \usage{
 dmd.volume(ineq  = 1,
-           max.sdi=600,
-           tpa=NA,
-           qmd=NA,
-           ba=NA)
+           max.sdi=NULL,
+           tpa=NULL,
+           qmd=NULL,
+           ba=NULL,
+           use.metric=FALSE)
 }
 \arguments{
   \item{ineq}{
@@ -45,10 +46,16 @@ Input of stand average diameter (inches). Function requires two of three stand d
   \item{ba}{
 Input of stand basal area (square feet per acre). Function requires two of three stand descriptors (tpa, qmd, ba).
 }
+  \item{use.metric}{
+Use metric units (logical), default= FALSE.
+}
 
 }
 \value{
-Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre), stand height (feet) and (if available) above-ground biomass (pounds       per acre).
+Returns a data frame with tpa, qmd, ba, volume, and dominant stand height. Units are metric if use.metric=TRUE
+(stems per hectare, centimeters, square meters per hectare, cubic meters per hectare, and meters respectively).
+Units are English if use.metric=FALSE (stems per acre, inches, square feet per acre, cubic feet per acre, and feet
+respectively).
 }
 \references{
     Drew, T.J. and J.W. Flewelling (1979). Stand density management: an alternative

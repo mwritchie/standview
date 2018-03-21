@@ -30,7 +30,7 @@ dmd.title    <- as.character(dmd.title)
 
 bae.to.bam   <- 0.2295681
 sdi.index    <- ifelse(!use.metric, 10, 25.4 )
-fk           <- ifelse(!use.metric, pi/576, pi*0.0001/4)   #Foresters constant
+fk           <- ifelse(!use.metric, pi/576, pi/40000)   #Foresters constant
 feet.to.m    <- 0.3048
 olap.warn    <- 0
 

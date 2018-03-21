@@ -1,3 +1,11 @@
+#
+# the way I handled use.metric in here is as follows:
+# I assume that the input is metric if use.metric=TRUE
+# and English if use.metric=FALSE. Then since the functions are
+# written in English, if metric input then convert to English,
+# calculate volume as normal, then if metric convert back to a volume
+# in metric units.       mwr    March 21 2018.
+#
 
 rzheight<-function(tpa, qmd){ # Ritchie and Zhang height function
   hp <- c(  276.49514, -124.88647, -0.0335065, 0.0452437,  1.1606388 )               #height parms for R&Z
@@ -26,12 +34,13 @@ McC1986height<-function(tpa, qmd){ # McCarter and Long (1986)
   height <- (1/1.27)*(mess1^(1/0.916)/mess2)^(1/1.09)
   return(height)
 }
-
+################################################################################
 dmd.volume<-function(ineq  = 1,
-                     max.sdi=600,
-                     tpa=NA,
-                     qmd=NA,
-                     ba=NA){
+                     max.sdi=NULL,
+                     tpa=NULL,
+                     qmd=NULL,
+                     ba=NULL,
+                     use.metric=FALSE){
 
   dfvol<-function(tpa, qmd, max.sdi){ # Drew and Flewelling (1979) volume equation
     dfrd <- tpa*((qmd/10)^1.6)/max.sdi
@@ -44,80 +53,126 @@ dmd.volume<-function(ineq  = 1,
     return(height)
   }
 
+  if(ineq %in% c(1,4,5,8)){
+    message(paste( "Error in dmd.volume, invalid input value for ineq:", ineq))
+    return(NULL)
+  }
+  # first check to see if two NULL values are present
+  if(is.null(tpa) & is.null(ba)){
+    message("Both tpa and ba are NULL, invalid input to dmd.volume")
+    return(NULL)
+  }
+  if(is.null(ba) & is.null(qmd)){
+    message("Both ba and qmd are NULL, invalid input to dmd.volume")
+    return(NULL)
+  }
+  if(is.null(tpa) & is.null(qmd)){
+    message("Both tpa and qmd are NULL, invalid input to dmd.volume")
+    return(NULL)
+  }
 
-  message(switch(ineq,
-                 "No volume and height for ineq=1",
-                 NULL,
-                 NULL,
-                 "No volume and height for ineq=4",
-                 "No volume and height for ineq=5",
-                 NULL,
-                 NULL,
-                 "No volume and height for ineq=8",
-                 NULL))
+  if(is.null(tpa)){tpa<-NA}
+  if(is.null(qmd)){qmd<-NA}
+  if(is.null(ba)){ba<-NA}
 
-
-  # first error check the input values, no negative etc.
+  # second error check the input values, no negative etc.
   if( sum(is.na(tpa))==length(tpa) ){
     if(length(qmd) != length(ba)){
-      message("Invalid input to dmd.volume")
-      return(NA)
+      message("Invalid input to dmd.volume: missing values")
+      return(NULL)
     } else if(sum(qmd<0, na.rm=TRUE)>0 | sum(ba<0, na.rm=TRUE)>0 ){
       message("Invalid negative values input to dmd.volume")
-      return(NA)
+      return(NULL)
     } else {
-      tpa<-(ba/(qmd*qmd))*576/pi
+      if(!use.metric){
+        tpa<-(ba/(qmd*qmd))*576/pi
+      }else{
+        tpa<-(ba/(qmd*qmd))*40000/pi
+      }
     }
   } else if( sum(is.na(qmd))==length(qmd) ) {
     if(length(tpa) != length(ba) | sum(tpa==0)<1){
-      message("Invalid input to dmd.volume")
+      message("Invalid input to dmd.volume: missing values")
       return(NA)
     } else if(sum(tpa<0, na.rm=TRUE)>0 || sum(ba<0, na.rm=TRUE)>0  ){
       message("Invalid negative values input to dmd.volume")
       return(NA)
     } else{
-      qmd<-sqrt(ba*576/(tpa*pi))
+      if(!use.metric){
+        qmd<-sqrt(ba*576/(tpa*pi))
+      }else{
+        qmd<-sqrt(ba*40000/(tpa*pi))
+      }
     }
 
   } else if( sum(is.na(ba))==length(ba)) {
     if(length(tpa) != length(qmd)){
-      message("Invalid input to dmd.volume")
+      message("Invalid input to dmd.volume missing values")
       return(NA)
     } else if (sum(tpa<0, na.rm=TRUE) >0 | sum(qmd<0, na.rm=TRUE)>0  ){
       message("Invalid negative values input to dmd.volume")
       return(NA)
     } else{
-      ba<-round(tpa*qmd*qmd*pi/576, 3)
+      if(!use.metric){
+        ba<-round(tpa*qmd*qmd*pi/576, 4)
+      }else{
+        ba<-round(tpa*qmd*qmd*pi/40000, 4)
+      }
     }
   }
 # done with error checking, build the data frame
   stands<-as.data.frame(cbind(tpa,qmd,ba))
+
+# set the temporary variables in English:
+  if(!use.metric){ #then it is already English
+    tpae <- tpa
+    qmde <- qmd
+    bae  <- ba
+    max.sdie<- max.sdi
+  }else{           #convert to English
+    tpae <- tpa/0.404686
+    qmde <- qmd/2.54
+    bae  <- ba*4.356
+    max.sdie<- max.sdi/0.404686
+  }
 # calculate volumes
   stands$volume <- switch(ineq,
                           NA,
-                          -152+0.017*tpa*qmd^2.8,
-                          (tpa^0.9648)*(exp(-3.8220-1.3538/sqrt(tpa)))*(qmd^2.7863),
+                          -152+0.017*tpae*qmde^2.8,
+                          (tpae^0.9648)*(exp(-3.8220-1.3538/sqrt(tpae)))*(qmde^2.7863),
                           NA,
                           NA,
-                          0.007*(tpa^1.146)*(qmd^2.808),
-                          dfvol(tpa, qmd, max.sdi),
+                          0.007*(tpae^1.146)*(qmde^2.808),
+                          dfvol(tpae, qmde, max.sdie),
                           NA,
-                          (tpa/54.4)*((( qmd/(1-0.00759*tpa^0.446) )^(1/0.361))-5.14) )
+                          (tpae/54.4)*((( qmde/(1-0.00759*tpae^0.446) )^(1/0.361))-5.14) )
 
   stands$volume <- (stands$volume+abs(stands$volume))/2                   #get rid of neg values
+  if(use.metric){
+    vole<-stands$volume
+    stands$volume <- stands$volume/14.2913
+  }
 # calculate Dominant Height
 
   stands$height <- switch(ineq,
-                          NA,                       #1. NULL
-                          NA,                       #2. L&S (2005)
-                          rzheight(tpa,qmd),        #3. R&Z (2018)
-                          NA,                       #4. CE  (1988)
-                          NA,                       #5. PC  (1992)
-                          ls2012height(tpa,qmd),    #6. L&S (2012)
-                          df1979height,             #7. D&F
-                          NA,                       #8. NULL
-                          McC1986height)            #9. NULL
+                          NA,                        #1. NULL
+                          NA,                        #2. L&S (2005)
+                          rzheight(tpa=tpae,
+                                   qmd=qmde),        #3. R&Z (2018)
+                          NA,                        #4. CE  (1988)
+                          NA,                        #5. PC  (1992)
+                          ls2012height(tpa=tpae,
+                                       qmd=qmde),    #6. L&S (2012)
+                          df1979height(tpa=tpae,
+                                       qmd=qmde,
+                                       dfvol=vole),    #7. D&F
+                          NA,                        #8. NULL
+                          McC1986height(tpa=tpae,
+                                        qmd=qmde)) #9. NULL
 
+  if(use.metric){
+    stands$height<-stands$height*0.3048
+  }
   return(stands)
 
 }
