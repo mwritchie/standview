@@ -16,10 +16,16 @@ The standview package provides functions to create forest density management dia
       The user must specifically set values for any arguments which have units associated. So,
       for example if use.metric=TRUE, then the user must change values accordingly.
 
-    The package also includes a sample dataframe: gama05, which contains observations on
+    The package also includes a sample dataframe: gama05, which contains English-unit observations on
       20 research plots at the Goosenest Adaptive Management Area from 2005.
 
-    Typical usages are:
+    If you happen to find a problem with the package, please email the author with the script causing
+      the problem, as well as the version number. The version number is shown below or it
+      can be obtained with function call:
+
+    \preformatted{packageDescription("standview")$Version}
+
+    Typical function usages are:
     \preformatted{dmd.view(ineq, ...)}
     \preformatted{gdmd.view(ineq, ...)}
     \preformatted{dmd.iso(ineq, ...)}

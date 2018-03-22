@@ -119,6 +119,14 @@ dmd.view(ineq=7, insdr=FALSE, invol=2)
 par(opar)
 dev.off()
 
+# 3. Converting to metric:
+pdf("Douglasfir2metric.pdf", width=6, height=8)
+opar <- par(mar = c(2.0,2.0,2.0,2.0))
+
+dmd.view(ineq=7, insdr=FALSE, invol=2, use.metric=TRUE)
+
+par(opar)
+dev.off()
 
 }
 

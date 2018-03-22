@@ -743,9 +743,32 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
             max.sdi=max.sdi,
             reineke.term=slp,
             show.vol=TRUE,
-            v.ann=TRUE)
+            v.ann=TRUE,
+            use.metric=FALSE)
     }else{
-      message("currently not able to do metric iso lines")
+      vol.levels<-switch(ineq,
+                   NULL,
+                   c(30, 45, 60, 75, 100, 150,
+                     200, 250, 300, 400, 500, 600, 700, 800),
+                   c(30, 45, 60, 75, 100, 150,
+                     200, 250, 300, 400, 500, 600, 700, 800),
+                   NULL,
+                   NULL,
+                   c(30, 45, 60, 75, 100, 150,
+                     200, 250, 300, 400, 500, 600, 700, 800),
+                   c(30, 45, 60, 75, 100, 150,
+                     200, 300, 400, 600, 800, 1000),
+                   NULL,
+                   c(30, 45, 60, 75, 100, 150,
+                     200, 300, 400, 500, 600, 700, 800))
+      dmd.iso(ineq,
+              v.at=vol.levels,
+              range.x=c(min.x, max.x),
+              max.sdi=max.sdi,
+              reineke.term=slp,
+              show.vol=TRUE,
+              v.ann=TRUE,
+              use.metric=TRUE)
     }
   }
 return()
