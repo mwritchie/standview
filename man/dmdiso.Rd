@@ -114,7 +114,7 @@ dev.off()
 pdf("Douglasfir2.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
-dmd.view(ineq=7, insdr=FALSE, invol=2)
+dmd.view(ineq=7, insdr=FALSE, invol=TRUE)
 
 par(opar)
 dev.off()
