@@ -106,7 +106,7 @@ DF
 pdf("myplotv1.pdf", width=6, height=8)
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
-dmd.view(ineq=2 ) # call dmd.view.
+dmd.view(ineq=2, use.metric=FALSE ) # call dmd.view.
 
 points(x=DF$tpa, y=DF$qmd, cex=0.75, pch=21, col="black")
 segments(300, 1, DF[1,]$tpa, DF[1,]$qmd, lwd=2)
@@ -115,7 +115,7 @@ for(i in 1:4){
 }
 arrows(280, 19, 120, 14.8, length=0.10 )
 text(300, 22, "Commercial thin")
-text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "c.f. removed"))
+text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "cu.ft./ac removed"))
 
 par(opar)
 dev.off()
