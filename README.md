@@ -38,4 +38,4 @@ Other Information
 
 The current version of standview does not have a vignette.
 
-The author contact is: Martin Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at fs.fed.us
+The author contact is: Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at fs.fed.us
