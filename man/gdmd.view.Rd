@@ -100,10 +100,11 @@ This is the color for the diameter lines: default is blue. Must be a color
   from the r color pallette.
 }
   \item{rdcol}{
-This is the color for the relative density lines: default is black. Must be a color from the r colorpallette.
+This is the color for the relative density lines: default is black.
+  Must be a color from the r colorpallette.
 }
   \item{dmd.title}{
-This is the title for the management zone: default is lightgrey. Must be a color from the r colorpallette.
+This is the title for the management zone.
 }
   \item{use.metric}{
 Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet.
@@ -111,7 +112,7 @@ Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet.
 
 }
 \value{
-Returns error code e.code; value of zero indicates success in rendering figure.
+Returns no value.
 }
 \references{
     Barrett, J.W. (1978) Height growth and site index curves for managed

@@ -32,7 +32,7 @@ dmd.iso(ineq           = 2,
 }
   \item{v.at}{
   A vector of volume iso lines. Units are in cubic feet per acre if use.metric=FALSE, and
-    units are trees per hectare if use.metric=TRUE.
+    units are cubic meters per hectare if use.metric=TRUE.
   }
 
   \item{range.x}{
