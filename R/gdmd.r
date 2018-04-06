@@ -32,7 +32,7 @@ bae.to.bam   <- 0.2295681
 sdi.index    <- ifelse(!use.metric, 10, 25.4 )
 fk           <- ifelse(!use.metric, pi/576, pi/40000)   #Foresters constant
 feet.to.m    <- 0.3048
-olap.warn    <- 0
+#olap.warn    <- 0
 
 # test for acceptable reineke term must be between 1.50 and 2.0
 if(!(reineke.term>=1.50 | reineke.term<=2.00)){

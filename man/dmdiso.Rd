@@ -4,7 +4,7 @@
 Density Management Iso Line Rendering
 }
 \description{
-This package provides functions to iso lines for volume. It is intended to work with a call to dmd.view function in standview.
+This function draws iso-volume lines. It is intended to work with a call to dmd.view function in standview.
 }
 \usage{
 dmd.iso(ineq           = 2,
@@ -22,18 +22,19 @@ dmd.iso(ineq           = 2,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ineq}{
-  Selects volume and dominant height equations. This must be an integer value: 2, 3, 6, 7
-    Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
-    Value of 3 for Ritchie and Zhang (unpublished) Ponderosa pine equations.
-    Value of 6 for Long and Shaw (2012) California mixed-conifer
-    Value of 7 for Drew and Flewelling (1979).
-    Value of 9 for McCarter and Long (1986).
+  Selects volume and dominant height equations. This must be an integer value: 2, 3, 6, 7, or 9.
+    Value 2 is for Long and Shaw (2005) Ponderosa pine equations.
+    Value 3 is for Ritchie and Zhang (unpublished) Ponderosa pine equations.
+    Value 6 is for Long and Shaw (2012) California mixed-conifer.
+    Value 7 is for Drew and Flewelling (1979) Douglas-fir.
+    Value 9 is for McCarter and Long (1986) lodgepole pine.
     Default=2.
 }
   \item{v.at}{
   A vector of volume iso lines. Units are in cubic feet per acre if use.metric=FALSE, and
-  units are trees per hectare if use.metric=TRUE.
+    units are trees per hectare if use.metric=TRUE.
   }
+
   \item{range.x}{
   Range of tree density acre from range.x[1] to range.x[2] , must be a vector of
     length 2; e.g. range.x=c(50,500). Units are trees per acre if use.metric=FALSE,
@@ -41,7 +42,7 @@ dmd.iso(ineq           = 2,
   }
   \item{max.sdi}{
   Maximum stand density index, must be expressed as trees per acre if use.metric=FALSE
-  and trees per ha if use.metric=TRUE. This value only needed for ineq=6.
+    and trees per ha if use.metric=TRUE. This value only needed for ineq=6.
   }
   \item{reineke.term}{
   This is the inverse of the slope of sdi lines in sdi space. Default=1.605, the value derived by Reineke (1933).
@@ -70,6 +71,12 @@ Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre),
   stand height (feet) and (if available) above-ground biomass (pounds per acre).
 }
 \references{
+    Drew, T.J. and J.W. Flewelling (1979). Stand density management: an alternative
+      approach and its application to Douglas-fir plantations. For. Sci. 25(3):518-532.
+
+    Long, J.N., J.B. McCarter, and S.B. Jack. (1988) A modified density management
+      diagram for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.
+
     Long, J.N. and J.D. Shaw (2005) A density management diagram for
       even-aged ponderosa pine stands. West. J. Appl. For. 20(4):205-215.
 
@@ -123,7 +130,7 @@ dev.off()
 pdf("Douglasfir2metric.pdf", width=6, height=8)
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
-dmd.view(ineq=7, insdr=FALSE, invol=2, use.metric=TRUE)
+dmd.view(ineq=7, insdr=FALSE, invol=TRUE, use.metric=TRUE)
 
 par(opar)
 dev.off()

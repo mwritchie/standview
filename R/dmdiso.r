@@ -21,6 +21,11 @@ if(is.null(range.x)){
     return()
 }
 
+if(range.x[1]<=0 | range.x[2] <=0){
+  message("Invalid range of x values, iso-lines not rendered ")
+  return()
+}
+
 if(is.null(v.at)){
   message("Volumes not specified by v.at for dmd.iso, iso-lines not rendered")
   return()
@@ -56,33 +61,68 @@ if(!use.metric){   # English Units
 }
 
 # volume functions
+# for ineq=2
 vf2<-function(vvv, ttt){
     ivv <- (( 0.017*ttt )/( vvv  + 152 ))^(-1/2.8)
     return(ivv)
 }
-
+# for ineq=3
 vf3<-function(vvv, ttt){
   ivv <- ( vvv*(ttt^(-.9648))*exp(3.8220+1.3538/sqrt(ttt)) )^(1/2.7863)
   return(ivv)
 }
 
 # Long and shaw (2012)
+# for ineq=6
 vf6<-function(vvv, ttt){
   ivv <- ((vvv/0.007)*ttt^(-1.146))^(1/2.808)
   return(ivv)
 }
 
 # from Drew and Flewelling (1979) equation 4:
+# for ineq=7
 vf7<-function(vvv, ttt){
   mxdv<-exp(12.644)*(ttt)^-1.5
   ivv <- ((68.682*(vvv/ttt)-6.8084)^0.36716)*(1 - (0.32375*((vvv/ttt)/mxdv)^0.44709))
   return(ivv)
 }
+
 # from McCarter and Long (1986)
+# for ineq=9
 vf9<-function(vvv, ttt){
   ivv <- ((54.4*(vvv/ttt) + 5.14)^0.361)*((1 - 0.00759*ttt^0.446))
   return(ivv)
 }
+
+# dominant height functions
+#hf3<-function(hhh,ttt){
+#  hp <- c(  276.49514, -124.88647, -0.0335065, 0.0452437,  1.1606388 ) #height parms for ineq=3
+#  m1<-hp[1]+hp[2]/sqrt(ttt)
+#  m2<-hp[3]+hp[4]/sqrt(ttt)
+#  ihh<-(log(1-((hhh-4.5)/m1)^hp[5]))/m2
+#  return(ihh)
+#}
+
+#hf6<-function(hhh,ttt){
+#  hp <- c( -1.143, 0.679, -0.254, 1.062 ) #height parms for ineq=6
+#  m1 <- hp[2]*(ttt^hp[3])
+#  ihh <- (m1*hhh^(1/hp[5]))-hp[1]
+#  return(ihh)
+#}
+
+#hf7<-function(hhh,ttt){
+#  vvv <- exp(12.644-1.5*log(ttt)) #cubic foot per tree
+#  ihh <- (((vvv*hhh^-1.10319)-0.008695)/0.0007764)^(1/2.1987)
+#  return(ihh)
+#}
+
+#hf9<-function(hhh,ttt){
+#  mv1<-0.00396+0.000779
+#  vvv <- exp(12.644-1.5*log(ttt)) #cubic foot per tree
+#  ihh <- (((vvv*hhh^-1.10319)-0.008695)/0.0007764)^(1/2.1987)
+#  return(ihh)
+#}
+
 
 if(show.vol){
 
@@ -111,7 +151,7 @@ if(show.vol){
     }else{
       txe <- tx*.404686 #convert to Englgish
       v.arraye <- v.array*35.3147*.404686 #Convert volume to English
-      ivol<- switch(ineq,
+      ivol<- switch(ineq,  # so ivol is english units
                     NULL,
                     vf2(v.arraye[k], txe),
                     vf3(v.arraye[k], txe),
@@ -121,8 +161,8 @@ if(show.vol){
                     vf7(v.arraye[k], txe),
                     NULL,
                     vf9(v.arraye[k], txe))
-      iaa  <- 10*((max.sdi*.404686)/txe)^(islp)
-      qq   <- sum((iaa-ivol)>0)
+      iaa  <- 10*((max.sdi*.404686)/txe)^(islp)  #iaa is also english units
+      qq   <- sum((iaa-ivol)>0)  # count how many are less than the max.sdi
     }
 
     # now draw the volume iso line
@@ -131,6 +171,7 @@ if(show.vol){
     }else{
       graphics::lines(tx[1:qq], ivol[1:qq]*2.54, type="l", col=vcol, lwd=0.5, lty=vty )
     }
+
     # now annotate the volume
     if(k==length(v.array)){
 

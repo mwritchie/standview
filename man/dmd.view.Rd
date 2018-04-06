@@ -106,7 +106,7 @@ This is Barrett's site index (Barrett 1978) for use in the Cochran (1992) pine D
 Specifies color for stand density index lines. Default="red".
 }
   \item{invol}{
-Draws iso volume lines. Default=FALSE.
+Draws iso-volume lines. Default=FALSE.
 }
   \item{vcol}{
 Specifies color for volume iso-lines. Default="blue".
