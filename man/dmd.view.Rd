@@ -153,10 +153,10 @@ Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Resea
 }
 \note{
 It is important to note that the dmd.view function is designed to render a 6wx8h canvas (pdf).
-    Any other aspect ratio than that and the annotations and axis labels may not place well.
+    Any other aspect may produce annotations and axis labels that are misplaced.
     For this reason, it is suggested that one open a pdf device with the function call:
     pdf("myfile.pdf", width=6, height=8) prior to invoking the dmd.view function. When the
-    figure is completely rendered, then one must close the device with dev.off().
+    figure is completely rendered, then one should always close the device with dev.off().
     See Examples below for how this can be done. Also, the reineke.term for Coastal Douglas-fir
     was derived as 1.605, but from Drew and Flewelling there should be a 6 percent adjustment at
     lower densities. If one wishes to account for this a reineke.term of 1.71 is a compromise
