@@ -24,6 +24,7 @@ gdmd.view(ineq  = 1,
           bsi=90,
           dcol = "blue",
           rdcol= "black",
+          mzcol= "lightgrey",
           dmd.title = " ",
           use.metric=FALSE)
 }
@@ -96,11 +97,15 @@ This is Barrett's (1978) site index for use in Cochrans (1992)diagram only;
   meters for use.metric=TRUE.
 }
   \item{dcol}{
-This is the color for the diameter lines: default is blue. Must be a color
+This is the color for the diameter lines: default is "blue". Must be a color
   from the r color pallette.
 }
   \item{rdcol}{
-This is the color for the relative density lines: default is black.
+This is the color for the relative density lines: default is "black".
+  Must be a color from the r colorpallette.
+}
+  \item{mzcol}{
+This is the color for the management zone: default is "lightgrey".
   Must be a color from the r colorpallette.
 }
   \item{dmd.title}{

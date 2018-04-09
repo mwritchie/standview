@@ -14,6 +14,7 @@ gdmd.view<-function(ineq         = 1,
                     bsi          = 90,
                     dcol         = "blue",
                     rdcol        = "black",
+                    mzcol        = "lightgrey",
                     dmd.title    = " ",
                     use.metric   = FALSE){
 
@@ -107,7 +108,7 @@ if(!is.na(lmz)&!is.na(umz)){
 
 axis4.off    <- ifelse(!use.metric, 1.1, 1.1)
 
-mzcol        = "lightgrey"
+#mzcol        = "lightgrey"
 
 dmd.title<-switch(ineq,
                   dmd.title,                                     #1
@@ -453,7 +454,7 @@ if(inply){
   mzxa<-append(mzxl, mzxu)
   mzya<-append(mzyl, mzyu)
   graphics::polygon( x=mzxa, y=mzya, density=NA, border=NA,
-                     col="lightgrey")
+                     col=mzcol)
 
   graphics::lines(x=mzxu, mzyu, lwd=1.5) # top of mz line
   olap.warn<-min(mzyu) # this sets a variable for annotate check
@@ -463,7 +464,7 @@ if(inply){
     graphics::polygon(x= c(max(mzxl),                    max.x, max.x),
                       y= c(min(mzyl),     max.x*fk*min(diso)^2, min(mzyu)),
                       density=NA, border=NA,
-                      col="lightgrey")
+                      col=mzcol)
   }
 # grDevices::rgb(0.1, 0.1, 0.1, 0.25)
 }

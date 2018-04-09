@@ -12,6 +12,7 @@ dmd.view<-function(ineq         = 3,
                    mgt.zone     = c(0.35,0.60),
                    reineke.term = 1.605,
                    bsi          = 90,
+                   mzcol        ="grey",
                    sdicol       = "red",
                    invol        = FALSE,
                    vcol         = "blue",
@@ -23,7 +24,7 @@ sdi.lines<-as.numeric(sdi.lines)
 mgt.zone<-as.numeric(mgt.zone)
 bsi<- as.numeric(bsi)
 reineke.term<-as.numeric(reineke.term)
-mzcol="grey"
+#mzcol="grey"
 
 ac.to.ha <- 2.471052
 in.to.cm <- 2.54

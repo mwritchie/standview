@@ -21,6 +21,7 @@ dmd.view(ineq = 3,
     mgt.zone=c(0.35,0.60),
     reineke.term=1.605,
     bsi=90,
+    mzcol="grey",
     sdicol="red",
     invol=FALSE,
     vcol="blue",
@@ -102,6 +103,9 @@ This is Barrett's site index (Barrett 1978) for use in the Cochran (1992) pine D
   for this argument is feet. If use.metric=TRUE is selected then the value for bsi should be reset by the user
   to meters.
 }
+  \item{mzcol}{
+  Specifies color for management zone. Default="grey".
+}
   \item{sdicol}{
 Specifies color for stand density index lines. Default="red".
 }
@@ -117,7 +121,7 @@ Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet
 
 }
 \value{
-Returns error code e.code; value of zero indicates success in rendering figure.
+Returns no value.
 }
 \references{
     Barrett, J.W. (1978) Height growth and site index curves for managed
