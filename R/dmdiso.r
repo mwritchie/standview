@@ -26,7 +26,7 @@ if(range.x[1]<=0 | range.x[2] <=0){
   return()
 }
 
-if(is.null(v.at)){
+if(is.null(v.at) & show.vol){
   message("Volumes not specified by v.at for dmd.iso, iso-lines not rendered")
   return()
 }

@@ -117,9 +117,10 @@ dmd.iso(ineq=7,
 par(opar)
 dev.off()
 
-# 2. A similar result may be obtained with the invol argument in dmd.view:
+# 2. A similar result may be obtained with the invol argument in dmd.view,
+#    where invol=TRUE directs dmd.view to call the dmd.iso function:
 pdf("Douglasfir2.pdf", width=6, height=8)
-opar <- par(mar = c(2.0,2.0,2.0,2.0))
+opar <- par(mar = c(2.0, 2.0, 2.0, 2.0))
 
 dmd.view(ineq=7, insdr=FALSE, invol=TRUE)
 
