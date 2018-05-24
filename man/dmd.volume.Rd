@@ -4,14 +4,14 @@
 Density Management Volume Estimation
 }
 \description{
-This package provides functions to generate volumes and dominant height for stand density management diagrams.
+This function provides estimates for volume and dominant height for stand density management diagrams, where available.
 
-Typically in a DMD the volume is roughly interpolated between plotted lines. With dmd.volume
-  the user can specify qmd and tpa values as input to generate estimated volumes from published
-  volume equations
+Typically, in a DMD, the volume is roughly interpolated between plotted iso-volume lines.
+With dmd.volume, the user can specify qmd and tpa values as input to generate estimated volumes
+from published volume equations.
 }
 \usage{
-dmd.volume(ineq  = 1,
+dmd.volume(ineq  = 2,
            max.sdi=NULL,
            tpa=NULL,
            qmd=NULL,
@@ -36,7 +36,7 @@ Selects volume and dominant height equations. This must be an integer value  2, 
 }
   \item{max.sdi}{
 Input of limiting stand density index (units are trees per acre for use.metric=FALSE or
-trees per hectare for use.metric=TRUE); default=NULL.
+trees per hectare for use.metric=TRUE); default=NULL. This value must be supplied for ineq=7.
 }
   \item{tpa}{
 Input of stand trees per unit area as a vector of values.

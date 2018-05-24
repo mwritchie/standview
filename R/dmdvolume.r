@@ -8,7 +8,7 @@
 #
 
 rzheight<-function(tpa, qmd){ # Ritchie and Zhang height function
-  hp <- c(  276.49514, -124.88647, -0.0335065, 0.0452437,  1.1606388 )               #height parms for R&Z
+  hp <- c(  276.49514, -124.88647, -0.0335065, 0.0452437,  1.1606388 )      #height parms for R&Z
   height <- 4.5+(hp[1]+hp[2]/sqrt(tpa))*(1-exp(qmd*(hp[3]+hp[4]/sqrt(tpa))))^hp[5]
   return(height)
 }
@@ -35,7 +35,7 @@ McC1986height<-function(tpa, qmd){ # McCarter and Long (1986)
   return(height)
 }
 ################################################################################
-dmd.volume<-function(ineq  = 1,
+dmd.volume<-function(ineq  = 2,
                      max.sdi=NULL,
                      tpa=NULL,
                      qmd=NULL,
@@ -53,7 +53,7 @@ dmd.volume<-function(ineq  = 1,
     return(height)
   }
 
-  if(ineq %in% c(1,4,5,8)){
+  if(!(ineq %in% c(2,3,6,7,9))){
     message(paste( "Error in dmd.volume, invalid input value for ineq:", ineq))
     return(NULL)
   }
@@ -147,7 +147,7 @@ dmd.volume<-function(ineq  = 1,
                           NA,
                           (tpae/54.4)*((( qmde/(1-0.00759*tpae^0.446) )^(1/0.361))-5.14) )
 
-  stands$volume <- (stands$volume+abs(stands$volume))/2                   #get rid of neg values
+  stands$volume <- (stands$volume+abs(stands$volume))/2     #get rid of neg values
   vole<-stands$volume
   if(use.metric){
     stands$volume <- stands$volume/14.2913
@@ -165,10 +165,10 @@ dmd.volume<-function(ineq  = 1,
                                        qmd=qmde),    #6. L&S (2012)
                           df1979height(tpa=tpae,
                                        qmd=qmde,
-                                       dfvol=vole),    #7. D&F
+                                       dfvol=vole),  #7. D&F
                           NA,                        #8. NULL
                           McC1986height(tpa=tpae,
-                                        qmd=qmde)) #9. NULL
+                                        qmd=qmde))   #9. McC (1986)
 
   if(use.metric){
     stands$height<-stands$height*0.3048
