@@ -1,0 +1,137 @@
+---
+title: "Standview"
+author: "Martin Ritchie, Pacific Southwest Research Station, Redding CA, USA"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Standview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Introduction
+The standview package is an R-package for rendering a high-resolution-graphic stand density managment diagram (DMD). A stand density managment diagram is a visual aid used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`.
+
+The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1 or ineq=6, the user must specify a limiting sdi with the argument: max.sdi=*xxx*, for other values of ineq. So care should be taken when declaring ineq=1 to assure that the limiting sdi and sdi lines are rendered in proper units units.
+
+By default, stem density is trees acre^-1^ and basal area is square feet acre^-1^. Also, by default, quadratic mean diameter is in inches, and is defined as the diameter of the tree of mean basal area in a stand. If the user is employing the summation method (Long and Daniel 1990) to calculate stand density index then it is important to recognize that the stand diameter implied by the summation method is the generalized mean diameter (Zeide 1983), not the quadratic mean diameter. As such, the Gingrich-style DMD should not be used with the summation method because iso-lines for generalized diameter cannot be rendered.
+
+
+## Reineke Space Density Management Diagrams
+
+The dmd.view function will produce a Reineke-space diagram with the natural log of stem density on the x-axis and natural log of diameter on the y-axis. Although there are 17 items in the argument list for this function, in most instances only a few will be needed as the default values will generally suffice. The most important argument is ineq; it specifies which species, or species group, is required. The ineq argument must be specified as an integer between 1 and 9 in the current version. The ineq value defines the inverse slope of the limiting sdi (most often reineke.term=1.605), the value for limiting sdi (max.sdi), as well as volume and dominant height estimation functions if appropriate.
+
+Table 1. Definitions of species and reference for DMD rendering by index of equations (ineq) in standview.
+
+|  ineq   | Species  | Reference             |
+|:-------:|:---------|:----------------------|
+|    1    | User Defined              | None                         |
+|    2    | ponderosa pine            | Long and Shaw (2005)         |
+|    3    | ponderosa pine            | Ritchie and Zhang (In Press) |
+|    4    | ponderosa pine            | Edminster (1988)             |
+|    5    | ponderosa pine            | Cochran and Barrett (1992)   |
+|    6    | California mixed-conifer  | Long and Shaw (2012)         |
+|    7    | Douglas-fir               | Long et al. (1988)           |
+|    8    | White fir                 | Zhang et al. (2007)          |
+|    9    | Lodgepole pine            | McCarter and Long (1986)     |
+
+Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precsion, in a dataframe. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below).
+
+### Generic DMD in Reineke Space: ineq=1
+
+When ineq=1, dmd.view will produce a user-specified density management diagram. As such the user will need to specify the upper limit for stand density index (max.sdi), a title (dmd.title),  the intermediate sdi lines (sdi.lines), the management zone (mgt.zone), the inverse slope of the limiting sdi (reineke.term) if it is other than 1.605. When using ineq=1, the user needs to be mindful of the units. For example, when use.metric=TRUE, the max.sdi is trees acre ^-1^, whereas when use.metric=FALSE max.sdi must be specified in trees ha ^-1^.
+
+### Published DMD in Reineke Space: ineq=(2-9).
+
+In general, the user should be able to render a DMD using a published source with a fairly sparse argument list, by relying on the default arguments. The example below uses ineq=9 to render a lodgepole pine DMD (McCarter and Long 1986).
+
+```{r, fig1.show, fig.width=6, fig.height=8, fig.show=TRUE, results=FALSE}
+library(standview)
+dmd.view(ineq=9, insdr=TRUE)
+
+
+```
+In this particular example the insdr argument is set to true for SDI limits placed on right side of the figure.
+
+## Gingrich Space Density Management Diagrams
+
+Diagrams in Gingrich space use the same range of values for ineq (Table 1).
+Traditionally these figures do not present volume or dominant height information so there is no volume argument (invol)
+or volume color argument (vcol). An example Gingrich DMD using ineq=4 (Edminster 1988):
+
+```{r, fig2.show, fig.width=8, fig.height=6, fig.show=TRUE, results=FALSE}
+library(standview)
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+gdmd.view(ineq=4)
+par(opar)
+
+```
+
+## Data Overlay
+
+Of course a DMD with no data is fairly useless. One could plot data by hand, but that would be clunky. One may wish to overlay data from sampled stands or from growth model projections over time. This may be accomplished using functionality provided by R. Some functions you may find useful in plotting data and annotating figures are: `points()`, `lines()`, `segments()`, `text()`. The standview package comes with a sample dataframe from the Goosenest Adaptive Management Area on the Klamath National Forest (Ritchie 2005) called gama05. The example below shows sampled treated plots (controls excluded) overlay with a Gingrich-style DMD using the gama05 data.
+
+```{r, fig3.show, fig.width=8, fig.height=6, fig.show=TRUE, results=FALSE}
+library(standview)
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+gdmd.view(ineq=3)
+points(x=gama05[!gama05$treatment=="Control",]$tpa,
+       y=gama05[!gama05$treatment=="Control",]$ba,
+       cex=1.25, pch=21, col="black")
+
+par(opar)
+
+```
+
+## File Formats
+
+Figures can be rendered in r a number of different formats. The pdf function works very well for producing publication quality images (`pdf("myDMD.pdf", ...)`). My general practice is to generate a pdf, and then convert to a .jpg file if needed for a particular outlet. Other graphics options are bmp (`bmp(filename = "myDMD.bmp", ...)`), jpeg (`jpeg(filename = "myDMD.jpeg", ...)`), png (`png(filename = "myDMD.png",...)`) and tiff ( `tiff(filename = "myDMD.tiff",...")`). It is important that any of these should be closed with a call to `dev.off()` after rendering the plot. Examples of usage with pdf are shown in the standview help files.
+
+
+## References  
+
+Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
+  hardwood forests in the central states. For. Sci. 13(1):38-53.
+
+Cochran, P.H. and J.W. Barrett (1992) Stocking levels and underlying assumptions 
+  for uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. 
+  Northwest For. and Range Exp. Stn. 10p.
+
+Long, J.N., and T.W. Daniel (1990) Assessment of growing stock in uneven-aged stands. 
+  West. J. Appl. For. 5:93-96
+
+Long, J.N., J.B. McCarter, and S.B. Jack (1988) A modified density management diagram 
+  for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.
+
+Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa 
+  pine stands. West. J. Appl. For. 20(4):205-215.
+
+Long, J.N. and J.D. Shaw (2012) A density management diagram for even-Aged Sierra Nevada 
+  mixed-conifer stands. West. J. Appl. For. 27(4):187-195.
+
+McCarter, J.D. and J.N. Long (1986) A logdepole pine density management diagram. 
+  West. J. Appl. For 1:6-11.
+
+Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
+  J. Ag. Res. 46:627-638.
+  
+Ritchie, M.W. (2005) Ecological research at the Goosenest Adaptive Management Area 
+  in northeastern California. Gen. Tech. Rep. PSW-GTR-192. USDA For. Serv. Pac. SW Res.
+  Stn. 120 p.
+  
+Ritchie, M.W. and J. Zhang (In Press) Density management diagrams for ponderosa pine and 
+  white fir.
+
+Zeide, B. (1983). The mean diameter for stand density index. Can. J. For. Res. 13:1023-1024.
+
+Zhang, J., W.W. Oliver, and M.W. Ritchie (2007) Effect of stand densities on stand dynamics 
+  in white fir (*Abies concolor*) forests in northeast California, USA. 
+  For. Ecol. and Manage. 244:50-59.
+
+

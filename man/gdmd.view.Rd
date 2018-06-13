@@ -173,7 +173,7 @@ dev.off()  # close the pdf file
 pdf("myplotg2.pdf", width=8, height=6)
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
-gdmd.view(ineq=3 ) # call dmd.view and request volume iso lines.
+gdmd.view(ineq=3 ) # call gdmd.view and plot data.
 
 points(x=gama05[!gama05$treatment=="Control",]$tpa,
        y=gama05[!gama05$treatment=="Control",]$ba,

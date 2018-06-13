@@ -131,17 +131,17 @@ Returns no value.
     Drew, T.J. and J.W. Flewelling (1979). Stand density management: an alternative
     approach and its application to Douglas-fir plantations. For. Sci. 25(3):518-532
 
-    Cochran, P.H. (1992) Stocking Levels and Underlying Assumptions for Uneven-Aged
-    Ponderosa Pine Stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest For.
-    and Range Exp. Stn. 10p
+    Cochran, P.H. and J.W. Barrett (1992) Stocking levels and underlying assumptions for
+    uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest
+    For. and Range Exp. Stn. 10p.
 
-    Long, J.N., J.B. McCarter, and S.B. Jack. (1988) A modified density management
+    Long, J.N., J.B. McCarter, and S.B. Jack (1988) A modified density management
     diagram for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.
 
-    Long, J.N. and Shaw, J.D. (2005) A density management diagram for even-aged
+    Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged
     ponderosa pine stands. West. J. Appl. For. 20(4):205-215.
 
-    Long, J.N. and Shaw, J.D. (2012) A Density Management Diagram for Even-Aged
+    Long, J.N. and J.D. Shaw (2012) A Density Management Diagram for Even-Aged
     Sierra Nevada Mixed-Conifer Stands. West. J. Appl. For. 27(4):187-195
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
