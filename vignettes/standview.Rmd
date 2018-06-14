@@ -1,11 +1,11 @@
 ---
-title: "Standview"
+title: "standview"
 author: "Martin Ritchie, Pacific Southwest Research Station, Redding CA, USA"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Standview}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{standview}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -89,6 +89,36 @@ par(opar)
 
 ```
 
+## Volume and Dominant Height
+
+Typically, a Reineke-space DMD will have iso-volume and/or iso-height lines. Below is an example of a Douglas-fir DMD with iso-volume lines.
+
+```{r, fig4.show, fig.width=6, fig.height=8, fig.show=TRUE, results=FALSE}
+library(standview)
+opar <- par(mar = c(2.0, 2.0, 2.0, 2.0))
+
+dmd.view(ineq=7, insdr=FALSE, invol=TRUE)
+
+par(opar)
+
+```
+
+However, in the R environment these are vestigal items. A better way of determining volume is to calculate the volume and dominant height for any particular data point. The standview package allows for this with the dmd.volume function: `dmd.volume(ineq=i,...)`.
+
+```{r volume, echo=TRUE}
+library(standview)
+
+DF<-dmd.volume(ineq=3,
+               qmd=gama05$qmd,
+               tpa=gama05$tpa,
+               use.metric=FALSE) # generate volume and dom. ht.
+
+DF
+
+```
+
+Note that by default, dmd.volume produces estimates in English units. For metric units, the argument list must include `use.metric=TRUE`.
+
 ## File Formats
 
 Figures can be rendered in r a number of different formats. The pdf function works very well for producing publication quality images (`pdf("myDMD.pdf", ...)`). My general practice is to generate a pdf, and then convert to a .jpg file if needed for a particular outlet. Other graphics options are bmp (`bmp(filename = "myDMD.bmp", ...)`), jpeg (`jpeg(filename = "myDMD.jpeg", ...)`), png (`png(filename = "myDMD.png",...)`) and tiff ( `tiff(filename = "myDMD.tiff",...")`). It is important that any of these should be closed with a call to `dev.off()` after rendering the plot. Examples of usage with pdf are shown in the standview help files.
@@ -112,7 +142,7 @@ Long, J.N., J.B. McCarter, and S.B. Jack (1988) A modified density management di
 Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa 
   pine stands. West. J. Appl. For. 20(4):205-215.
 
-Long, J.N. and J.D. Shaw (2012) A density management diagram for even-Aged Sierra Nevada 
+Long, J.N. and J.D. Shaw (2012) A density management diagram for even-aged Sierra Nevada 
   mixed-conifer stands. West. J. Appl. For. 27(4):187-195.
 
 McCarter, J.D. and J.N. Long (1986) A logdepole pine density management diagram. 

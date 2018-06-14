@@ -36,6 +36,6 @@ dev.off()
 Other Information
 -----------------
 
-The current version of standview does not have a vignette.
+The current version of standview has a brief vignette.
 
 The author contact is: Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at fs.fed.us
