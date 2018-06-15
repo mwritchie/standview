@@ -1,7 +1,7 @@
 Package: standview
 Type: Package
 Title: R Package for Density Management Diagrams
-Version: 0.1.013
+Version: 0.1.014
 Authors@R: person("Martin","Ritchie", email="mritchie@fs.fed.us", role=c("aut", "cre"))
 Maintainer: Martin Ritchie <mritchie@fs.fed.us>
 Depends: R (>= 3.4.3)
