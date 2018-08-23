@@ -16,11 +16,20 @@ knitr::opts_chunk$set(
 )
 ```
 ## Introduction
-The standview package is an R-package for rendering a high-resolution-graphic stand density management diagram (DMD). A stand density management diagram is a visual aid used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`.
+The standview package is an R-package for rendering a high-resolution-graphic stand density management diagram (DMD). A stand density management diagram is a visual aid used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`. 
 
 The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1 or ineq=6, the user must specify a limiting sdi with the argument: max.sdi=*xxx*, for other values of ineq. So care should be taken when declaring ineq=1 to assure that the limiting sdi and sdi lines are rendered in proper units units.
 
 By default, stem density is trees acre^-1^ and basal area is square feet acre^-1^. Also, by default, quadratic mean diameter is in inches, and is defined as the diameter of the tree of mean basal area in a stand. If the user is employing the summation method (Long and Daniel 1990) to calculate stand density index then it is important to recognize that the stand diameter implied by the summation method is the generalized mean diameter (Zeide 1983), not the quadratic mean diameter. As such, the Gingrich-style DMD should not be used with the summation method because iso-lines for generalized diameter cannot be rendered.
+
+### Access
+
+The package is not currently available from CRAN, but the latest version can be installed from the R console by pulling it from github with the following two lines of code:
+
+```{r, results=FALSE, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("mwritchie/standview")
+```
 
 After installing the package in R, it must be loaded at runtime with the library function: 
 
@@ -28,7 +37,7 @@ After installing the package in R, it must be loaded at runtime with the library
 library(standview)
 
 ```
-
+The current version of standview is `r packageVersion("standview")`.
 
 ## Reineke Space Density Management Diagrams
 
@@ -52,7 +61,7 @@ Note that volume estimation in Reineke-space has traditionally been presented as
 
 ### Generic DMD in Reineke Space: ineq=1
 
-When ineq=1, dmd.view will produce a user-specified density management diagram. As such the user will need to specify the upper limit for stand density index (max.sdi), a title (dmd.title),  the intermediate sdi lines (sdi.lines), the management zone (mgt.zone), the inverse slope of the limiting sdi (reineke.term) if it is other than 1.605. When using ineq=1, the user needs to be mindful of the units. For example, when use.metric=TRUE, the max.sdi is trees acre ^-1^, whereas when use.metric=FALSE max.sdi must be specified in trees ha ^-1^.
+When ineq=1, dmd.view will produce a user-specified density management diagram. As such the user will need to specify the upper limit for stand density index (max.sdi), a title (dmd.title),  the intermediate sdi lines (sdi.lines), the management zone (mgt.zone), the inverse slope of the limiting sdi (reineke.term) if it is other than 1.605. When using ineq=1, the user needs to be mindful of the units. For example, when use.metric=TRUE, the max.sdi is trees ha ^-1^, whereas when use.metric=FALSE max.sdi must be specified in trees ac ^-1^.
 
 ### Published DMD in Reineke Space: ineq=(2-9).
 
