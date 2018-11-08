@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ## Introduction
 The standview package is an R-package for rendering a high-resolution-graphic stand density management diagram (DMD). A stand density management diagram is a visual aid used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`. 
 
-The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1 or ineq=6, the user must specify a limiting sdi with the argument: max.sdi=*xxx*, for other values of ineq. So care should be taken when declaring ineq=1 to assure that the limiting sdi and sdi lines are rendered in proper units units.
+The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1 or ineq=6, the user must specify a limiting sdi with the argument: max.sdi=*xxx*. Thus care should be taken to assure that the limiting sdi and sdi lines are rendered in proper units.
 
 By default, stem density is trees acre^-1^ and basal area is square feet acre^-1^. Also, by default, quadratic mean diameter is in inches, and is defined as the diameter of the tree of mean basal area in a stand. If the user is employing the summation method (Long and Daniel 1990) to calculate stand density index then it is important to recognize that the stand diameter implied by the summation method is the generalized mean diameter (Zeide 1983), not the quadratic mean diameter. As such, the Gingrich-style DMD should not be used with the summation method because iso-lines for generalized diameter cannot be rendered.
 
@@ -139,7 +139,7 @@ Figures can be rendered in r a number of different formats. The pdf function wor
 Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
   hardwood forests in the central states. For. Sci. 13(1):38-53.
 
-Cochran, P.H. and J.W. Barrett (1992) Stocking levels and underlying assumptions 
+Cochran, P.H., and J.W. Barrett (1992) Stocking levels and underlying assumptions 
   for uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. 
   Northwest For. and Range Exp. Stn. 10p.
 
@@ -149,13 +149,13 @@ Long, J.N., and T.W. Daniel (1990) Assessment of growing stock in uneven-aged st
 Long, J.N., J.B. McCarter, and S.B. Jack (1988) A modified density management diagram 
   for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.
 
-Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa 
+Long, J.N., and J.D. Shaw (2005) A density management diagram for even-aged ponderosa 
   pine stands. West. J. Appl. For. 20(4):205-215.
 
-Long, J.N. and J.D. Shaw (2012) A density management diagram for even-aged Sierra Nevada 
+Long, J.N., and J.D. Shaw (2012) A density management diagram for even-aged Sierra Nevada 
   mixed-conifer stands. West. J. Appl. For. 27(4):187-195.
 
-McCarter, J.D. and J.N. Long (1986) A lodgepole pine density management diagram. 
+McCarter, J.D., and J.N. Long (1986) A lodgepole pine density management diagram. 
   West. J. Appl. For 1:6-11.
 
 Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
@@ -165,7 +165,7 @@ Ritchie, M.W. (2005) Ecological research at the Goosenest Adaptive Management Ar
   in northeastern California. Gen. Tech. Rep. PSW-GTR-192. USDA For. Serv. Pac. SW Res.
   Stn. 120 p.
   
-Ritchie, M.W. and J. Zhang (In Press) Density management diagrams for ponderosa pine and 
+Ritchie, M.W., and J. Zhang (In Press) Density management diagrams for ponderosa pine and 
   white fir.
 
 Zeide, B. (1983). The mean diameter for stand density index. Can. J. For. Res. 13:1023-1024.

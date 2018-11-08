@@ -112,7 +112,7 @@ This is the color for the management zone: default is "lightgrey".
 This is the title for the management zone.
 }
   \item{use.metric}{
-Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet.
+Specifies use of metric, logical. Default=FALSE.
 }
 
 }

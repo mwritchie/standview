@@ -116,7 +116,7 @@ Draws iso-volume lines. Default=FALSE.
 Specifies color for volume iso-lines. Default="blue".
 }
   \item{use.metric}{
-Specifies use of metric, logical. Default=FALSE. Note this doesn't work yet
+Specifies use of metric, logical. Default=FALSE.
 }
 
 }
