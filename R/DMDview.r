@@ -664,8 +664,10 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
              sdi.index*( lsd / mzx[4] )^(islp) )  #y-coords for mzbox
     mzw <- 2          # linewidth for mzbox
 
-    graphics::polygon( x=mzx, y=mzy, density=NA, border=mzcol,
-                       col=grDevices::rgb(0.1, 0.1, 0.1, 0.25))
+    graphics::polygon( x=mzx, y=mzy, density=NA,
+                       col=grDevices::rgb(grDevices::col2rgb(mzcol)[1]/255,
+                                          grDevices::col2rgb(mzcol)[2]/255,
+                                          grDevices::col2rgb(mzcol)[3]/255, 0.25))
   }
 
 ###############################################################
