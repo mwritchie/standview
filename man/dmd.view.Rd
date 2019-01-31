@@ -154,7 +154,7 @@ Returns no value.
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
-  Email: \email{mritchie@fs.fed.us}
+  Email: \email{mritchie@usda.gov}
 }
 \note{
 It is important to note that the dmd.view function is designed to render a 6wx8h canvas (pdf).

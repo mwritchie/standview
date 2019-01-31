@@ -45,4 +45,4 @@ dev.off()
 The current version of standview has a brief vignette.
 
 The author contact is:
-Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at fs.fed.us
+Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at usda.gov

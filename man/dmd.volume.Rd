@@ -83,7 +83,7 @@ respectively).
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
-  Email: \email{mritchie@fs.fed.us}
+  Email: \email{mritchie@usda.gov}
 }
 \note{
 This function returns a dataframe that could represent observations for a stand prescription over time.

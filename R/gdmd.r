@@ -109,18 +109,19 @@ if(!is.na(lmz)&!is.na(umz)){
 axis4.off    <- ifelse(!use.metric, 1.1, 1.1)
 
 #mzcol        = "lightgrey"
-
-dmd.title<-switch(ineq,
+main.t<-dmd.title
+if(dmd.title==" "){
+  main.t <- switch(ineq,
                   dmd.title,                                     #1
-                  "Ponderosa Pine Long and Shaw (2012)",         #2
-                  "Ponderosa Pine Ritchie and Zhang (2018)",     #3
+                  "Ponderosa Pine Long and Shaw (2005)",         #2
+                  "Ponderosa Pine Ritchie and Zhang (Unpublished)",     #3
                   "Ponderosa Pine Edminster (1988)",             #4
                   "Ponderosa Pine (Cochran 1992)",               #5
                   "Mixed-Conifer (Long and Shaw 2012)",          #6
                   "Coastal Douglas-Fir (Long et al 1988)",       #7
                   "California White Fir (Zhang et al 2007)",     #8
                   "Lodgepole pine (McCarter and Long 1988)" )    #9
-
+}
 #                        1      2     3     4     5     6     7     8      9
 #inrd    <- switch(ineq, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,  TRUE )
 if(!use.metric){
@@ -280,7 +281,7 @@ d.l <- switch(use.metric+1,
 # now draft the plot
 graphics::plot(NA,
                frame.plot=FALSE,
-               main=dmd.title,
+               main=main.t,
                ylab="",
                xlab="",
                ylim=yr,
