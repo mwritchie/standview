@@ -36,6 +36,6 @@ dev.off()
 Other Information
 -----------------
 
-The current version of standview has a brief vignette.
+The current version of standview has a brief vignette. Also, at this time, the package has not been submitted to CRAN.
 
-The author contact is: Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at fs.fed.us
+The author contact is: Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at usda.gov
