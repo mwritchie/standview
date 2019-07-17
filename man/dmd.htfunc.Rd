@@ -42,7 +42,7 @@ Returns dominant height (feet) for Ritchie and Zhang, Long and Shaw (2012), or M
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
-  Email: \email{mritchie@usda.gov}
+  Email: \email{martin.ritchie@usda.gov}
 }
 \examples{
 

@@ -142,7 +142,7 @@ Returns no value.
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
-  Email: \email{mritchie@usda.gov}
+  Email: \email{martin.ritchie@usda.gov}
 }
 \note{
 It is important to note that the gdmd.view function is designed to render a 8x6 inch canvas (pdf).

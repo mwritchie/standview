@@ -30,6 +30,6 @@
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
-  Email: \email{mritchie@usda.gov}
+  Email: \email{martin.ritchie@usda.gov}
 }
 \keyword{ datasets }

@@ -75,6 +75,6 @@ The standview package provides functions to create forest density management dia
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.
-  Email: \email{mritchie@usda.gov}
+  Email: \email{martin.ritchie@usda.gov}
 }
 \keyword{dplot}
