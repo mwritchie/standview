@@ -12,10 +12,11 @@ If you already have devtools, you can install standview from github with:
 
 ``` r
 # install.packages("devtools")
+# library(devtools)
 devtools::install_github("mwritchie/standview")
 ```
 
-If the devtools package is not present, then the install.packages("devtools") call is necessary for installation of standview.
+If the devtools package is not present has not already been installed, then the install.packages("devtools") and the library(devtools) call, which are both shown as comments above, are necessary for installation of standview.
 
 Example
 -------
@@ -38,4 +39,4 @@ Other Information
 
 The current version of standview has a brief vignette. Also, at this time, the package has not been submitted to CRAN.
 
-The author contact is: Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. mritchie at usda.gov
+The author contact is: Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. martin.ritchie at usda.gov
