@@ -57,7 +57,8 @@ Use metric units (logical), default= FALSE.
 
 }
 \value{
-Returns a data frame with tpa, qmd, ba, volume, and dominant stand height. Units are metric if use.metric=TRUE
+Returns a data frame with trees per unit area, quadratic mean diameter, basal area per unit area,
+volume per unit area, and dominant height. Units are metric if use.metric=TRUE
 (stems per hectare, centimeters, square meters per hectare, cubic meters per hectare, and meters respectively).
 Units are English if use.metric=FALSE (stems per acre, inches, square feet per acre, cubic feet per acre, and feet
 respectively).
@@ -72,7 +73,7 @@ respectively).
     Long, J.N. and J.D. Shaw. (2005) A density management diagram for even-aged
       ponderosa pine stands. West. J. Appl. For. 20(4):205-215.
 
-    Long, J.N. J.D. Shaw, J.D. (2012) A density management diagram for even-aged
+    Long, J.N. and J.D. Shaw. (2012) A density management diagram for even-aged
       Sierra Nevada mixed-conifer Stands. West. J. Appl. For. 27(4):187-195.
 
     McCarter, J.D. and J.N. Long (1986) A logdepole pine density management diagram.
@@ -86,10 +87,14 @@ Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Resea
   Email: \email{martin.ritchie@usda.gov}
 }
 \note{
-This function returns a dataframe that could represent observations for a stand prescription over time.
+This function returns a dataframe that represents multiple observations; these could be a single chronosequence.
     The observations could also be for sampled independent stands. The species for the observations
     should match the species identified by the value ineq. So if ineq=2 is chosen, then the volumes
-    returned will be from Long and Shaw (2005) for ponderosa pine.
+    returned will be from Long and Shaw (2005) for ponderosa pine. Currently biomass and crown cover percent
+    are produced only for ineq=3. Note that it is assumed that the units of tpa and qmd match the specification
+    of use.metric. If use.metric=TRUE then it is assumed qmd is cm and tpa=trees per ha.
+    If use.metric=FALSE, then qmd is inches and tpa=trees per acre. There is no provision for using
+    English units to derive metric output or vice-versa.
     Vectors passed in must match in length.
     See Examples below.
 }
@@ -98,7 +103,7 @@ This function returns a dataframe that could represent observations for a stand 
 # 1. This example generates a prescription and plots over Long and Shaw (2005)
 
 library(standview)
-DF<-dmd.volume(ineq=2,
+DF<-dmd.volume(ineq=3,
                qmd=c(2, 2.5, 14, 15.5, 19),
                tpa=c(300, 150, 140, 80, 80),
                use.metric=FALSE)
@@ -108,14 +113,14 @@ opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=2, use.metric=FALSE ) # call dmd.view.
 
-points(x=DF$tpa, y=DF$qmd, cex=0.75, pch=21, col="black")
-segments(300, 1, DF[1,]$tpa, DF[1,]$qmd, lwd=2)
+points(x=DF$tpa.ac, y=DF$qmd.in, cex=0.75, pch=21, col="black")
+segments(300, 1, DF[1,]$tpa.ac, DF[1,]$qmd.in, lwd=2)
 for(i in 1:4){
-  segments(DF$tpa[i], DF$qmd[i], DF$tpa[i+1], DF$qmd[i+1], lwd=2)
+  segments(DF$tpa.ac[i], DF$qmd.in[i], DF$tpa.ac[i+1], DF$qmd.in[i+1], lwd=2)
 }
 arrows(280, 19, 120, 14.8, length=0.10 )
 text(300, 22, "Commercial thin")
-text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "cu.ft./ac removed"))
+text(300, 20, paste(round(DF$volume.ft3ac[3]-DF$volume.ft3ac[4]), "cu.ft./ac removed"))
 
 par(opar)
 dev.off()
@@ -127,7 +132,7 @@ DF<-dmd.volume(ineq=3,
                qmd=mygama$qmd,
                tpa=mygama$tpa,
                use.metric=FALSE) # generate volume and dom. ht.
-# append values to the dataframe.
+# add values to the dataframe.
 mygama$volume <- DF$volume
 mygama$height <- DF$height
 

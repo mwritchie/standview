@@ -121,8 +121,17 @@ dmd.volume<-function(ineq  = 2,
     }
   }
 # done with error checking, build the data frame
-  stands<-as.data.frame(cbind(tpa,qmd,ba))
-
+  if(!use.metric){
+    tpa.ac   <- tpa
+    qmd.in   <- qmd
+    ba.ft2ac <- ba
+    stands<-as.data.frame( cbind(tpa.ac, qmd.in, ba.ft2ac) )
+  } else {
+    tpa.ha  <- tpa
+    qmd.cm  <- qmd
+    ba.m2ha <- ba
+    stands<-as.data.frame( cbind(tpa.ha, qmd.cm, ba.m2ha) )
+  }
 # set the temporary variables in English:
   if(!use.metric){ #then it is already English
     tpae <- tpa
@@ -135,8 +144,8 @@ dmd.volume<-function(ineq  = 2,
     bae  <- ba*4.356
     max.sdie<- max.sdi*0.404686
   }
-# calculate volumes
-  stands$volume <- switch(ineq,
+# calculate volumes in cubic feet per acre, change to metric if directed by use.metric
+  volume <- switch(ineq,
                           NA,
                           -152+0.017*tpae*qmde^2.8,
                           (tpae^0.9648)*(exp(-3.8220-1.3538/sqrt(tpae)))*(qmde^2.7863),
@@ -147,32 +156,68 @@ dmd.volume<-function(ineq  = 2,
                           NA,
                           (tpae/54.4)*((( qmde/(1-0.00759*tpae^0.446) )^(1/0.361))-5.14) )
 
-  stands$volume <- (stands$volume+abs(stands$volume))/2     #get rid of neg values
-  vole<-stands$volume
-  if(use.metric){
-    stands$volume <- stands$volume/14.2913
+  volume <- (volume+abs(volume))/2     #get rid of neg values
+  vole<-volume
+  if(!use.metric){
+    stands$volume.ft3ac <- volume
+  } else {
+    stands$volume.m3ha <- volume/14.2913
   }
-# calculate Dominant Height
+# calculate Dominant Height in feet, change to metric if directed by use.metric
 
-  stands$height <- switch(ineq,
-                          NA,                        #1. NULL
-                          NA,                        #2. L&S (2005)
-                          rzheight(tpa=tpae,
-                                   qmd=qmde),        #3. R&Z (2018)
-                          NA,                        #4. CE  (1988)
-                          NA,                        #5. PC  (1992)
-                          ls2012height(tpa=tpae,
-                                       qmd=qmde),    #6. L&S (2012)
-                          df1979height(tpa=tpae,
-                                       qmd=qmde,
-                                       dfvol=vole),  #7. D&F
-                          NA,                        #8. NULL
-                          McC1986height(tpa=tpae,
-                                        qmd=qmde))   #9. McC (1986)
+  height <- switch(ineq,
+                     NA,                        #1. NULL
+                     NA,                        #2. L&S (2005)
+                     rzheight(tpa=tpae,
+                              qmd=qmde),        #3. R&Z (2018)
+                     NA,                        #4. CE  (1988)
+                     NA,                        #5. PC  (1992)
+                     ls2012height(tpa=tpae,
+                                  qmd=qmde),    #6. L&S (2012)
+                     df1979height(tpa=tpae,
+                                  qmd=qmde,
+                                  dfvol=vole),  #7. D&F
+                     NA,                        #8. NULL
+                     McC1986height(tpa=tpae,
+                                   qmd=qmde))   #9. McC (1986)
 
-  if(use.metric){
-    stands$height<-stands$height*0.3048
+  if(!use.metric){
+    stands$height.ft <- height
+  } else {
+    stands$height.m  <- height*0.3048
   }
+# calculate Biomass in tons per acre, change to metric if directed by use.metric
+  biomass <- switch(ineq,
+                          NA,
+                          NA,
+                          tpae*exp(-7.2510)*(qmde^2.4550),
+                          NA,
+                          NA,
+                          NA,
+                          NA,
+                          NA,
+                          NA )
+  if(!use.metric){
+    stands$biomass.Tonsac <- biomass
+  } else {
+    stands$biomass.Mgha   <- biomass*2.2417
+  }
+
+  # calculate Crown Cover %
+  bae   <- (0.005454154*qmde*qmde*tpae)
+  sdie  <- tpae*(qmde/10)^1.605
+  ccpct <- switch(ineq,
+                           NA,
+                           NA,
+                           100*(tpae^-0.037)*(1-exp(-002*(tpae*(qmde/10)^1.605)-0.021*bae^(0.114*log(tpae)))),
+                           NA,
+                           NA,
+                           NA,
+                           NA,
+                           NA,
+                           NA )
+  stands$ccpct  <- ccpct
+
   return(stands)
 
 }
