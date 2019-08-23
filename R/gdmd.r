@@ -36,24 +36,24 @@ feet.to.m    <- 0.3048
 #olap.warn    <- 0
 
 # test for acceptable reineke term must be between 1.50 and 2.0
-if(!(reineke.term>=1.50 | reineke.term<=2.00)){
+if(!(reineke.term>=1.30 && reineke.term<=2.00)){
   message("Invalid argument reineke.term; must be between 1.50 and 2.00 diagram not rendered")
   return()
 }
 
-if((ineq==1 |ineq ==6) & is.na(max.sdi)){
+if((ineq==1 || ineq ==6) && is.na(max.sdi)){
   message("max.sdi must be specified for ineq=1 or ineq=6, diagram not rendered")
   return()
 }
 
 # test for acceptable site index must be between 70 and 110
 if(!use.metric){
-  if(!(bsi>=70 & bsi<=110)){
+  if(!(bsi>=70 && bsi<=110)){
     message("Invalid argument bsi; Barrett's SI must be between 70 and 110, diagram not rendered")
     return()
   }
 } else {
-  if(ineq==5 & !(bsi>=21 & bsi<=34 )){
+  if(ineq==5 && !(bsi>=21 && bsi<=34 )){
     message("Invalid argument bsi; Barrett's SI must be between 21 m and 110 m, diagram not rendered")
     return()
   }
@@ -64,14 +64,14 @@ if(!(length(mgt.zone)==2)){
   return()
 }
 if(!is.na(mgt.zone[1])){
-  if(mgt.zone[1]> 0.45 | mgt.zone[1] < 0.15){
+  if(mgt.zone[1]> 0.45 || mgt.zone[1] < 0.15){
     message("unnaceptable lower limit of management zone: mgt.zone[1]")
     return()
   }
 }
 
 if(!is.na(mgt.zone[2])){
-  if(mgt.zone[2]> 0.80 | mgt.zone[2] < 0.50){
+  if(mgt.zone[2]> 0.80 || mgt.zone[2] < 0.50){
     message("unnaceptable upper limit of management zone: mgt.zone[1]")
     return()
   }
@@ -99,7 +99,7 @@ if(is.na(mgt.zone[2])){
   }
 }
 # test for acceptable lmz direct input
-if(!is.na(lmz)&!is.na(umz)){
+if(!is.na(lmz) && !is.na(umz)){
   if(lmz > umz){
     message("Invalid argument lmz; must be less than umz")
     return()

@@ -97,6 +97,7 @@ Explicitly sets the upper and lower limits of the management zone by proportion 
 }
   \item{reineke.term}{
 This is the inverse of the slope of sdi lines in sdi space. Default=1.605, the value derived by Reineke (1933).
+    Limits are 1.3 and 2.0.
 }
   \item{bsi}{
 This is Barrett's site index (Barrett 1978) for use in the Cochran (1992) pine DMD (ineq=5). The default units

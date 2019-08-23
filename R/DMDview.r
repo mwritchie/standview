@@ -45,12 +45,12 @@ if(!is.character(dmd.title)){
 # test for acceptable site index must be between 70 and 110
 if(ineq==5){
   if(!use.metric){
-    if(!(bsi>=70 & bsi<=110)){
+    if(!(bsi>=70 && bsi<=110)){
       message("Invalid argument bsi; Barrett's SI must be between 70 and 110 feet")
       return()
     }
   } else{
-    if(!(bsi>=21 & bsi<=34)){
+    if(!(bsi>=21 && bsi<=34)){
       message("Invalid argument bsi; Barrett's SI must be between 21 and 34 m")
       return()
     }
@@ -63,18 +63,18 @@ if(ineq==5){
 #}
 
 #check values of max.sdi
-if(ineq==1|ineq==6){
+if(ineq==1 || ineq==6){
   if(is.na(max.sdi)){
     message("Error: User must specify max.sdi if ineq=1 or 6. DMD not rendered")
     return()
   }
   if(!use.metric){
-    if(!(max.sdi>200) | !(max.sdi<=1000)){
+    if(!((max.sdi>200) && (max.sdi<=1000))){
       message("Invalid sdi upper limit, DMD not rendered")
       return()
     }
   } else{
-    if(!(max.sdi>494) | !(max.sdi<=2470)){
+    if(!((max.sdi>494) && (max.sdi<=2470))){
       message("Invalid sdi upper limit, DMD not rendered")
       return()
     }
@@ -90,9 +90,9 @@ if(ineq==1){
   }
 }
 
-# test for acceptable reineke term must be between 1.50 and 2.0
-if(!(reineke.term>=1.50 | reineke.term<=2.00)){
-  message("Invalid argument reineke.term; must be between 1.50 and 2.00")
+# test for acceptable reineke term must be between 1.30 and 2.0
+if(!(reineke.term>=1.30 & reineke.term<=2.00)){
+  message("Invalid argument reineke.term; must be between 1.30 and 2.00")
   return()
 }
 
@@ -156,10 +156,10 @@ if(!use.metric){
 
 # max for x and y axis
 if(!use.metric){
-  max.x   <- switch(ineq, 1000,     1000,   1000,  1200,  1000,  1000,  1000,  2000, 2000 )
+  max.x   <- switch(ineq, 2000,     1000,   1000,  1200,  1000,  1000,  1000,  2000, 2000 )
   max.y   <- switch(ineq,   36,       36,    36,    30,    36,    36,     36,    36,   26 )
 } else {
-  max.x   <- switch(ineq, 2500,     2500,   2500,  3000,  2500,  2500,  2500,  5000, 5000 )
+  max.x   <- switch(ineq, 5000,     2500,   2500,  3000,  2500,  2500,  2500,  5000, 5000 )
   max.y   <- switch(ineq,   92,       92,     92,    92,    92,    92,    92,    92,   66 )
 }
 
@@ -204,8 +204,9 @@ xlim.adj<- switch(ineq,
 # tick marks on x axis
 if(!use.metric){  # for English Units
   x.at    <- switch(ineq,
-                    c(min.x, 50, 60, 70, 80, 90, 100, 120, 140, 170,
-                      200, 250, 300, 350, 400, 500, 600, 700, 800, 900, max.x),
+                    c(min.x, 60, 70, 80, 90, 100, 120, 140, 160, 180,
+                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
+                      seq(1000, 1900, 100), max.x),
                     c(min.x, 50, 60, 70, 80, 90, 100, 120, 140, 170,
                       200, 250, 300, 350, 400, 500, 600, 700, 800, 900, max.x),
                     c(min.x, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 170,
@@ -229,8 +230,10 @@ if(!use.metric){  # for English Units
                       seq(1000, 1900, 100), max.x))
 }else{  # for metric
   x.at    <- switch(ineq,
-                    c(min.x, 120, 150, 170, 200, 230, 260, 300, 350, 400,
-                      500, 600, 700, 850, 1000, 1250, 1500, 1750, 2000, 2250, max.x),
+                    c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
+                      900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
+                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200,
+                      4400, 4600, 4800, max.x),
                     c(min.x, 120, 150, 170, 200, 230, 260, 300, 350, 400,
                       500, 600, 700, 850, 1000, 1250, 1500, 1750, 2000, 2250, max.x),
                     c(min.x, 60, 80, 100, 125, 150, 170, 200, 230, 260, 300, 350, 400, 500,
@@ -258,7 +261,7 @@ if(!use.metric){  # for English Units
 # This is the list of annotations for x-axis (levels of tpa)
 if(!use.metric){
   xaxl    <- switch(ineq,
-                    x.at[c(seq(1,length(x.at)-2,2), length(x.at))],
+                    x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],
                     x.at[c(seq(1,length(x.at)-2,2), length(x.at))],
                     x.at[c(seq(1, 13,2), 16, 19, 22, length(x.at))],
                     x.at[c(1, seq(3,length(x.at)-4,2), length(x.at))],
@@ -269,7 +272,7 @@ if(!use.metric){
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 15, 18, 23, length(x.at))])
 } else{
   xaxl    <- switch(ineq,
-                    x.at[c(seq(1,length(x.at)-2,2), length(x.at))],
+                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],
                     x.at[c(seq(1,length(x.at)-2,2), length(x.at))],
                     x.at[c(seq(1, 13,2), 16, 19, 22, length(x.at))],
                     x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))],
@@ -403,7 +406,7 @@ ux.mz      <- switch(ineq, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.
 
 # these guide placement of the iso lines and annotation
 isod.adj<- switch(ineq,
-                  c(160, 300, 12, 0),
+                  c(160, 300, 12, 5),
                   c(360, 440, 12, 5),
                   c(210, 300, 12, 5),
                   c(330, 400, 12, 5),
@@ -492,12 +495,12 @@ usd     <- switch(ineq,
                   10 * round((0.55*max.sdi/10),0),
                   10 * round((0.55*max.sdi/10),0))
 
-if( lsd>=usd | is.na(lsd) | is.na(usd)){
+if( lsd>=usd || is.na(lsd) || is.na(usd)){
   message("Invalid management zone limits, figure failed to render")
   return()
 }
 
-if( !(reineke.term < 1.9 && reineke.term > 1.4)){
+if( !(reineke.term <= 2.0 && reineke.term >= 1.3)){
   message("Invalid Reineke slope. DMD failed to render")
   e.code<-3
   return(e.code)
@@ -676,8 +679,16 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
   if(insdi){
     for(jsd in 1:length(sdi.lines)){
       isd  <- ((sdi.lines[jsd]/tx)^(islp))*sdi.index
+
+      #find where line goes below the minimum
+      if(isd[length(tx)] <= min.y) {irng <- which(isd <= min.y)[1]} # if the sdiline goes below ymin stop here
+      else {irng <- length(tx)}    # default is draw the whole line
+      #
+
+      yyann <- isd[1] # just set this as the default, not really necessary
+
       if(isd[1] <= max.y*1.15){
-        graphics::lines(tx, isd,
+        graphics::lines(tx[1:irng], isd[1:irng],
                         type="l", col=sdicol, lwd=sdilw)
         xxann<-0.66*min.x
         yyann<-isd[1]
@@ -699,7 +710,8 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
         xxann<-0.90*tx[isod.adj[4]]
         yyann<-1.00*isd[isod.adj[4]]
       }
-      if(insdl & yyann<=max.y*1.2){
+
+      if( (insdl) && (yyann <= (max.y*1.15))){
         graphics::text(xxann,
                        yyann,
                        paste(sdi.lines[jsd]),

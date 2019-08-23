@@ -25,7 +25,7 @@ If you already have devtools, you can install standview from github with:
 # library(devtools)
 devtools::install_github("mwritchie/standview")
 ```
-If the devtools package is not present has not already been installed, then the install.packages("devtools") and the library(devtools) call, which are both shown as comments above, are necessary for installation of standview.
+If the devtools package has not already been installed, then the install.packages("devtools") and the library(devtools) call, which are both shown as comments above, are necessary for installation of standview.
 
 ## Example
 

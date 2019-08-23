@@ -1,3 +1,4 @@
+# This file handles calculation of volume, biomass, crown cover, and height
 #
 # the way I handled use.metric in here is as follows:
 # I assume that the input is metric if use.metric=TRUE
@@ -7,9 +8,54 @@
 # in metric units.       mwr    March 21 2018.
 #
 
+# coefficients for Ritchie and Zhang pp functions
+# These came from the fits done by Woong Song Jang August 22, 2019
+# They were fit using fixed effects after mixed-effects models were found inferior on independent data
+
+
+#				a0			a			b			c
+#rz.beta.vol <-c( 1.035384, -4.741209,  3.060285, -2.319617 )
+
+#					a0          a          b          c
+#rz.beta.bio <-c(0.9936280, -7.2543293,  2.4742879, -0.2006977)
+
+#	              	 b             c             d
+#rz.beta.cc <-c(-0.0002236136,  1.2746535623,  0.9308677542)
+
+#				              	a0           a1            b0            b1             c
+#rz.cov.ht<-matrix(c(6050.3474793, 198.04600749,  4.807445e-01, -2.726396e-01, -5.6827222828,
+#                    198.0460075,   17.14930305,  2.220025e-02, -3.010459e-02, -0.1812731844,
+#                    0.4807445,      0.02220025,  4.312286e-05, -3.739720e-05, -0.0004778776,
+#                   -0.2726396,     -0.03010459, -3.739720e-05,  6.419454e-05,  0.0003236961,
+#                   -5.6827223,     -0.18127318, -4.778776e-04,  3.236961e-04,  0.0062340926), nrow=5, byrow=TRUE)
+
+
+#						               a0            a             b           c
+#rz.cov.vol <-matrix(c( 0.0010595783, -0.007960152,  0.0005359328,  0.01472568,
+#                      -0.0079601516,  0.061858773, -0.0049967689, -0.10403963,
+#                       0.0005359328, -0.004996769,  0.0007618920,  0.00354421,
+#                       0.0147256780, -0.104039627,  0.0035442099,  0.24614517), nrow=4, byrow=TRUE)
+
+#		                 				a0             a             b             c
+#rz.cov.bio <-matrix(c(  2.861185e-05, -0.0002138692,  1.237792e-05,  4.393887e-04,
+#                       -2.138692e-04,  0.0016656694, -1.246945e-04, -3.066672e-03,
+#                        1.237792e-05, -0.0001246945,  2.189819e-05,  5.837887e-05,
+#                        4.393887e-04, -0.0030666722,  5.837887e-05,  8.179116e-03), nrow=4, byrow=TRUE)
+
+
+#			               b            c            d
+#rz.cov.cc <-matrix(c( 3.512070e-10, 3.006206e-07, 1.632807e-07,
+#                      3.006206e-07, 2.810850e-04, 1.285552e-04,
+#                      1.632807e-07, 1.285552e-04, 8.169589e-05), nrow=3, byrow=TRUE)
+
+
+####################################################################################################
 rzheight<-function(tpa, qmd){ # Ritchie and Zhang height function
-  hp <- c(  276.49514, -124.88647, -0.0335065, 0.0452437,  1.1606388 )      #height parms for R&Z
-  height <- 4.5+(hp[1]+hp[2]/sqrt(tpa))*(1-exp(qmd*(hp[3]+hp[4]/sqrt(tpa))))^hp[5]
+  rz.beta.ht <-c(314.29288264,  17.46283433,  -0.02719311,   0.02898155,  1.50607209) # from Woong Song Jang
+  hp <- rz.beta.ht      #height parms for R&Z i know this is redundant but it makes fn easier to read
+
+  height <- 4.5 + (hp[1]+hp[2]*sqrt(tpa))*(1-exp(qmd*(hp[3]+hp[4]/sqrt(tpa))))^hp[5]
+
   return(height)
 }
 
