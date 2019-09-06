@@ -20,7 +20,7 @@ dmd.volume(ineq  = 2,
 }
 \arguments{
   \item{ineq}{
-Selects volume and dominant height equations. This must be an integer value  2, 3, 6, 7, or 9.
+Selects supplimental equations. This must be an integer value  2, 3, 6, 7, or 9.
 
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
 
@@ -57,9 +57,12 @@ Use metric units (logical), default= FALSE.
 
 }
 \value{
-Returns a data frame with trees per unit area, quadratic mean diameter, basal area per unit area,
-volume per unit area, and dominant height. Units are metric if use.metric=TRUE
-(stems per hectare, centimeters, square meters per hectare, cubic meters per hectare, and meters respectively).
+Returns a data frame with trees per unit area, quadratic mean diameter, basal area per unit area. Additionally
+the data may contain volume, volume standar error, height, height standar error, biomass, biomass standard error
+crown closure percent and crown closure percent standard error, if functions are available for these metrics.
+These supplimental metrics are not available for all values of ineq. If unavailable the output is NA (missing).
+Units are metric if use.metric=TRUE. The metric units are:
+stems per hectare, centimeters, square meters per hectare, cubic meters per hectare, and meters respectively).
 Units are English if use.metric=FALSE (stems per acre, inches, square feet per acre, cubic feet per acre, and feet
 respectively).
 }
@@ -103,7 +106,7 @@ This function returns a dataframe that represents multiple observations; these c
 # 1. This example generates a prescription and plots over Long and Shaw (2005)
 
 library(standview)
-DF<-dmd.volume(ineq=3,
+DF<-dmd.volume(ineq=2,
                qmd=c(2, 2.5, 14, 15.5, 19),
                tpa=c(300, 150, 140, 80, 80),
                use.metric=FALSE)

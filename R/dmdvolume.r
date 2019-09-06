@@ -8,27 +8,11 @@
 # in metric units.       mwr    March 21 2018.
 #
 
-# coefficients for Ritchie and Zhang pp functions
-# These came from the fits done by Woong Song Jang August 22, 2019
-# They were fit using fixed effects after mixed-effects models were found inferior on independent data
-
-
-#				a0			a			b			c
-#rz.beta.vol <-c( 1.035384, -4.741209,  3.060285, -2.319617 )
-
-#					a0          a          b          c
+        #					a0          a          b          c
 #rz.beta.bio <-c(0.9936280, -7.2543293,  2.4742879, -0.2006977)
 
 #	              	 b             c             d
 #rz.beta.cc <-c(-0.0002236136,  1.2746535623,  0.9308677542)
-
-#				              	a0           a1            b0            b1             c
-#rz.cov.ht<-matrix(c(6050.3474793, 198.04600749,  4.807445e-01, -2.726396e-01, -5.6827222828,
-#                    198.0460075,   17.14930305,  2.220025e-02, -3.010459e-02, -0.1812731844,
-#                    0.4807445,      0.02220025,  4.312286e-05, -3.739720e-05, -0.0004778776,
-#                   -0.2726396,     -0.03010459, -3.739720e-05,  6.419454e-05,  0.0003236961,
-#                   -5.6827223,     -0.18127318, -4.778776e-04,  3.236961e-04,  0.0062340926), nrow=5, byrow=TRUE)
-
 
 #						               a0            a             b           c
 #rz.cov.vol <-matrix(c( 0.0010595783, -0.007960152,  0.0005359328,  0.01472568,
@@ -88,6 +72,110 @@ dmd.volume<-function(ineq  = 2,
                      ba=NULL,
                      use.metric=FALSE){
 
+  # coefficients for Ritchie and Zhang pp functions (ineq=3)
+  # These came from the fits done by Woong Song Jang August 22, 2019
+  # They were fit using fixed effects after mixed-effects models were found inferior on independent data
+# height
+  beta.ht03 <-c(314.29288264,  17.46283433,  -0.02719311,   0.02898155,  1.50607209)
+
+  #					a0           a1            b0            b1             c
+  cov.ht03 <- matrix(c(6050.3474793, 198.04600749,  4.807445e-01, -2.726396e-01, -5.6827222828,
+                       198.0460075,   17.14930305,  2.220025e-02, -3.010459e-02, -0.1812731844,
+                       0.4807445,    0.02220025,  4.312286e-05, -3.739720e-05, -0.0004778776,
+                       -0.2726396,   -0.03010459, -3.739720e-05,  6.419454e-05,  0.0003236961,
+                       -5.6827223,   -0.18127318, -4.778776e-04,  3.236961e-04,  0.0062340926), nrow=5, byrow=TRUE)
+
+  ht.deriv03 <- deriv(mh40 ~ 4.5 + ( a0 + a1*sqrt(tpa)  ) * (1-exp((b0 + b1/sqrt(tpa))*qmd))^c,
+                      c("a0","a1", "b0", "b1", "c"), function(a0, a1, b0, b1, c, stpa, qmd){} )
+
+  ht.se_d03<-function(tpa, qmd){
+    f.new <- ht.deriv03(beta.ht03[1],beta.ht03[2],beta.ht03[3],beta.ht03[4],beta.ht03[5], tpa, qmd)
+    g.new <- attr(f.new,"gradient")
+    GS=rowSums((g.new%*%cov.ht03)*g.new)
+    GS[GS<=0]<-NA # this converts any negative values to NA so the sqrt does not barf
+    sqrt(GS)
+  }
+
+  ht.fun03 <- function(tpa,qmd) {
+    4.5 + ( beta.ht03[1] + beta.ht03[2]*sqrt(tpa)  ) * (1-exp((beta.ht03[3] + beta.ht03[4]/sqrt(tpa))*qmd))^beta.ht03[5]
+  }
+
+# volume
+#				                     a0			        a			         b 			     c
+  beta.vol03 <-        c( 1.035384,    -4.741209,     3.060285,     -2.319617 )
+
+
+  cov.vol03 <- matrix(c( 0.0010595783, -0.007960152,  0.0005359328,  0.01472568,
+                        -0.0079601516,  0.061858773, -0.0049967689, -0.10403963,
+                         0.0005359328, -0.004996769,  0.0007618920,  0.00354421,
+                         0.0147256780, -0.104039627,  0.0035442099,  0.24614517), nrow=4, byrow=TRUE)
+
+  vol.deriv03 <- deriv(mvol ~ (tpa^a0)* exp( ( a  ) +  b * log(qmd) + c/sqrt(tpa) ),
+                       c("a0", "a", "b", "c"), function(a0, a, b, c, stpa, qmd){} )
+
+  vol.se_d03<-function(tpa, qmd){
+    f.new <- vol.deriv03(beta.vol03[1],beta.vol03[2],beta.vol03[3],beta.vol03[4], tpa, qmd)
+    g.new <- attr(f.new,"gradient")
+    GS=rowSums((g.new%*%cov.vol03)*g.new)
+    GS[GS<=0]<-NA # this converts any negative values to NA so the sqrt does not barf
+    sqrt(GS)
+  }
+
+  vol.fun03 <- function(tpa, qmd){
+    (tpa^beta.vol03[1])* exp( ( beta.vol03[2]  ) +  beta.vol03[3] * log(qmd) + beta.vol03[4]/sqrt(tpa) )
+  }
+
+# biomass
+#            					          a0          a            b                c
+  beta.bio03  <-        c(  0.9936280,   -7.2543293,    2.4742879,    -0.2006977)
+
+
+    cov.bio03 <- matrix(c(2.861185e-05, -2.138692e-04,  1.237792e-05,  4.393887e-04,
+                         -2.138692e-04,  0.0016656694, -1.246945e-04, -3.066672e-03,
+                          1.237792e-05, -0.0001246945,  2.189819e-05,  5.837887e-05,
+                          4.393887e-04, -3.066672e-03,  5.837887e-05,  8.179116e-03), nrow=4, byrow=TRUE)
+
+  bio.deriv03 <- deriv(bio ~ (tpa^a0)* exp( ( a ) +  b * log(qmd) + c/sqrt(tpa)  ),
+                         c("a0", "a", "b", "c"), function(a0, a, b, c, stpa, qmd){} )
+
+  bio.se_d03<-function(tpa, qmd){
+    f.new <- bio.deriv03(beta.bio03[1],beta.bio03[2],beta.bio03[3],beta.bio03[4], tpa, qmd)
+    g.new <- attr(f.new,"gradient")
+    GS=rowSums((g.new%*%cov.bio03)*g.new)
+    GS[GS<=0]<-NA # this converts any negative values to NA so the sqrt does not barf
+    sqrt(GS)
+  }
+
+  bio.fun03 <- function(tpa, qmd){
+       (tpa^beta.bio03[1])* exp( ( beta.bio03[2] ) +  beta.bio03[3] * log(qmd) + beta.bio03[4]/sqrt(tpa) )
+  }
+
+# crown cover
+#	              	 b             c             d
+  beta.cc03 <-c(-0.0002236136,  1.2746535623,  0.9308677542)
+
+#    			               b            c            d
+cov.cc03 <-matrix(c( 3.512070e-10, 3.006206e-07, 1.632807e-07,
+                     3.006206e-07, 2.810850e-04, 1.285552e-04,
+                     1.632807e-07, 1.285552e-04, 8.169589e-05), nrow=3, byrow=TRUE)
+
+cc.deriv03 <- deriv(cc ~ 100 *(1 - exp(b*(qmd^c)*(tpa^d))),
+                  c("b","c","d"), function(b, c, d, tpa, qmd){} )
+
+cc.se_d03<-function(tpa, qmd){
+  f.new <- cc.deriv03(beta.cc03[1],beta.cc03[2],beta.cc03[3], tpa, qmd)
+  g.new <- attr(f.new,"gradient")
+  GS=rowSums((g.new%*%cov.cc03)*g.new)
+  GS[GS<=0]<-NA # this converts any negative values to NA so the sqrt does not barf
+  sqrt(GS)
+}
+
+
+  cc.fun03 <- function(tpa, qmd){
+    100 *(1 - exp(beta.cc03[1]*(qmd^beta.cc03[2])*(tpa^beta.cc03[3])))
+  }
+
+# Drew and Flewelling volume
   dfvol<-function(tpa, qmd, max.sdi){ # Drew and Flewelling (1979) volume equation
     dfrd <- tpa*((qmd/10)^1.6)/max.sdi
     vol<- (1/68.682)*(6.8084+(qmd*(1-0.32375*dfrd^0.44709)^-1)^(1/0.36716))
@@ -194,7 +282,7 @@ dmd.volume<-function(ineq  = 2,
   volume <- switch(ineq,
                           NA,
                           -152+0.017*tpae*qmde^2.8,
-                          (tpae^0.9648)*(exp(-3.8220-1.3538/sqrt(tpae)))*(qmde^2.7863),
+                          vol.fun03(tpa=tpae, qmd=qmde),
                           NA,
                           NA,
                           0.007*(tpae^1.146)*(qmde^2.808),
@@ -209,13 +297,31 @@ dmd.volume<-function(ineq  = 2,
   } else {
     stands$volume.m3ha <- volume/14.2913
   }
+
+  # calculate vol s.e. and change to metric if directed by use.metric
+  vol.se <- switch(ineq,
+                      NA,                           #1. NULL
+                      NA,                           #2. L&S (2005)
+                      vol.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                      NA,                           #4. CE  (1988)
+                      NA,                           #5. PC  (1992)
+                      NA,                           #6. L&S (2012)
+                      NA,                           #7. D&F
+                      NA,                           #8. ZWF
+                      NA)                           #9. McC (1986)
+
+  if(!use.metric){
+    stands$vol.se.ft3ac <- vol.se
+  } else {
+    stands$vol.se.m3ha  <- vol.se/14.2913
+  }
+
 # calculate Dominant Height in feet, change to metric if directed by use.metric
 
   height <- switch(ineq,
-                     NA,                        #1. NULL
-                     NA,                        #2. L&S (2005)
-                     rzheight(tpa=tpae,
-                              qmd=qmde),        #3. R&Z (2018)
+                     NA,                          #1. NULL
+                     NA,                          #2. L&S (2005)
+                     ht.fun03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
                      NA,                        #4. CE  (1988)
                      NA,                        #5. PC  (1992)
                      ls2012height(tpa=tpae,
@@ -223,7 +329,7 @@ dmd.volume<-function(ineq  = 2,
                      df1979height(tpa=tpae,
                                   qmd=qmde,
                                   dfvol=vole),  #7. D&F
-                     NA,                        #8. NULL
+                     NA,                        #8. ZWF
                      McC1986height(tpa=tpae,
                                    qmd=qmde))   #9. McC (1986)
 
@@ -232,11 +338,30 @@ dmd.volume<-function(ineq  = 2,
   } else {
     stands$height.m  <- height*0.3048
   }
+# calculate dom height s.e. and change to metric if directed by use.metric
+  height.se <- switch(ineq,
+                      NA,                           #1. NULL
+                      NA,                           #2. L&S (2005)
+                      ht.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                      NA,                           #4. CE  (1988)
+                      NA,                           #5. PC  (1992)
+                      NA,                           #6. L&S (2012)
+                      NA,                           #7. D&F
+                      NA,                           #8. ZWF
+                      NA)                           #9. McC (1986)
+
+  if(!use.metric){
+    stands$height.se.ft <- height.se
+  } else {
+    stands$height.se.m  <- height.se*0.3048
+  }
+
+
 # calculate Biomass in tons per acre, change to metric if directed by use.metric
   biomass <- switch(ineq,
                           NA,
                           NA,
-                          tpae*exp(-7.2510)*(qmde^2.4550),
+                          bio.fun03(tpa=tpae, qmd=qmde),
                           NA,
                           NA,
                           NA,
@@ -249,13 +374,33 @@ dmd.volume<-function(ineq  = 2,
     stands$biomass.Mgha   <- biomass*2.2417
   }
 
+# calculate biomass s.e. and change to metric if directed by use.metric
+
+  biomass.se <- switch(ineq,
+                      NA,                           #1. NULL
+                      NA,                           #2. L&S (2005)
+                      bio.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                      NA,                           #4. CE  (1988)
+                      NA,                           #5. PC  (1992)
+                      NA,                           #6. L&S (2012)
+                      NA,                           #7. D&F
+                      NA,                           #8. ZWF
+                      NA)                           #9. McC (1986)
+
+  if(!use.metric){
+    stands$biomass.se.Tonsac <- biomass.se
+  } else {
+    stands$biomass.se.Mgha   <- biomass.se*2.2417
+  }
+
+
   # calculate Crown Cover %
   bae   <- (0.005454154*qmde*qmde*tpae)
   sdie  <- tpae*(qmde/10)^1.605
   ccpct <- switch(ineq,
                            NA,
                            NA,
-                           100*(tpae^-0.037)*(1-exp(-002*(tpae*(qmde/10)^1.605)-0.021*bae^(0.114*log(tpae)))),
+                           cc.fun03(tpa=tpae, qmd=qmde),
                            NA,
                            NA,
                            NA,
@@ -263,6 +408,20 @@ dmd.volume<-function(ineq  = 2,
                            NA,
                            NA )
   stands$ccpct  <- ccpct
+
+    cc.se <- switch(ineq,
+                       NA,                           #1. NULL
+                       NA,                           #2. L&S (2005)
+                       cc.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                       NA,                           #4. CE  (1988)
+                       NA,                           #5. PC  (1992)
+                       NA,                           #6. L&S (2012)
+                       NA,                           #7. D&F
+                       NA,                           #8. ZWF
+                       NA)                           #9. McC (1986)
+
+    stands$ccpct.se  <- cc.se
+
 
   return(stands)
 
