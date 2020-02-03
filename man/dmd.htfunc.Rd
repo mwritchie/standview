@@ -1,6 +1,6 @@
 \name{dmd.htfunc}
 \alias{dmd.htfunc}
-\alias{rzheight}
+\alias{jrzheight}
 \alias{ls2012height}
 \alias{McC1986height}
 \title{
@@ -13,7 +13,7 @@ This suite of functions estimates height for forest stands as a function
   directly.
 }
 \usage{
-rzheight(tpa, qmd)
+jrzheight(tpa, qmd)
 ls2012height(tpa, qmd)
 McC1986height(tpa, qmd)
 
@@ -29,7 +29,7 @@ Stand quadratic mean diameter (inches).
 
 }
 \value{
-Returns dominant height (feet) for Ritchie and Zhang, Long and Shaw (2012), or McCarter and Long (1986).
+Returns dominant height (feet) for Jang et al. (2020), Long and Shaw (2012), or McCarter and Long (1986).
 }
 \references{
     Long, J.N. and Shaw, J.D. (2005) A density management diagram for even-aged ponderosa pine stands.
@@ -46,7 +46,7 @@ Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Resea
 }
 \examples{
 
-rzheight(200, 10.2)
+jrzheight(200, 10.2)
 ls2012height(200, 10.2)
 McC1986height(200,10.2)
 }

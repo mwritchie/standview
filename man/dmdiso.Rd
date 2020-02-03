@@ -24,7 +24,7 @@ dmd.iso(ineq           = 2,
   \item{ineq}{
   Selects volume and dominant height equations. This must be an integer value: 2, 3, 6, 7, or 9.
     Value 2 is for Long and Shaw (2005) Ponderosa pine equations.
-    Value 3 is for Ritchie and Zhang (unpublished) Ponderosa pine equations.
+    Value 3 is for Jang et al. (In Press) Ponderosa pine equations.
     Value 6 is for Long and Shaw (2012) California mixed-conifer.
     Value 7 is for Drew and Flewelling (1979) Douglas-fir.
     Value 9 is for McCarter and Long (1986) lodgepole pine.

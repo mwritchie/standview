@@ -39,7 +39,7 @@ Selects the values from a published DMD source (ineq=1-9) or a generic
 
     Value is 2 for Long and Shaw (2005) ponderosa pine equations,
 
-    Value of 3 for Ritchie and Zhang (unpublished) ponderosa pine equations.
+    Value of 3 for Jang et al. (in press) ponderosa pine equations.
 
     Value of 4 for Edminster (1988) ponderosa pine.
 
@@ -135,6 +135,9 @@ Returns no value.
     Cochran, P.H. and J.W. Barrett (1992) Stocking levels and underlying assumptions for
     uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest
     For. and Range Exp. Stn. 10p.
+
+    Jang, W.S., M.W. Ritchie, and J. Zhang (2020) Improved equations for the density management
+    diagram isolines of ponderosa pine stands. In Press.
 
     Long, J.N., J.B. McCarter, and S.B. Jack (1988) A modified density management
     diagram for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.

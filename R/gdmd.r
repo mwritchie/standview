@@ -114,7 +114,7 @@ if(dmd.title==" "){
   main.t <- switch(ineq,
                   dmd.title,                                     #1
                   "Ponderosa Pine Long and Shaw (2005)",         #2
-                  "Ponderosa Pine Ritchie and Zhang (Unpublished)",     #3
+                  "Ponderosa Pine Jang et al. (In Press)",       #3
                   "Ponderosa Pine Edminster (1988)",             #4
                   "Ponderosa Pine (Cochran 1992)",               #5
                   "Mixed-Conifer (Long and Shaw 2012)",          #6

@@ -36,7 +36,7 @@ Selects limiting SDI and other parameters. This must be an integer value from 1 
 
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
 
-    Value of 3 for Ritchie and Zhang (unpublished) Ponderosa pine equations.
+    Value of 3 for Jang et al. (2020) Ponderosa pine equations.
 
     Value of 4 for Edminster (1988) Ponderosa pine.
 
@@ -129,10 +129,13 @@ Returns no value.
 
     Cochran, P.H. (1992) Stocking Levels and Underlying Assumptions for Uneven-Aged
       Ponderosa Pine Stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest For.
-      and Range Exp. Stn. 10p
+      and Range Exp. Stn. 10p.
 
     Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
       hardwood forests in the central states. For. Sci. 13(1):38-53.
+
+    Jang, W.S., M.W. Ritchie, and J. Zhang (2020) Improved equations for the density management
+    diagram isolines of ponderosa pine stands. In Press.
 
     Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa
       pine stands. West. J. Appl. For. 20(4):205-215.

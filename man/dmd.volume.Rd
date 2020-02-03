@@ -24,7 +24,7 @@ Selects supplimental equations. This must be an integer value  2, 3, 6, 7, or 9.
 
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
 
-    Value of 3 for Ritchie and Zhang (unpublished) Ponderosa pine equations.
+    Value of 3 for Jang et al. (In Press) Ponderosa pine equations.
 
     Value of 6 for Long and Shaw (2012) California mixed-conifer
 
@@ -32,7 +32,7 @@ Selects supplimental equations. This must be an integer value  2, 3, 6, 7, or 9.
 
     Value of 9 for McCarter and Long (1986).
 
-    Default=1.
+    Default=3.
 }
   \item{max.sdi}{
 Input of limiting stand density index (units are trees per acre for use.metric=FALSE or
@@ -64,7 +64,9 @@ These supplimental metrics are not available for all values of ineq. If unavaila
 Units are metric if use.metric=TRUE. The metric units are:
 stems per hectare, centimeters, square meters per hectare, cubic meters per hectare, and meters respectively).
 Units are English if use.metric=FALSE (stems per acre, inches, square feet per acre, cubic feet per acre, and feet
-respectively).
+respectively). Note that standard error estimates are only available for ineq=3; other published equation sets do
+not include sufficient information for this. The standard error of estimates from ineq=3 is calculated by means of
+the delta method (manuscript in preparation).
 }
 \references{
     Drew, T.J. and J.W. Flewelling (1979). Stand density management: an alternative

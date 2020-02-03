@@ -66,9 +66,10 @@ vf2<-function(vvv, ttt){
     ivv <- (( 0.017*ttt )/( vvv  + 152 ))^(-1/2.8)
     return(ivv)
 }
-# for ineq=3
+# for ineq=3 Jang et al. (2020)
 vf3<-function(vvv, ttt){
-  ivv <- ( vvv*(ttt^(-.9648))*exp(3.8220+1.3538/sqrt(ttt)) )^(1/2.7863)
+#  ivv <- ( vvv*(ttt^(-.9648))*exp(3.8220+1.3538/sqrt(ttt)) )^(1/2.7863)
+  ivv <- exp( log( vvv* ttt^(-1.0353))/3.0602  + 4.7412/3.0602 + (2.3196/sqrt(ttt))/3.0602)
   return(ivv)
 }
 

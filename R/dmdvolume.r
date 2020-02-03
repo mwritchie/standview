@@ -34,7 +34,7 @@
 
 
 ####################################################################################################
-rzheight<-function(tpa, qmd){ # Ritchie and Zhang height function
+jrzheight<-function(tpa, qmd){ # Jang Ritchie and Zhang height function
   rz.beta.ht <-c(314.29288264,  17.46283433,  -0.02719311,   0.02898155,  1.50607209) # from Woong Song Jang
   hp <- rz.beta.ht      #height parms for R&Z i know this is redundant but it makes fn easier to read
 
@@ -321,7 +321,7 @@ cc.se_d03<-function(tpa, qmd){
   height <- switch(ineq,
                      NA,                          #1. NULL
                      NA,                          #2. L&S (2005)
-                     ht.fun03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                     ht.fun03(tpa=tpae, qmd=qmde), #3. JR&Z (2020)
                      NA,                        #4. CE  (1988)
                      NA,                        #5. PC  (1992)
                      ls2012height(tpa=tpae,
@@ -342,7 +342,7 @@ cc.se_d03<-function(tpa, qmd){
   height.se <- switch(ineq,
                       NA,                           #1. NULL
                       NA,                           #2. L&S (2005)
-                      ht.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                      ht.se_d03(tpa=tpae, qmd=qmde), #3. JR&Z (2020)
                       NA,                           #4. CE  (1988)
                       NA,                           #5. PC  (1992)
                       NA,                           #6. L&S (2012)
@@ -379,7 +379,7 @@ cc.se_d03<-function(tpa, qmd){
   biomass.se <- switch(ineq,
                       NA,                           #1. NULL
                       NA,                           #2. L&S (2005)
-                      bio.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                      bio.se_d03(tpa=tpae, qmd=qmde), #3. JR&Z (2020)
                       NA,                           #4. CE  (1988)
                       NA,                           #5. PC  (1992)
                       NA,                           #6. L&S (2012)
@@ -412,7 +412,7 @@ cc.se_d03<-function(tpa, qmd){
     cc.se <- switch(ineq,
                        NA,                           #1. NULL
                        NA,                           #2. L&S (2005)
-                       cc.se_d03(tpa=tpae, qmd=qmde), #3. R&Z (2018)
+                       cc.se_d03(tpa=tpae, qmd=qmde), #3. JR&Z (2018)
                        NA,                           #4. CE  (1988)
                        NA,                           #5. PC  (1992)
                        NA,                           #6. L&S (2012)

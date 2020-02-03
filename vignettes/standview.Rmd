@@ -50,7 +50,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |:-------:|:---------|:----------------------|
 |    1    | User Defined              | None                         |
 |    2    | ponderosa pine            | Long and Shaw (2005)         |
-|    3    | ponderosa pine            | Ritchie and Zhang (In Press) |
+|    3    | ponderosa pine            | Jang et al. (In Press) |
 |    4    | ponderosa pine            | Edminster (1988)             |
 |    5    | ponderosa pine            | Cochran and Barrett (1992)   |
 |    6    | California mixed-conifer  | Long and Shaw (2012)         |
