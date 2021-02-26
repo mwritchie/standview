@@ -24,7 +24,7 @@ dmd.iso(ineq           = 2,
   \item{ineq}{
   Selects volume and dominant height equations. This must be an integer value: 2, 3, 6, 7, or 9.
     Value 2 is for Long and Shaw (2005) Ponderosa pine equations.
-    Value 3 is for Jang et al. (In Press) Ponderosa pine equations.
+    Value 3 is for Jang et al. (2021) Ponderosa pine equations.
     Value 6 is for Long and Shaw (2012) California mixed-conifer.
     Value 7 is for Drew and Flewelling (1979) Douglas-fir.
     Value 9 is for McCarter and Long (1986) lodgepole pine.
@@ -74,6 +74,9 @@ Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre),
     Drew, T.J. and J.W. Flewelling (1979). Stand density management: an alternative
       approach and its application to Douglas-fir plantations. For. Sci. 25(3):518-532.
 
+    Jang, W.S., M.W. Ritchie and J. Zhang (2021) Improved equations for the density management
+      diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102
+
     Long, J.N., J.B. McCarter, and S.B. Jack. (1988) A modified density management
       diagram for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.
 
@@ -84,7 +87,7 @@ Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre),
       even-aged Sierra Nevada mixed-conifer Stands. West. J. Appl. For. 27(4):187-195.
 
     McCarter, J.D. and J.N. Long (1986) A logdepole pine density management diagram.
-      West. J. Appl. For 1:6-11.
+      West. J. Appl. For 1(1):6-11.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged
       forests. J. Ag. Res. 46:627-638.

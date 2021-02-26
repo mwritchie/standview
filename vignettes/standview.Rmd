@@ -50,7 +50,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |:-------:|:---------|:----------------------|
 |    1    | User Defined              | None                         |
 |    2    | ponderosa pine            | Long and Shaw (2005)         |
-|    3    | ponderosa pine            | Jang et al. (In Press) |
+|    3    | ponderosa pine            | Jang et al. (2021) |
 |    4    | ponderosa pine            | Edminster (1988)             |
 |    5    | ponderosa pine            | Cochran and Barrett (1992)   |
 |    6    | California mixed-conifer  | Long and Shaw (2012)         |
@@ -144,6 +144,9 @@ Cochran, P.H., and J.W. Barrett (1992) Stocking levels and underlying assumption
   for uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. 
   Northwest For. and Range Exp. Stn. 10p.
 
+Jang, W.S., M.W. Ritchie, and J. Zhang (2021) Improved equations for the density management
+  diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102.
+
 Long, J.N., and T.W. Daniel (1990) Assessment of growing stock in uneven-aged stands. 
   West. J. Appl. For. 5:93-96
 
@@ -166,9 +169,6 @@ Ritchie, M.W. (2005) Ecological research at the Goosenest Adaptive Management Ar
   in northeastern California. Gen. Tech. Rep. PSW-GTR-192. USDA For. Serv. Pac. SW Res.
   Stn. 120 p.
   
-Ritchie, M.W., and J. Zhang (In Press) Density management diagrams for ponderosa pine and 
-  white fir.
-
 Zeide, B. (1983). The mean diameter for stand density index. Can. J. For. Res. 13:1023-1024.
 
 Zhang, J., W.W. Oliver, and M.W. Ritchie (2007) Effect of stand densities on stand dynamics 

@@ -36,7 +36,7 @@ Selects limiting SDI and other parameters. This must be an integer value from 1 
 
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
 
-    Value of 3 for Jang et al. (2020) Ponderosa pine equations.
+    Value of 3 for Jang et al. (2021) Ponderosa pine equations.
 
     Value of 4 for Edminster (1988) Ponderosa pine.
 
@@ -134,11 +134,14 @@ Returns no value.
     Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
       hardwood forests in the central states. For. Sci. 13(1):38-53.
 
-    Jang, W.S., M.W. Ritchie, and J. Zhang (2020) Improved equations for the density management
-    diagram isolines of ponderosa pine stands. In Press.
+    Jang, W.S., M.W. Ritchie, and J. Zhang (2021) Improved equations for the density management
+    diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102.
 
     Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa
       pine stands. West. J. Appl. For. 20(4):205-215.
+
+    McCarter, J.B. and J.N. Long (1986) A lodgepole pine density management diagram.
+    West. J. Appl. For. 1(1)6-11.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
       J. Ag. Res. 46:627-638.
@@ -154,6 +157,9 @@ It is important to note that the gdmd.view function is designed to render a 8x6 
     pdf("myfile.pdf", width=8, height=6) prior to invoking the gdmd.view function. When the figure
     is completely rendered, then one must close the device with dev.off().
     See Examples below for how this can be done.
+Also, some default values will depend on the ineq value selected. Defaults shown here are for ineq=1
+    and may change according to selection of ineq to match published data.
+
 }
 
 \examples{

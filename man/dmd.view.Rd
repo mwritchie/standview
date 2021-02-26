@@ -136,8 +136,8 @@ Returns no value.
     uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. Northwest
     For. and Range Exp. Stn. 10p.
 
-    Jang, W.S., M.W. Ritchie, and J. Zhang (2020) Improved equations for the density management
-    diagram isolines of ponderosa pine stands. In Press.
+    Jang, W.S., M.W. Ritchie, and J. Zhang (2021) Improved equations for the density management
+    diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102.
 
     Long, J.N., J.B. McCarter, and S.B. Jack (1988) A modified density management
     diagram for coastal Douglas-fir. West. J. Appl. For. 3(3):88-89.
@@ -147,6 +147,9 @@ Returns no value.
 
     Long, J.N. and J.D. Shaw (2012) A Density Management Diagram for Even-Aged
     Sierra Nevada Mixed-Conifer Stands. West. J. Appl. For. 27(4):187-195
+
+    McCarter, J.B. and J.N. Long (1986) A lodgepole pine density management diagram.
+    West. J. Appl. For. 1(1)6-11.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
     J. Ag. Res. 46:627-638.
