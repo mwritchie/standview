@@ -58,7 +58,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |    8    | White fir                 | Zhang et al. (2007)          |
 |    9    | Lodgepole pine            | McCarter and Long (1986)     |
 
-Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below).
+Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below). The dmd.view function is set up to render well in a 6wx8h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=6, height=8).
 
 ### Generic DMD in Reineke Space: ineq=1
 
@@ -87,6 +87,7 @@ gdmd.view(ineq=4)
 par(opar)
 
 ```
+The gdmd.view function is set up to render well in a 8wx6h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=8, height=6).
 
 ## Data Overlay
 

@@ -109,7 +109,7 @@ This function returns a dataframe that could represent observations for a stand 
 # 1. This example generate a prescription using equations from Ritchie and Zhang:
 
 library(standview)
-pdf("Douglasfir.pdf", width=6, height=8)
+#pdf("Douglasfir.pdf", width=6, height=8) # recommended to extablish a 6x8 ratio for dmd.view
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=7, insdr=FALSE)
@@ -118,26 +118,26 @@ dmd.iso(ineq=7,
         v.at=c(200, 400, 600, 800, 1000, 2000, 3000, 4000, 6000, 8000))
 
 par(opar)
-dev.off()
+# dev.off()  # close optional pdf device
 
 # 2. A similar result may be obtained with the invol argument in dmd.view,
 #    where invol=TRUE directs dmd.view to call the dmd.iso function:
-pdf("Douglasfir2.pdf", width=6, height=8)
+#pdf("Douglasfir2.pdf", width=6, height=8) # recommended to extablish a 6x8 ratio for dmd.view
 opar <- par(mar = c(2.0, 2.0, 2.0, 2.0))
 
 dmd.view(ineq=7, insdr=FALSE, invol=TRUE)
 
 par(opar)
-dev.off()
+#dev.off() # close optional pdf device
 
 # 3. Converting to metric:
-pdf("Douglasfir2metric.pdf", width=6, height=8)
+#pdf("Douglasfir2metric.pdf", width=6, height=8) # recommended to extablish a 6x8 ratio for dmd.view
 opar <- par(mar = c(2.0,2.0,2.0,2.0))
 
 dmd.view(ineq=7, insdr=FALSE, invol=TRUE, use.metric=TRUE)
 
 par(opar)
-dev.off()
+#dev.off() # close optional pdf device
 
 }
 

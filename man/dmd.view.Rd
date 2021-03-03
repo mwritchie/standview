@@ -164,15 +164,19 @@ Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Resea
   Email: \email{martin.ritchie@usda.gov}
 }
 \note{
-It is important to note that the dmd.view function is designed to render a 6wx8h canvas (pdf).
+It is important to note that the dmd.view function is designed to render a 6wx8h canvas.
     Any other aspect may produce annotations and axis labels that are misplaced.
     For this reason, it is suggested that one open a pdf device with the function call:
     pdf("myfile.pdf", width=6, height=8) prior to invoking the dmd.view function. When the
-    figure is completely rendered, then one should always close the device with dev.off().
-    See Examples below for how this can be done. Also, the reineke.term for Coastal Douglas-fir
+    figure is completely rendered, one should always close the device with dev.off().
+    See Examples below for how this can be done; to use this in examples, remove the comment
+    on the pdf() call and the dev.off(). Also, the reineke.term for Coastal Douglas-fir
     was derived as 1.605, but from Drew and Flewelling there should be a 6 percent adjustment at
     lower densities. If one wishes to account for this a reineke.term of 1.71 is a compromise
     slope to remove some of this apparent error. See Drew and Flewelling (1979), page 521.
+Also, some default values will depend on the ineq value selected. Defaults shown here are for ineq=1
+    and may change according to selection of ineq to match published data.
+
 }
 
 \examples{
@@ -180,7 +184,7 @@ It is important to note that the dmd.view function is designed to render a 6wx8h
 
 #setwd("c:/mydir") # optional, to specify location (directory) for file input and output
 
-pdf("myplotr1.pdf", width=6, height=8) # optional, open a pdf file called myplot1.pdf
+#pdf("myplotr1.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
 opar <- par(mar = c(3.0,2.0,2.5,2.5)) # set some reasonable margins
 
 dmd.view(ineq=1, use.metric=FALSE,
@@ -190,23 +194,23 @@ dmd.view(ineq=1, use.metric=FALSE,
          dmd.title="DMD with limit at 420")
 
 par(opar)  # reset margins to default settings
-dev.off()  # close the pdf file
+#dev.off()  # close the recommeded pdf file
 
 # 2. This example will produce density mgt diagram myplot2.pdf :
 
 #setwd("c:/mydir") # optional to select location for read and write
 
-pdf("myplotr2.pdf", width=6, height=8)
+#pdf("myplotr2.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=3, invol=TRUE ) # call dmd.view and request volume iso lines.
 
 par(opar)
-dev.off()
+#dev.off() # close the recommeded pdf file
 
 # 3. This example shows a plot of data separating controls from treatments
 
-pdf("myplotr3.pdf", width=6, height=8)
+#pdf("myplotr3.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=2 ) # call dmd.view to generate DMD.
@@ -218,12 +222,13 @@ points(x=gama05$tpa,
        cex=0.75, pch=gama05$ppch, col="black") # overlay data points
 
 par(opar)
-dev.off()
+#dev.off()  # close optional pdf
 
 # 4. Example calculating volumes for prescription, potting and annotations
 DF<-dmd.volume(ineq=2, qmd=c(2, 2.5, 14, 15.5, 19), tpa=c(300, 150, 140, 80, 80))
 DF
-pdf("myplotv1.pdf", width=6, height=8)
+
+#pdf("myplotv1.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=2 ) # call dmd.view.
@@ -238,7 +243,7 @@ text(300, 22, "Commercial thin")
 text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "c.f. removed"))
 
 par(opar)
-dev.off()
+#dev.off()  # close optional pdf
 
 }
 \keyword{ color }

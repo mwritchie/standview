@@ -155,7 +155,7 @@ It is important to note that the gdmd.view function is designed to render a 8x6 
     Any other size than that and the annotations and axis labels may not place correctly.
     For this reason, it is suggested that one open a pdf with the function call:
     pdf("myfile.pdf", width=8, height=6) prior to invoking the gdmd.view function. When the figure
-    is completely rendered, then one must close the device with dev.off().
+    is completely rendered, then one should close the device with dev.off().
     See Examples below for how this can be done.
 Also, some default values will depend on the ineq value selected. Defaults shown here are for ineq=1
     and may change according to selection of ineq to match published data.
@@ -167,19 +167,19 @@ Also, some default values will depend on the ineq value selected. Defaults shown
 
 #setwd("c:/mydir") # optional, to specify location (directory) for file input and output
 
-pdf("myplotg1.pdf", width=8, height=6) # optional, open a pdf file called myplot0.pdf
+#pdf("myplotg1.pdf", width=8, height=6) # optional (recommended), open a pdf file with 8wx6h
 opar <- par(mar = c(3.0,2.0,2.5,2.5)) # set some reasonable margins
 # build a dmd for Long and Shaw Ponderosa pine
 
 gdmd.view(ineq=2)
 
 par(opar)  # reset margins to default settings
-dev.off()  # close the pdf file
+#dev.off()  # close the optional pdf file
 
 # 2. This example shows a plot of data from gama05 for treated plots
 #       and calls for volume calculation.
 
-pdf("myplotg2.pdf", width=8, height=6)
+#pdf("myplotg2.pdf", width=8, height=6) # optional (recommended), open a pdf file with 8wx6h
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 gdmd.view(ineq=3 ) # call gdmd.view and plot data.
@@ -189,7 +189,7 @@ points(x=gama05[!gama05$treatment=="Control",]$tpa,
        cex=0.75, pch=21, col="black")
 
 par(opar)
-dev.off()
+#dev.off() # close the optional pdf file
 
 
 }

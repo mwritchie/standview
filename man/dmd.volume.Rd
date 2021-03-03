@@ -116,7 +116,7 @@ DF<-dmd.volume(ineq=2,
                tpa=c(300, 150, 140, 80, 80),
                use.metric=FALSE)
 DF
-pdf("myplotv1.pdf", width=6, height=8)
+#pdf("myplotv1.pdf", width=6, height=8) # recommended to set a 6x8 canvas
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=2, use.metric=FALSE ) # call dmd.view.
@@ -131,7 +131,7 @@ text(300, 22, "Commercial thin")
 text(300, 20, paste(round(DF$volume.ft3ac[3]-DF$volume.ft3ac[4]), "cu.ft./ac removed"))
 
 par(opar)
-dev.off()
+#dev.off()
 
 
 # 2. Obtaining volume estimates for a file using gama05 data example
