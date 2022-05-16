@@ -31,7 +31,7 @@ gdmd.view(ineq  = 1,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ineq}{
-Selects limiting SDI and other parameters. This must be an integer value from 1 to 9.
+Selects limiting SDI and other parameters. This must be an integer value from 1 to 10.
     Value of 1 generates a generic DMD space, no published volumes.
 
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
@@ -49,6 +49,8 @@ Selects limiting SDI and other parameters. This must be an integer value from 1 
     Value of 8 for Zhang et al. (2007) White fir.
 
     Value of 9 for McCarter and Long (1986) Lodgepole pine.
+
+    Value of 10 for Woodall and Weiskittel (2021) spruce/fir
 
     Default=1.
 }
@@ -141,10 +143,15 @@ Returns no value.
       pine stands. West. J. Appl. For. 20(4):205-215.
 
     McCarter, J.B. and J.N. Long (1986) A lodgepole pine density management diagram.
-    West. J. Appl. For. 1(1)6-11.
+      West. J. Appl. For. 1(1)6-11.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
       J. Ag. Res. 46:627-638.
+
+    Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has shifted to
+      higher levels over the last two decades with important implications for future dynamics.
+      Scientific Reports 11(1), 1-12. doi.org/10.1038/s41598-021-98244-w
+
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.

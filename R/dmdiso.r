@@ -1,5 +1,5 @@
 
-dmd.iso<-function(ineq         = 2,
+dmd.iso<-function(ineq         = 3,
                   v.at         = NULL,
                   range.x      = NULL,
                   max.sdi      = NULL,
@@ -46,7 +46,8 @@ if(!use.metric){   # English Units
                     ifelse(!(max.sdi<=600 & max.sdi>=450), 550, max.sdi),
                     600,
                     800,
-                    700)
+                    700,
+                    ifelse(!(max.sdi<=600 & max.sdi>=580), 590, max.sdi) )
 } else{            # metric units
   max.sdi <- switch(ineq,
                     ifelse(max.sdi<=2470 & max.sdi>=741, max.sdi , 988),
@@ -57,7 +58,8 @@ if(!use.metric){   # English Units
                     ifelse(!(max.sdi<=1482 & max.sdi>=1112), 1359, max.sdi),
                     1482,
                     1976,
-                    1729)
+                    1729,
+                    ifelse(!(max.sdi<=1483 & max.sdi>=1433), 1458, max.sdi) )
 }
 
 # volume functions
@@ -146,7 +148,8 @@ if(show.vol){
                     vf6(v.array[k], tx),
                     vf7(v.array[k], tx),
                     NULL,
-                    vf9(v.array[k], tx))
+                    vf9(v.array[k], tx),
+                    NULL)
       iaa  <- 10*(max.sdi/tx)^(islp)
       qq   <- sum((iaa-ivol)>0)
     }else{
@@ -161,7 +164,8 @@ if(show.vol){
                     vf6(v.arraye[k], txe),
                     vf7(v.arraye[k], txe),
                     NULL,
-                    vf9(v.arraye[k], txe))
+                    vf9(v.arraye[k], txe),
+                    NULL)
       iaa  <- 10*((max.sdi*.404686)/txe)^(islp)  #iaa is also english units
       qq   <- sum((iaa-ivol)>0)  # count how many are less than the max.sdi
     }

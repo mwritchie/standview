@@ -9,7 +9,7 @@ The standview package provides functions to create forest density management dia
   Quadratic mean diameter is in inches, basal area is square feet per acre, height is in feet,
   and volume is cubic feet per acre. Functions for creating DMDs in Reineke-space (Reineke 1933)
   with dmd.view and Gingrich-space (Gingrich 1967) with gdmd.view are provided. The user may select
-  from published equations (e.g. Long and Shaw 2005). In the current implimentation there are eight
+  from published equations (e.g. Long and Shaw 2005). In the current implimentation there are nine
   published equations and one generic option.
 }
 \details{

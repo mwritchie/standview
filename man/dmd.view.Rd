@@ -14,7 +14,7 @@ dmd.view(ineq = 3,
     insdi = TRUE,
     inply = TRUE,
     insdr = FALSE,
-    insdl = TRUE,
+    insdl = FALSE,
     max.sdi=NA,
     dmd.title=" ",
     sdi.lines=NA,
@@ -30,16 +30,16 @@ dmd.view(ineq = 3,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ineq}{
-Selects the values from a published DMD source (ineq=1-9) or a generic
+Selects the values from a published DMD source (ineq=1-10) or a generic
   DMD with user-specified thresholds as well as published DMD volume and
-  dominant height equations if available. This must be an integer value from 1 to 9.
+  dominant height equations if available. This must be an integer value from 1 to 10.
   Default value is 3.
 
     Value of 1 generates a generic DMD space, no published volumes.
 
     Value is 2 for Long and Shaw (2005) ponderosa pine equations,
 
-    Value of 3 for Jang et al. (in press) ponderosa pine equations.
+    Value of 3 for Jang et al. (2021) ponderosa pine equations.
 
     Value of 4 for Edminster (1988) ponderosa pine.
 
@@ -52,7 +52,10 @@ Selects the values from a published DMD source (ineq=1-9) or a generic
     Value of 8 for Zhang et al. (2007) white fir.
 
     Value of 9 for McCarter and Long (1986) lodgepole pine.
-    Default=1.
+
+    Value of 10 for Woodall and Weiskittel (2021) spruce/fir
+
+    Default=3.
 }
   \item{inul}{
 Selects to add label for the upper limit to the sdi line. Default=TRUE.
@@ -67,24 +70,28 @@ Selects for presentation of a management zone polygon. Boundaries for the manage
     Default=TRUE.
 }
   \item{insdr}{
-Selects for annotation of sdi lines on right of graph. Default=FALSE. Note that selecting true for this variable makes no sense unless insdi=TRUE.
+Selects for annotation of sdi lines on right of graph. Default=FALSE. Note that selecting true for this variable makes no
+  sense unless insdi=TRUE.
 }
   \item{insdl}{
-Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that selecting true for this variable makes no sense unless insdi=TRUE.
+Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that selecting true for this variable makes no
+  sense unless insdi=TRUE. Note that if the sdi.lines settings place lines too close together, these annotations may overlap
+
 }
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi). There is no default limit to SDI. This value is set
   by the selection of ineq. If ineq=1, or ineq=6, the user must specify a value. If use.metric=TRUE this value must be in
-  metric units. Currently ineq=1 (generic DMD) and ineq=6 (Long and Shaw 2012) are the only DMD options where the
+  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), and ineq=10 (Woodall and Weiskittel 2021)
+  are the only DMD options where the
   user may actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
-  by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to render the DMD.
+  by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to     render the DMD.
 }
   \item{dmd.title}{
 Character string for title to be displayed. As an example could take the form of dmd.title="Ponderosa Pine".
 }
   \item{sdi.lines}{
 An array of values for plotting sdi iso-lines in the density management diagram. There is no default
-    value in English units (trees per acre). Note that, as with max.sdi, the sdi.lines are fixed
+    value for ineq=1. Note that, as with max.sdi, the sdi.lines are fixed
     unless a generic DMD (ineq=1) is chosen. If the user selects to make a generic DMD in metric
     units, then this argument must be set to metric units.
 }
@@ -153,6 +160,10 @@ Returns no value.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
     J. Ag. Res. 46:627-638.
+
+    Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has
+    shifted to higher levels over the last two decades with important implications for
+    future dynamics. Scientific Reports 11(1), 1-12. doi.org/10.1038/s41598-021-98244-w
 
     Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
     dynamics in white fir (Abies concolor) forests in northeast California, USA.
@@ -241,6 +252,16 @@ for(i in 1:4){
 arrows(280, 19, 120, 14.8, length=0.10 )
 text(300, 22, "Commercial thin")
 text(300, 20, paste(round(DF$vol[3]-DF$vol[4]), "c.f. removed"))
+
+par(opar)
+#dev.off()  # close optional pdf
+
+# 5. Example using spruce/fir option
+
+#pdf("myplotsf.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+
+dmd.view(ineq=10, max.sdi=590, insdr=TRUE ) # call dmd.view.
 
 par(opar)
 #dev.off()  # close optional pdf

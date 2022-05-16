@@ -57,6 +57,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |    7    | Douglas-fir               | Long et al. (1988)           |
 |    8    | White fir                 | Zhang et al. (2007)          |
 |    9    | Lodgepole pine            | McCarter and Long (1986)     |
+|   10    | red spruce-balsam fir     | Woodall and Weiskittel (2021)|
 
 Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below). The dmd.view function is set up to render well in a 6wx8h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=6, height=8).
 
@@ -169,6 +170,10 @@ Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
 Ritchie, M.W. (2005) Ecological research at the Goosenest Adaptive Management Area 
   in northeastern California. Gen. Tech. Rep. PSW-GTR-192. USDA For. Serv. Pac. SW Res.
   Stn. 120 p.
+
+Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has shifted to 
+  higher levels over the last two decades with important implications for future dynamics. 
+  Scientific Reports 11(1), 1-12. doi.org/10.1038/s41598-021-98244-w
   
 Zeide, B. (1983). The mean diameter for stand density index. Can. J. For. Res. 13:1023-1024.
 

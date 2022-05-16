@@ -7,7 +7,7 @@ Density Management Iso Line Rendering
 This function draws iso-volume lines. It is intended to work with a call to dmd.view function in standview.
 }
 \usage{
-dmd.iso(ineq           = 2,
+dmd.iso(ineq           = 3,
         v.at         = NULL,
         range.x      = NULL,
         max.sdi      = NULL,
@@ -28,7 +28,7 @@ dmd.iso(ineq           = 2,
     Value 6 is for Long and Shaw (2012) California mixed-conifer.
     Value 7 is for Drew and Flewelling (1979) Douglas-fir.
     Value 9 is for McCarter and Long (1986) lodgepole pine.
-    Default=2.
+    Default=3.
 }
   \item{v.at}{
   A vector of volume iso lines. Units are in cubic feet per acre if use.metric=FALSE, and
