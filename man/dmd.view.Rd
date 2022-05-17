@@ -258,7 +258,7 @@ par(opar)
 
 # 5. Example using spruce/fir option
 
-#pdf("myplotsf.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
+#pdf("myplotsfr.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=10, max.sdi=590, insdr=TRUE ) # call dmd.view.

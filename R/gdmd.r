@@ -41,9 +41,40 @@ if(!(reineke.term>=1.30 && reineke.term<=2.00)){
   return()
 }
 
-if((ineq==1 || ineq ==6) && is.na(max.sdi)){
-  message("max.sdi must be specified for ineq=1 or ineq=6, diagram not rendered")
-  return()
+if(ineq==1 || ineq==6 || ineq==10){
+  if(is.na(max.sdi)){
+    message("Error: User must specify max.sdi if ineq=1, 6 or 10. DMD not rendered")
+    return()
+  }
+  if(!use.metric){
+    if(ineq==1 && !((max.sdi>200) && (max.sdi<=1000))){
+      message("Invalid sdi upper limit for ineq=1, DMD not rendered")
+      return()
+    }
+    if(ineq==6 && !((max.sdi>450) && (max.sdi<=600))){
+      message("Invalid sdi upper limit for ineq=6, DMD not rendered")
+      return()
+    }
+    if(ineq==10 && !((max.sdi>580) && (max.sdi<=600))){
+      message("Invalid sdi upper limit for ineq=10, DMD not rendered")
+      return()
+    }
+
+  } else{
+    if(ineq==1 && !((max.sdi>494) && (max.sdi<=2470))){
+      message("Invalid sdi upper limit for ineq=1, DMD not rendered")
+      return()
+    }
+    if(ineq==6 && !((max.sdi>1112) && (max.sdi<=1483))){
+      message("Invalid sdi upper limit for ineq=6, DMD not rendered")
+      return()
+    }
+    if(ineq==10 && !((max.sdi>1433) && (max.sdi<=1483))){
+      message("Invalid sdi upper limit for ineq=10, DMD not rendered")
+      return()
+    }
+
+  }
 }
 
 # test for acceptable site index must be between 70 and 110
@@ -114,28 +145,29 @@ if(dmd.title==" "){
   main.t <- switch(ineq,
                   dmd.title,                                     #1
                   "Ponderosa Pine Long and Shaw (2005)",         #2
-                  "Ponderosa Pine Jang et al. (2021)",       #3
+                  "Ponderosa Pine Jang et al. (2021)",           #3
                   "Ponderosa Pine Edminster (1988)",             #4
                   "Ponderosa Pine (Cochran 1992)",               #5
                   "Mixed-Conifer (Long and Shaw 2012)",          #6
                   "Coastal Douglas-Fir (Long et al 1988)",       #7
                   "California White Fir (Zhang et al 2007)",     #8
-                  "Lodgepole pine (McCarter and Long 1988)" )    #9
+                  "Lodgepole pine (McCarter and Long 1988)",     #9
+                  "Spruce/Fir (Woodall and Weiskittel 2021)")    #10
 }
-#                        1      2     3     4     5     6     7     8      9
-#inrd    <- switch(ineq, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,  TRUE )
+#                        1      2     3     4     5     6     7     8      9    10
+#inrd    <- switch(ineq, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,  TRUE, TRUE )
 if(!use.metric){
-  max.x   <- switch(ineq,  600,  600,  600,  600,  600,  600,  600,  800,    800 )
-  max.y   <- switch(ineq,  450,  350,  300,  350,  250,  450,  450,  700,    550 )
+  max.x   <- switch(ineq,   600,   600,  600,  600,  600,  600,  600,  800,  800,  1000 )
+  max.y   <- switch(ineq,   450,   350,  300,  350,  250,  450,  500,  700,  550,   450 )
 } else{
-  max.x   <- switch(ineq,  1500,  1500,  1500,  1500,  1500,  1500,  1500,  2000, 2000 )
-  max.y   <- switch(ineq,   150,    80,    70,    80,    60,   110,   110,   170,  125 )
+  max.x   <- switch(ineq,  1500,  1500, 1500, 1500, 1500, 1500, 1500, 2000, 2000,  2500 )
+  max.y   <- switch(ineq,   150,    80,   70,   80,   60,  110,  120,  170,  125,   150 )
 }
 
 if(!use.metric){
-  max.sdi <- switch(ineq,  max.sdi,   450,  400,   410,  365,  max.sdi,  600,  800,    700)
+  max.sdi <- switch(ineq,  max.sdi,   450,  400,   410,  365,  max.sdi,  600,  800,   700, max.sdi)
 } else {
-  max.sdi <- switch(ineq,  max.sdi,  1110,  988,  1013,  901, max.sdi,  1482,  1977,  1730)
+  max.sdi <- switch(ineq,  max.sdi,  1110,  988,  1013,  901, max.sdi,  1482,  1977, 1730, max.sdi)
 }
 
 slp     <- switch(ineq,
@@ -147,6 +179,7 @@ slp     <- switch(ineq,
                   1.600,
                   1.600,
                   1.500,
+                  1.605,
                   1.605)
 
 mgt.zone <-switch(ineq,
@@ -159,7 +192,7 @@ mgt.zone <-switch(ineq,
                  c(0.35, 0.55),
                  c(0.20, 0.55),
                  c(0.20, 0.55),
-                 c(0.20, 0.55))
+                 mgt.zone)
 
 islp    <- 1/slp             # inverse of reineke term
 if(!use.metric){
@@ -170,8 +203,36 @@ if(!use.metric){
   yr      <- c(  0, max.y+10)    # y range
 }
 rdl   <- seq(from=0.2, to=1.0, by=0.1)      # relative density levels
+
+#set maximum diameter limit
 if(!use.metric){
-  diso  <- c(3:11, seq(from=12, to=24, by=2)) #diameter lines
+  max.d<-switch(ineq,
+                24,
+                24,
+                24,
+                24,
+                24,
+                24,
+                24,
+                24,
+                20,
+                16)
+} else {
+  max.d<-switch(ineq,
+                60,
+                60,
+                60,
+                60,
+                60,
+                60,
+                60,
+                60,
+                50,
+                40)
+}
+
+if(!use.metric){
+  diso  <- c(3:11, seq(from=12, to=max.d, by=2)) #diameter lines
 } else {
   diso  <- c(seq(8,32,2), seq(from=35, to=60, by=5)) #diameter lines
 }
@@ -191,9 +252,11 @@ if(!use.metric){
                   10:18,
                   10:18,
                   c(8:16,18),
+                  c(8:16,18),
                   c(8:16,18))
 } else {
   space <- switch(ineq,
+                  seq(3,5.5,0.5),
                   seq(3,5.5,0.5),
                   seq(3,5.5,0.5),
                   seq(3,5.5,0.5),
@@ -216,7 +279,8 @@ if(!use.metric){
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 10* round((0.30*max.sdi/10), 0),
                 10* round((0.20*max.sdi/10), 0),
-                10* round((0.20*max.sdi/10), 0))
+                10* round((0.20*max.sdi/10), 0),
+                ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz) )
 } else {
   lsd     <- switch(ineq,
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
@@ -227,7 +291,8 @@ if(!use.metric){
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 10* round((0.30*max.sdi/10), 0),
                 10* round((0.20*max.sdi/10), 0),
-                10* round((0.20*max.sdi/10), 0))
+                10* round((0.20*max.sdi/10), 0),
+                ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz))
 }
 # upper sdi limit of the management zone
 if(!use.metric){
@@ -240,7 +305,8 @@ if(!use.metric){
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
                 10 * round((0.55*max.sdi/10),0),
                 10 * round((0.55*max.sdi/10),0),
-                10 * round((0.55*max.sdi/10),0))
+                10 * round((0.55*max.sdi/10),0),
+                ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz))
 } else {
   usd     <- switch(ineq,
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
@@ -251,24 +317,25 @@ if(!use.metric){
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
                 10 * round((0.55*max.sdi/10),0),
                 10 * round((0.55*max.sdi/10),0),
-                10 * round((0.55*max.sdi/10),0))
+                10 * round((0.55*max.sdi/10),0),
+                ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz))
 }
 
 
 # bump of RD annotation on the y-axis (multiplied by rd percent)
 if(!use.metric){
   y.off <- 6
-  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.069, 0.200, 0.063)
+  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.069, 0.200, 0.063, 0.063)
 } else {
   y.off <- 1.3
-  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0200, 0.044, 0.040, 0.030)
+  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0200, 0.044, 0.040, 0.030, 0.030)
 }
 
 # bump the qmd lable
 if(!use.metric){
-  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.07, 1.07, 1.08)
+  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.07, 1.07, 1.08, 1.08)
 } else {
-  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.06, 1.08, 1.06)
+  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.06, 1.08, 1.06, 1.06)
 }
 # location of x-axis tpa lable increment
 x.ann.at<-switch(use.metric+1, 100, 200)
@@ -343,9 +410,9 @@ if(inspace){
 
     graphics::mtext(side=1, at=atspc[i], paste(space[i]), cex=0.8, col="red", line=-0.1)
   }
-  if(!use.metric) {graphics::mtext(side=1, at=50, paste("Square"), cex=0.8, col="red", line=-0.75)}
+#  if(!use.metric) {graphics::mtext(side=1, at=50, paste("Square"), cex=0.8, col="red", line=-0.75)}
   if(!use.metric){
-    graphics::mtext(side=1, at=70, paste("Spacing (ft):"), cex=0.8, col="red", line=-0.1)
+    graphics::mtext(side=1, at=50, paste("Spacing (ft):"), cex=0.8, col="red", line=-0.1)
   } else {
     graphics::mtext(side=1, at=70, paste("Spacing (m):"), cex=0.8, col="red", line=-0.1)
   }

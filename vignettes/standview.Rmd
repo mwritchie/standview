@@ -50,7 +50,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |:-------:|:---------|:----------------------|
 |    1    | User Defined              | None                         |
 |    2    | ponderosa pine            | Long and Shaw (2005)         |
-|    3    | ponderosa pine            | Jang et al. (2021) |
+|    3    | ponderosa pine            | Jang et al. (2021)           |
 |    4    | ponderosa pine            | Edminster (1988)             |
 |    5    | ponderosa pine            | Cochran and Barrett (1992)   |
 |    6    | California mixed-conifer  | Long and Shaw (2012)         |
@@ -65,7 +65,7 @@ Note that volume estimation in Reineke-space has traditionally been presented as
 
 When ineq=1, dmd.view will produce a user-specified density management diagram. As such the user will need to specify the upper limit for stand density index (max.sdi), a title (dmd.title),  the intermediate sdi lines (sdi.lines), the management zone (mgt.zone), the inverse slope of the limiting sdi (reineke.term) if it is other than 1.605. When using ineq=1, the user needs to be mindful of the units. For example, when use.metric=TRUE, the max.sdi is trees ha ^-1^, whereas when use.metric=FALSE max.sdi must be specified in trees ac ^-1^.
 
-### Published DMD in Reineke Space: ineq=(2-9).
+### Published DMD in Reineke Space: ineq=(2-10).
 
 In general, the user should be able to render a DMD using a published source with a fairly sparse argument list, by relying on the default arguments. The example below uses ineq=9 to render a lodgepole pine DMD (McCarter and Long 1986).
 
@@ -78,7 +78,7 @@ In this particular example the insdr argument is set to true for SDI limits plac
 
 ## Gingrich Space Density Management Diagrams
 
-Diagrams in Gingrich space use the same range of values for ineq (Table 1).
+Diagrams in Gingrich space use the same range of values for ineq (Table 1) as the Reineke format.
 Traditionally these figures do not present volume or dominant height information so there is no volume argument (invol)
 or volume color argument (vcol). An example Gingrich DMD using ineq=4 (Edminster 1988):
 
@@ -88,7 +88,7 @@ gdmd.view(ineq=4)
 par(opar)
 
 ```
-The gdmd.view function is set up to render well in a 8wx6h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=8, height=6).
+The gdmd.view function is set up to render well in a 8wx6h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=8, height=6). Note that as with Reineke space, some ineq values will require a user-specified sdi.max value.
 
 ## Data Overlay
 

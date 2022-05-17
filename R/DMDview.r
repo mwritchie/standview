@@ -73,15 +73,33 @@ if(ineq==1 || ineq==6 || ineq==10){
     return()
   }
   if(!use.metric){
-    if(!((max.sdi>200) && (max.sdi<=1000))){
-      message("Invalid sdi upper limit, DMD not rendered")
+    if(ineq==1 && !((max.sdi>200) && (max.sdi<=1000))){
+      message("Invalid sdi upper limit for ineq=1, DMD not rendered")
       return()
     }
+    if(ineq==6 && !((max.sdi>450) && (max.sdi<=600))){
+      message("Invalid sdi upper limit for ineq=6, DMD not rendered")
+      return()
+    }
+    if(ineq==10 && !((max.sdi>580) && (max.sdi<=600))){
+      message("Invalid sdi upper limit for ineq=10, DMD not rendered")
+      return()
+    }
+
   } else{
-    if(!((max.sdi>494) && (max.sdi<=2470))){
-      message("Invalid sdi upper limit, DMD not rendered")
+    if(ineq==1 && !((max.sdi>494) && (max.sdi<=2470))){
+      message("Invalid sdi upper limit for ineq=1, DMD not rendered")
       return()
     }
+    if(ineq==6 && !((max.sdi>1112) && (max.sdi<=1483))){
+      message("Invalid sdi upper limit for ineq=6, DMD not rendered")
+      return()
+    }
+    if(ineq==10 && !((max.sdi>1433) && (max.sdi<=1483))){
+      message("Invalid sdi upper limit for ineq=10, DMD not rendered")
+      return()
+    }
+
   }
 }
 
@@ -149,7 +167,7 @@ max.sdi <- switch(ineq,
 
 tcex    <- switch(ineq, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50)
 acex    <- switch(ineq, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75)
-scex    <- switch(ineq, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75)
+scex    <- switch(ineq, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.65)
 sdilw   <- switch(ineq, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00)
 
 gridcol <- switch(ineq, "grey","grey","grey","grey","grey","grey","grey","grey","grey", "grey")
@@ -735,7 +753,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
     graphics::polygon( x=mzx, y=mzy, density=NA,
                        col=grDevices::rgb(grDevices::col2rgb(mzcol)[1]/255,
                                           grDevices::col2rgb(mzcol)[2]/255,
-                                          grDevices::col2rgb(mzcol)[3]/255, 0.25))
+                                          grDevices::col2rgb(mzcol)[3]/255, 0.50))
   }
 
 ###############################################################
@@ -769,12 +787,12 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
         xxann<-0.90*tx[isod.adj[3]]
         yyann<-1.00*isd[isod.adj[3]]
       } else{
-        strtln.x <- trunc(sdi.lines[jsd]*(max.y/sdi.index)^(-(slp)) )- as.integer(min.x*1.10)
+        strtln.x <- trunc(sdi.lines[jsd]*(max.y/sdi.index)^(-(slp)) - (min.x)*0.96)
         graphics::lines(tx[strtln.x:length(tx)],
                         isd[strtln.x:length(isd)],
                         type="l", col=sdicol, lwd=sdilw)
         xxann<-0.90*tx[strtln.x]
-        yyann<-1.00*isd[strtln.x]
+        yyann<-1.05*isd[strtln.x]
       }
 
       if( (insdl) && (yyann <= (max.y*1.15))){

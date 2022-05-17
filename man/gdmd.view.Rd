@@ -198,6 +198,16 @@ points(x=gama05[!gama05$treatment=="Control",]$tpa,
 par(opar)
 #dev.off() # close the optional pdf file
 
+# 3. This example tests the spruce/fir option
+
+#pdf("myplotsfg.pdf", width=8, height=6) # optional (recommended), open a pdf file with 8wx6h
+opar <- par(mar = c(3.0,2.0,2.5,2.5))
+
+gdmd.view(ineq=10, max.sdi=590) # call gdmd.view and plot data.
+
+par(opar)
+#dev.off() # close the optional pdf file
+
 
 }
 \keyword{ color }
