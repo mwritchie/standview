@@ -30,9 +30,9 @@ standview.
 This is a basic example which shows you how to generate a Long and Shaw
 (2005) density management diagram in Reineke space for ponderosa pine
 with annotation on the right only. To assure that the canvas has the
-proper aspect ratio, on can call open a pdf with 6wx8h configuration.
-Note that the file produced will be placed in your working directory for
-R as defined by setwd():
+proper aspect ratio, one can call to open a pdf with 6wx8h
+configuration. Note that the file produced will be placed in your
+working directory for R as defined by setwd():
 
 ``` r
 library(standview)
