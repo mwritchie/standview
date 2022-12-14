@@ -52,6 +52,10 @@ Selects limiting SDI and other parameters. This must be an integer value from 1 
 
     Value of 10 for Woodall and Weiskittel (2021) spruce/fir
 
+    Value of 11 for Ritchie and Berrill (2022) redwood/Douglas-fir
+
+    Value of 12 for Ritchie and Berrill (2022) Douglas-fir/redwood
+
     Default=1.
 }
   \item{inul}{
@@ -147,6 +151,10 @@ Returns no value.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
       J. Ag. Res. 46:627-638.
+
+    Ritchie, M.W. and J.-P. Berrill (2022) Precommercial thinning in California Forests. In:
+      Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
+      University of California, Agriculture and Natural Resources.
 
     Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has shifted to
       higher levels over the last two decades with important implications for future dynamics.
