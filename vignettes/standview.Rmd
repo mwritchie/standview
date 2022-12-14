@@ -10,6 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+#rmarkdown::render(output_dir="c:/Research/Projects/standview/vignettes")
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -42,7 +43,7 @@ The current version of standview is `r packageVersion("standview")`.
 
 ## Reineke Space Density Management Diagrams
 
-The dmd.view function will produce a Reineke-space diagram with the natural log of stem density on the x-axis and natural log of diameter on the y-axis. Although there are 17 items in the argument list for this function, in most instances only a few will be needed as the default values will generally suffice. The most important argument is ineq; it specifies which species, or species group, is required. The ineq argument must be specified as an integer between 1 and 9 in the current version. The ineq value defines the inverse slope of the limiting sdi (most often reineke.term=1.605), the value for limiting sdi (max.sdi), as well as volume and dominant height estimation functions if appropriate.
+The dmd.view function will produce a Reineke-space diagram with the natural log of stem density on the x-axis and natural log of diameter on the y-axis. Although there are 17 items in the argument list for this function, in most instances only a few will be needed as the default values will generally suffice. The most important argument is ineq; it specifies which species, or species group, is required. The ineq argument must be specified as an integer between 1 and 12 in the current version. The ineq value defines the inverse slope of the limiting sdi (most often reineke.term=1.605), the value for limiting sdi (max.sdi), as well as volume and dominant height estimation functions if appropriate.
 
 Table 1. Definitions of species and reference for DMD rendering by index of equations (ineq) in standview.
 
@@ -58,6 +59,9 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |    8    | White fir                 | Zhang et al. (2007)          |
 |    9    | Lodgepole pine            | McCarter and Long (1986)     |
 |   10    | red spruce-balsam fir     | Woodall and Weiskittel (2021)|
+|   11    | redwood/Douglas-fir       | Ritchie and Berrill (2022)   |
+|   12    | Douglas-fir/redwood       | Ritchie and Berrill (2022)   |
+
 
 Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below). The dmd.view function is set up to render well in a 6wx8h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=6, height=8).
 
@@ -65,7 +69,7 @@ Note that volume estimation in Reineke-space has traditionally been presented as
 
 When ineq=1, dmd.view will produce a user-specified density management diagram. As such the user will need to specify the upper limit for stand density index (max.sdi), a title (dmd.title),  the intermediate sdi lines (sdi.lines), the management zone (mgt.zone), the inverse slope of the limiting sdi (reineke.term) if it is other than 1.605. When using ineq=1, the user needs to be mindful of the units. For example, when use.metric=TRUE, the max.sdi is trees ha ^-1^, whereas when use.metric=FALSE max.sdi must be specified in trees ac ^-1^.
 
-### Published DMD in Reineke Space: ineq=(2-10).
+### Published DMD in Reineke Space: ineq=(2-12).
 
 In general, the user should be able to render a DMD using a published source with a fairly sparse argument list, by relying on the default arguments. The example below uses ineq=9 to render a lodgepole pine DMD (McCarter and Long 1986).
 
@@ -170,6 +174,10 @@ Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
 Ritchie, M.W. (2005) Ecological research at the Goosenest Adaptive Management Area 
   in northeastern California. Gen. Tech. Rep. PSW-GTR-192. USDA For. Serv. Pac. SW Res.
   Stn. 120 p.
+  
+Ritchie, M.W. and J.-P. Berrill (2022) Precommercial thinning in California Forests. In:
+  Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
+  University of California, Agriculture and Natural Resources.  
 
 Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has shifted to 
   higher levels over the last two decades with important implications for future dynamics. 
