@@ -53,7 +53,12 @@ Selects the values from a published DMD source (ineq=1-10) or a generic
 
     Value of 9 for McCarter and Long (1986) lodgepole pine.
 
-    Value of 10 for Woodall and Weiskittel (2021) spruce/fir
+    Value of 10 for Woodall and Weiskittel (2021) spruce-fir
+
+    Value of 11 for Ritchie and Berrill (2022) redwood/Douglas-fir
+
+    Value of 12 for Ritchie and Berrill (2022) Douglas-fir/redwood
+
 
     Default=3.
 }
@@ -65,7 +70,7 @@ Selects intermediate sdi lines to be drawn. The placement of these lines is
     determined by the values in sdi.lines and mgt.zone, Default=TRUE.
 }
   \item{inply}{
-Selects for presentation of a management zone polygon. Boundaries for the management
+Selects for presentation of a management zone polygon. Boundaries for the
     management zone are determined by the values in sdi.lines and mgt.zone.
     Default=TRUE.
 }
@@ -84,7 +89,8 @@ Defines upper limit of stand density index (maximum sdi). There is no default li
   metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), and ineq=10 (Woodall and Weiskittel 2021)
   are the only DMD options where the
   user may actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
-  by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to     render the DMD.
+  by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to
+  render the DMD. A value of ineq=10 requires max.sdi to be from 581 to 600 (inclusive).
 }
   \item{dmd.title}{
 Character string for title to be displayed. As an example could take the form of dmd.title="Ponderosa Pine".
@@ -100,7 +106,7 @@ Explicitly sets the upper and lower limits of the management zone by proportion 
     By defalut this is set to mgt.zone=c(0.35, 0.60). As such this will overwrite the 3rd and 5th
     elements in the sdi.lines array. If the User wishes to use fixed values for the management zone using
     the argument sdi.lines, then set mgt.zone=c(NA, NA). Acceptable Values for mgt.zone are 0.2 to 0.4 for
-    mgt.zone[1], and 0.5 to 0.7 for mgt.zone[2].
+    lower limit (mgt.zone[1]), and 0.5 to 0.7 for upper limit (mgt.zone[2]).
 }
   \item{reineke.term}{
 This is the inverse of the slope of sdi lines in sdi space. Default=1.605, the value derived by Reineke (1933).
@@ -160,6 +166,10 @@ Returns no value.
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
     J. Ag. Res. 46:627-638.
+
+    Ritchie, M.W. and J.-P. Berrill (2022) Precommercial thinning in California Forests. In:
+    Stewart, W. (editor) Reforestation practices for conifers in California. Davis CA:
+    University of California, Agriculture and Natural Resources.
 
     Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has
     shifted to higher levels over the last two decades with important implications for
@@ -258,11 +268,14 @@ par(opar)
 
 # 5. Example using spruce/fir option
 
-#pdf("myplotsfr.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
+#pdf("myplotsf.pdf", width=6, height=8) # recommended, open a 6x8 pdf file
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
 dmd.view(ineq=10, max.sdi=590, insdr=TRUE ) # call dmd.view.
-
+points(x=c(700,700,600,400,200),
+       y=c(2.5,5.5,6.8,9.0,13.8), pch=21, cex=1, bg="black", col="black")
+lines(x=c(700,700,600,400,200),
+      y=c(2.5,5.5,6.8,9.0,13.8), lwd=2, col="black")
 par(opar)
 #dev.off()  # close optional pdf
 
