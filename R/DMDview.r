@@ -74,46 +74,46 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
   }
   if(!use.metric){
     if(ineq==1 && !((max.sdi>=200) && (max.sdi<=1000))){
-      message("Invalid sdi upper limit for ineq=1, DMD not rendered")
+      message("sdi upper limit for ineq=1 (200-1000 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==6 && !((max.sdi>=450) && (max.sdi<=600))){
-      message("Invalid sdi upper limit for ineq=6, DMD not rendered")
+      message("sdi upper limit for ineq=6 (450-600 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==10 && !((max.sdi>=580) && (max.sdi<=600))){
-      message("Invalid sdi upper limit for ineq=10, DMD not rendered")
+      message("sdi upper limit for ineq=10 (580-600 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==11 && !((max.sdi>=700) && (max.sdi<=1000))){
-      message("Invalid sdi upper limit for ineq=11, DMD not rendered")
+      message("sdi upper limit for ineq=11 (700-1000 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==12 && !((max.sdi>=550) && (max.sdi<=700))){
-      message("Invalid sdi upper limit for ineq=12, DMD not rendered")
+      message("sdi upper limit for ineq=12 (550-700 TPA) invalid: DMD not rendered")
       return()
     }
 
 
   } else{
-    if(ineq==1 && !((max.sdi>494) && (max.sdi<=2470))){
-      message("Invalid metric unit sdi upper limit for ineq=1, DMD not rendered")
+    if(ineq==1 && !((max.sdi>=494) && (max.sdi<=2470))){
+      message("sdi upper limit for ineq=1 (494-2470 THPA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==6 && !((max.sdi>1112) && (max.sdi<=1483))){
-      message("Invalid metric unit sdi upper limit for ineq=6, DMD not rendered")
+    if(ineq==6 && !((max.sdi>=1112) && (max.sdi<=1483))){
+      message("sdi upper limit for ineq=6 (1112-1483 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>1432) && (max.sdi<=1483))){
-      message("Invalid metric unit sdi upper limit for ineq=10, DMD not rendered")
+    if(ineq==10 && !((max.sdi>=1433) && (max.sdi<=1483))){
+      message("sdi upper limit for ineq=10 (1433-1483 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==11 && !((max.sdi>1605) && (max.sdi<=2223))){
-      message("Invalid metric unit sdi upper limit for ineq=11, DMD not rendered")
+    if(ineq==11 && !((max.sdi>=1605) && (max.sdi<=2223))){
+      message("sdi upper limit for ineq=11 (1605-2223 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==12 && !((max.sdi>1360) && (max.sdi<=1730))){
-      message("Invalid metric unit sdi upper limit for ineq=12, DMD not rendered")
+    if(ineq==12 && !((max.sdi>=1360) && (max.sdi<=1730))){
+      message("sdi upper limit for ineq=12 (1360-1730 TPHA) invalid: DMD not rendered")
       return()
     }
 
@@ -899,6 +899,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                NULL,
                c(50, 200, 400, 600, 800, 1000, 1500, 2000,
                  3000, 4000, 5000, 6000, 7000, 8000),
+               NULL,
                NULL)
     dmd.iso(ineq,
             v.at=vol.levels,
@@ -924,6 +925,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                    NULL,
                    c(30, 45, 60, 75, 100, 150,
                      200, 300, 400, 500, 600, 700, 800),
+                   NULL,
                    NULL)
       dmd.iso(ineq,
               v.at=vol.levels,
