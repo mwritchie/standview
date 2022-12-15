@@ -85,12 +85,15 @@ Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that s
 }
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi). There is no default limit to SDI. This value is set
-  by the selection of ineq. If ineq=1, or ineq=6, the user must specify a value. If use.metric=TRUE this value must be in
-  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), and ineq=10 (Woodall and Weiskittel 2021)
-  are the only DMD options where the
+  by the selection of ineq. If ineq=1, 6, 10, 11 or 12 the user must specify a value. If use.metric=TRUE this value must be in
+  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 (Woodall and Weiskittel 2021),
+  ineq=11 or ineq=12 the only DMD options where the
   user may actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
   by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to
-  render the DMD. A value of ineq=10 requires max.sdi to be from 581 to 600 (inclusive).
+  render the DMD. At ineq=6, the max.sdi must range from 450 to 600 (inclusive).
+  A value of ineq=10 requires English-unit max.sdi to be from 580 to 600 (inclusive).
+  A value of ineq=11 requires English-unit max.sdi to be from 700 to 1000 (inclusive).
+  A value of ineq=12 requires English-unit max.sdi to be from 550 to 700 (inclusive).
 }
   \item{dmd.title}{
 Character string for title to be displayed. As an example could take the form of dmd.title="Ponderosa Pine".

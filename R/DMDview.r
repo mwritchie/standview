@@ -73,23 +73,23 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
     return()
   }
   if(!use.metric){
-    if(ineq==1 && !((max.sdi>200) && (max.sdi<=1000))){
+    if(ineq==1 && !((max.sdi>=200) && (max.sdi<=1000))){
       message("Invalid sdi upper limit for ineq=1, DMD not rendered")
       return()
     }
-    if(ineq==6 && !((max.sdi>450) && (max.sdi<=600))){
+    if(ineq==6 && !((max.sdi>=450) && (max.sdi<=600))){
       message("Invalid sdi upper limit for ineq=6, DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>580) && (max.sdi<=600))){
+    if(ineq==10 && !((max.sdi>=580) && (max.sdi<=600))){
       message("Invalid sdi upper limit for ineq=10, DMD not rendered")
       return()
     }
-    if(ineq==11 && !((max.sdi>650) && (max.sdi<=900))){
+    if(ineq==11 && !((max.sdi>=700) && (max.sdi<=1000))){
       message("Invalid sdi upper limit for ineq=11, DMD not rendered")
       return()
     }
-    if(ineq==12 && !((max.sdi>550) && (max.sdi<=700))){
+    if(ineq==12 && !((max.sdi>=550) && (max.sdi<=700))){
       message("Invalid sdi upper limit for ineq=12, DMD not rendered")
       return()
     }
