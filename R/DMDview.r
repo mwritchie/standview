@@ -457,7 +457,7 @@ sdi.strt<- switch(ineq,
                   4,
                   trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
                   trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
-                  4)
+                  trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1)
 
 # this is the adjustments on the upper limit annotation
 ul.loc<- switch(ineq,
