@@ -218,7 +218,7 @@ dmd.view(ineq=1, use.metric=FALSE,
          dmd.title="DMD with limit at 420")
 
 par(opar)  # reset margins to default settings
-#dev.off()  # close the recommeded pdf file
+#dev.off()  # close the recommended pdf file
 
 # 2. This example will produce density mgt diagram myplot2.pdf :
 
@@ -230,7 +230,7 @@ opar <- par(mar = c(3.0,2.0,2.5,2.5))
 dmd.view(ineq=3, invol=TRUE ) # call dmd.view and request volume iso lines.
 
 par(opar)
-#dev.off() # close the recommeded pdf file
+#dev.off() # close the recommended pdf file
 
 # 3. This example shows a plot of data separating controls from treatments
 
