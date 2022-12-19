@@ -48,7 +48,7 @@ if(!(reineke.term>=1.30 && reineke.term<=2.00)){
 
 if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
   if(is.na(max.sdi)){
-    message("Error: User must specify max.sdi if ineq=1, 6 or 10. DMD not rendered")
+    message("Error: User must specify max.sdi if ineq=1, 6, 10, 11 or 12. DMD not rendered")
     return()
   }
   if(!use.metric){

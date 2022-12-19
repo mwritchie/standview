@@ -169,8 +169,8 @@ max.sdi <- switch(ineq,
                   800,
                   700,
                   max.sdi,
-                  850,
-                  650 )
+                  max.sdi,
+                  max.sdi)
 } else{ # metric units
 max.sdi <- switch(ineq,
                   ifelse(max.sdi<=2470 & max.sdi>=741, max.sdi , 988),
@@ -183,8 +183,8 @@ max.sdi <- switch(ineq,
                   1976,
                   1729,
                   max.sdi,
-                  2100,
-                  1605)
+                  max.sdi,
+                  max.sdi)
 
 }
 
@@ -456,7 +456,7 @@ sdi.strt<- switch(ineq,
                   4,
                   4,
                   trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
-                  4,
+                  trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
                   4)
 
 # this is the adjustments on the upper limit annotation
@@ -485,7 +485,7 @@ if(!use.metric){ #English units
                      c(100, 200, 300, 400, 500, 600 ),
                      c(100, 200, 300, 400, 500, 600 ),
                      c(118, 177, 207, 325, 354, 395 ),
-                     c(200, 300, 400, 500, 700, 900 ),
+                     c(200, 300, 400, 500, 600, 800 ),
                      c(100, 200, 300, 400, 500, 700 ) )
 } else{  # metric units
   sdi.lines<- switch(ineq,
@@ -524,7 +524,8 @@ ux.mz      <- switch(ineq, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.
 # well the last one is the point (x) at which the isoline gets drawn
 # for most situations
 # the first is vestigal, no longer in use
-# the second
+# the second is measured in sdi english units only,
+# this is a bug because it does not account for metric
 isod.adj<- switch(ineq,
                   c(160, 300, 12, 5),   #1
                   c(360, 440, 12, 5),   #2
@@ -536,7 +537,7 @@ isod.adj<- switch(ineq,
                   c(210, 300, 12, 5),   #8
                   c(210, 400, 12, 5),   #9
                   c(210, 510, 12, 5),   #10
-                  c(210, 600, 12, 5),   #11
+                  c(210, 1000, 12, 5),   #11
                   c(210, 510, 12, 5) )  #12
 
 # this is an annotation vert adjustment for max sdi
@@ -833,12 +834,12 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
 
       yyann <- isd[1] # just set this as the default, not really necessary
 
-      if(isd[1] <= max.y*1.10){  # if it starts no more than 1.10 times the max y
+      if(isd[1] <= max.y * 1.10){  # if it starts no more than 1.10 times the max y
         graphics::lines(tx[1:irng], isd[1:irng],
                         type="l", col=sdicol, lwd=sdilw)
-        xxann<-0.66*min.x
-        yyann<-isd[1]
-        if(insdl){
+        xxann <- 0.66 * min.x
+        yyann <- isd[1]
+        if(insdl){                # for drawing short line on left side of graph
           graphics::segments(0.87*min.x, yyann,
                            min.x, yyann,
                            col=sdicol, lwd=sdilw)
@@ -847,15 +848,15 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
         graphics::lines(tx[isod.adj[3]:length(tx)],
                         isd[isod.adj[3]:length(isd)],
                         type="l", col=sdicol, lwd=sdilw)
-        xxann<-0.90*tx[isod.adj[3]]
-        yyann<-1.00*isd[isod.adj[3]]
+        xxann <- 0.90 * tx[isod.adj[3]]
+        yyann <- 1.00 * isd[isod.adj[3]]
       } else{
         strtln.x <- trunc(sdi.lines[jsd]*(max.y/sdi.index)^(-(slp)) - (min.x)*0.96)
         graphics::lines(tx[strtln.x:length(tx)],
                         isd[strtln.x:length(isd)],
                         type="l", col=sdicol, lwd=sdilw)
-        xxann<-0.90*tx[strtln.x]
-        yyann<-1.05*isd[strtln.x]
+        xxann <- 0.90 * tx[strtln.x]
+        yyann <- 1.05 * isd[strtln.x]
       }
 
       if( (insdl) && (yyann <= (max.y*1.15))){
