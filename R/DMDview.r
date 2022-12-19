@@ -31,7 +31,7 @@ ac.to.ha <- 2.471052
 in.to.cm <- 2.54
 feet.to.m <- 0.3048
 ft2.to.m2 <- 0.092903
-max.ineq  <- 11
+max.ineq  <- 12
 
 # Error Checking Section
 
