@@ -218,7 +218,7 @@ if(!use.metric){
   max.y   <- switch(ineq,   36,   36,   36,    30,    36,    36,    36,    36,   26,   16,   36,   36 )
 } else {
   max.x   <- switch(ineq, 5000, 2500, 2500,  3000,  2500,  2500,  2500,  5000, 5000, 5000, 5000, 5000 )
-  max.y   <- switch(ineq,   92,   92,   92,    92,    92,    92,    92,    92,   66,   40,   40,   40 )
+  max.y   <- switch(ineq,   92,   92,   92,    92,    92,    92,    92,    92,   66,   40,   92,   92 )
 }
 
 # This is the slope term from Reineke Space
