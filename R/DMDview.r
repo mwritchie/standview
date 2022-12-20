@@ -503,6 +503,14 @@ if(!use.metric){ #English units
                      c(250, 400,  500,  750, 1000, 1400 ))
 
 }
+
+
+#check consistency between max sdi and sdi.lines
+if(max(sdi.lines >= max.sdi)){
+  message("One or more sdi.lines exceeds max.sdi; image not rendered")
+  return()
+}
+
 # upper limit of the mz in x dim
 ux.mz      <- switch(ineq, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x,
                            max.x, max.x)
