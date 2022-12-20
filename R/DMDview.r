@@ -73,8 +73,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
     return()
   }
   if(!use.metric){
-    if(ineq==1 && !((max.sdi>=200) && (max.sdi<=1000))){
-      message("sdi upper limit for ineq=1 (200-1000 TPA) invalid: DMD not rendered")
+    if(ineq==1 && !((max.sdi>=300) && (max.sdi<=800))){
+      message("sdi upper limit for ineq=1 (300-800 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==6 && !((max.sdi>=450) && (max.sdi<=600))){
@@ -85,8 +85,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=10 (580-600 TPA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==11 && !((max.sdi>=700) && (max.sdi<=1000))){
-      message("sdi upper limit for ineq=11 (700-1000 TPA) invalid: DMD not rendered")
+    if(ineq==11 && !((max.sdi>=750) && (max.sdi<=1000))){
+      message("sdi upper limit for ineq=11 (750-1000 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==12 && !((max.sdi>=550) && (max.sdi<=700))){
@@ -96,8 +96,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
 
 
   } else{
-    if(ineq==1 && !((max.sdi>=494) && (max.sdi<=2470))){
-      message("sdi upper limit for ineq=1 (494-2470 THPA) invalid: DMD not rendered")
+    if(ineq==1 && !((max.sdi>=750) && (max.sdi<=2000))){
+      message("sdi upper limit for ineq=1 (750-2000 THPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==6 && !((max.sdi>=1112) && (max.sdi<=1483))){
@@ -108,12 +108,12 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=10 (1433-1483 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==11 && !((max.sdi>=1605) && (max.sdi<=2223))){
-      message("sdi upper limit for ineq=11 (1605-2223 TPHA) invalid: DMD not rendered")
+    if(ineq==11 && !((max.sdi>=1875) && (max.sdi<=2500))){
+      message("sdi upper limit for ineq=11 (1875-2500 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==12 && !((max.sdi>=1360) && (max.sdi<=1730))){
-      message("sdi upper limit for ineq=12 (1360-1730 TPHA) invalid: DMD not rendered")
+    if(ineq==12 && !((max.sdi>=1375) && (max.sdi<=1750))){
+      message("sdi upper limit for ineq=12 (1360-1750 TPHA) invalid: DMD not rendered")
       return()
     }
 
@@ -215,10 +215,10 @@ if(!use.metric){
 # max for x and y axis
 if(!use.metric){
   max.x   <- switch(ineq, 2000, 1000, 1000,  1200,  1000,  1000,  1000,  2000, 2000, 2000, 2000, 2000 )
-  max.y   <- switch(ineq,   36,   36,   36,    30,    36,    36,    36,    36,   26,   16,   36,   36 )
+  max.y   <- switch(ineq,   30,   36,   36,    30,    36,    36,    36,    36,   26,   16,   36,   36 )
 } else {
   max.x   <- switch(ineq, 5000, 2500, 2500,  3000,  2500,  2500,  2500,  5000, 5000, 5000, 5000, 5000 )
-  max.y   <- switch(ineq,   92,   92,   92,    92,    92,    92,    92,    92,   66,   40,   92,   92 )
+  max.y   <- switch(ineq,   76,   92,   92,    92,    92,    92,    92,    92,   66,   40,   92,   92 )
 }
 
 # This is the slope term from Reineke Space
@@ -373,7 +373,7 @@ if(!use.metric){
                     x.at[c(1, 3, 5, 7, 9, 11, 16, 21, length(x.at))],            #9
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #10
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #11
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))] )   #12
+                    x.at[c(1, 3, 5, 7, 9, 11, 14, 18, 23, 28, length(x.at))] )   #12
 }
 # tick marks on y-axis
 if(!use.metric){
@@ -485,8 +485,8 @@ if(!use.metric){ #English units
                      c(100, 200, 300, 400, 500, 600 ),
                      c(100, 200, 300, 400, 500, 600 ),
                      c(118, 177, 207, 325, 354, 395 ),
-                     c(200, 300, 400, 500, 600, 800 ),
-                     c(100, 200, 300, 400, 500, 600 ) )
+                     c(100, 200, 300, 400, 500, 600 ),
+                     c(100, 150, 200, 300, 400, 500 ) )
 } else{  # metric units
   sdi.lines<- switch(ineq,
                      sdi.lines,
@@ -499,8 +499,8 @@ if(!use.metric){ #English units
                      c(250, 500,  750, 1000, 1250, 1500 ),
                      c(250, 500,  750, 1000, 1250, 1500 ),
                      c(118, 177,  207,  325,  354,  395 ),
-                     c(500, 700, 1000, 1200, 1500, 2000 ),
-                     c(250, 400,  500,  750, 1000, 1400 ))
+                     c(250, 450,  750, 1000, 1250, 1500 ),
+                     c(250, 375,  500,  750, 1000, 1250 ))
 
 }
 

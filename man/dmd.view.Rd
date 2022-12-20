@@ -92,7 +92,7 @@ Defines upper limit of stand density index (maximum sdi). There is no default li
   by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to
   render the DMD. At ineq=6, the max.sdi must range from 450 to 600 (inclusive).
   A value of ineq=10 requires English-unit max.sdi to be from 580 to 600 (inclusive).
-  A value of ineq=11 requires English-unit max.sdi to be from 700 to 1000 (inclusive).
+  A value of ineq=11 requires English-unit max.sdi to be from 750 to 1000 (inclusive).
   A value of ineq=12 requires English-unit max.sdi to be from 550 to 700 (inclusive).
 }
   \item{dmd.title}{
