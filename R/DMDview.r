@@ -104,8 +104,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=6 (1112-1483 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>=1433) && (max.sdi<=1483))){
-      message("sdi upper limit for ineq=10 (1433-1483 TPHA) invalid: DMD not rendered")
+    if(ineq==10 && !((max.sdi>=1450) && (max.sdi<=1500))){
+      message("sdi upper limit for ineq=10 (1450-1500 TPHA) invalid: DMD not rendered")
       return()
     }
     if(ineq==11 && !((max.sdi>=1875) && (max.sdi<=2500))){
