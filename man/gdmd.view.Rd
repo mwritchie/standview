@@ -50,7 +50,7 @@ Selects limiting SDI and other parameters. This must be an integer value from 1 
 
     Value of 9 for McCarter and Long (1986) Lodgepole pine.
 
-    Value of 10 for Woodall and Weiskittel (2021) spruce/fir
+    Value of 10 for Weiskittel and Woodall (2023) Maine spruce-fir
 
     Value of 11 for Ritchie and Berrill (2022) redwood/Douglas-fir
 
@@ -79,7 +79,20 @@ Selects for presentation of square spacing guide on x-axis. Default=TRUE.
 }
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi).
-  This is only used for ineq=1. Default is 400.
+  This is only used some of the ineq values. For ineq=1 Default is 400 and
+  acceptable range is . If ineq=1, 6, 10, 11 or 12 the user must specify a value.
+  If use.metric=TRUE this value must be in metric units.
+  Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 (Weiskittel and Woodall 2023),
+  ineq=11 or ineq=12 (Ritchie and Berrill 2022) are the only DMD options where the
+  user must actually specify this value.
+  For most published DMDs the upper limit is fixed by the author and cannot be changed
+  by user over-ride; in such cases, any user-specified upper limit will be ignored and
+  the published value will be used to render the DMD.
+  A value of ineq=1, requires English-unit max.sdi to be from 300-1000 (inclusive).
+  A value of ineq=6, requires English-unit max.sdi to be from 450-600 (inclusive).
+  A value of ineq=10 requires English-unit max.sdi to be from 527-564 (inclusive).
+  A value of ineq=11 requires English-unit max.sdi to be from 750-1000 (inclusive).
+  A value of ineq=12 requires English-unit max.sdi to be from 550-700 (inclusive).
 }
   \item{umz}{
 Defines upper limit of management zone, only used when mgt.zone[2] is NA.
@@ -141,7 +154,7 @@ Returns no value.
       hardwood forests in the central states. For. Sci. 13(1):38-53.
 
     Jang, W.S., M.W. Ritchie, and J. Zhang (2021) Improved equations for the density management
-    diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102.
+      diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102.
 
     Long, J.N. and J.D. Shaw (2005) A density management diagram for even-aged ponderosa
       pine stands. West. J. Appl. For. 20(4):205-215.
@@ -156,9 +169,12 @@ Returns no value.
       Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
       University of California, Agriculture and Natural Resources.
 
-    Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has shifted to
-      higher levels over the last two decades with important implications for future dynamics.
-      Scientific Reports 11(1), 1-12. doi.org/10.1038/s41598-021-98244-w
+    Weiskittel, A. & Woodall, C. 2023. Stand density index and relative density calculator
+      for the United States. figshare. Software. https://doi.org/10.6084/m9.figshare.24412246.v1
+
+    Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
+      dynamics in white fir (Abies concolor) forests in northeast California, USA.
+      For. Ecol. and Manage. 244:50-59.
 
 }
 \author{
@@ -167,7 +183,7 @@ Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Resea
 }
 \note{
 It is important to note that the gdmd.view function is designed to render a 8x6 inch canvas (pdf).
-    Any other size than that and the annotations and axis labels may not place correctly.
+    Any size other than that and the annotations and axis labels may not place correctly.
     For this reason, it is suggested that one open a pdf with the function call:
     pdf("myfile.pdf", width=8, height=6) prior to invoking the gdmd.view function. When the figure
     is completely rendered, then one should close the device with dev.off().
@@ -206,12 +222,12 @@ points(x=gama05[!gama05$treatment=="Control",]$tpa,
 par(opar)
 #dev.off() # close the optional pdf file
 
-# 3. This example tests the spruce/fir option
+# 3. This example tests the Maine spruce/fir option
 
 #pdf("myplotsfg.pdf", width=8, height=6) # optional (recommended), open a pdf file with 8wx6h
 opar <- par(mar = c(3.0,2.0,2.5,2.5))
 
-gdmd.view(ineq=10, max.sdi=590) # call gdmd.view and plot data.
+gdmd.view(ineq=10, max.sdi=542) # call gdmd.view and plot data.
 
 par(opar)
 #dev.off() # close the optional pdf file

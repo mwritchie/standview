@@ -60,8 +60,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=6 (450-600 TPA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>=580) && (max.sdi<=600))){
-      message("sdi upper limit for ineq=10 (580-600 TPA) invalid: DMD not rendered")
+    if(ineq==10 && !((max.sdi>=527) && (max.sdi<=564))){
+      message("sdi upper limit for ineq=10 (527-564 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==11 && !((max.sdi>=700) && (max.sdi<=1000))){
@@ -82,8 +82,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=6 (1112-1483 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>=1450) && (max.sdi<=1500))){
-      message("sdi upper limit for ineq=10 (1450-1500 TPHA) invalid: DMD not rendered")
+    if(ineq==10 && !((max.sdi>=1302) && (max.sdi<=1394))){
+      message("sdi upper limit for ineq=10 (1302-1394 TPHA) invalid: DMD not rendered")
       return()
     }
     if(ineq==11 && !((max.sdi>=1605) && (max.sdi<=2223))){
@@ -173,7 +173,7 @@ if(dmd.title==" "){
                   "Coastal Douglas-Fir (Long et al 1988)",             #7
                   "California White Fir (Zhang et al 2007)",           #8
                   "Lodgepole pine (McCarter and Long 1988)",           #9
-                  "Spruce/Fir (Woodall and Weiskittel 2021)",         #10
+                  "Maine Spruce-Fir (Weiskittel and Woodall 2023)",   #10
                   "Redwood/Douglas-fir (Ritchie and Berrill 2022)",   #11
                   "Douglas-fir/Redwood (Ritchie and Berrill 2022)")   #12
 }
@@ -189,7 +189,7 @@ if(!use.metric){
 
 if(!use.metric){
   max.sdi <- switch(ineq,
-                    max.sdi,
+                    ifelse(max.sdi<=1000 & max.sdi>=300, max.sdi, 400),
                     450,
                     400,
                     410,
@@ -306,11 +306,11 @@ if(!use.metric){
                   10:18,
                   10:18,
                   10:18,
-                  c(8:16,18),
-                  c(8:16,18),
-                  c(8:16,18),
-                  c(8:16,18),
-                  c(8:16,18))
+                  c(8:16, 18),
+                  c(8:16, 18),
+                  c(8:14, 16, 18),
+                  c(8:16, 18),
+                  c(8:16, 18))
 } else {
   space <- switch(ineq,
                   seq(3,5.5,0.5),

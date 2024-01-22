@@ -81,8 +81,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=6 (450-600 TPA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>=580) && (max.sdi<=600))){
-      message("sdi upper limit for ineq=10 (580-600 TPA) invalid: DMD not rendered")
+    if(ineq==10 && !((max.sdi>=527) && (max.sdi<=564))){
+      message("sdi upper limit for ineq=10 (527-564 TPA) invalid: DMD not rendered")
       return()
     }
     if(ineq==11 && !((max.sdi>=750) && (max.sdi<=1000))){
@@ -104,8 +104,8 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=6 (1112-1483 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==10 && !((max.sdi>=1450) && (max.sdi<=1500))){
-      message("sdi upper limit for ineq=10 (1450-1500 TPHA) invalid: DMD not rendered")
+    if(ineq==10 && !((max.sdi>=1302) && (max.sdi<=1394))){
+      message("sdi upper limit for ineq=10 (1302-1394 TPHA) invalid: DMD not rendered")
       return()
     }
     if(ineq==11 && !((max.sdi>=1875) && (max.sdi<=2500))){
@@ -151,7 +151,7 @@ if(dmd.title==" "){
                     "Coastal Douglas-Fir (Long et al. 1988)",            #7
                     "White Fir (Zhang et al. 2007)",                     #8
                     "Lodgepole Pine (McCarter and Long 1986)",           #9
-                    "Spruce/Fir (Woodall and Weiskittel 2021)",         #10
+                    "Spruce/Fir (Weiskittel and Woodall 2023)",         #10
                     "Redwood/Douglas-fir (Ritchie and Berrill 2022)",   #11
                     "Douglas-fir/Redwood (Ritchie and Berrill 2022)" )  #12
 }
@@ -168,7 +168,7 @@ max.sdi <- switch(ineq,
                   600,
                   800,
                   700,
-                  max.sdi,
+                  ifelse(max.sdi<=564 & max.sdi>=527, max.sdi, 564 ),
                   max.sdi,
                   max.sdi)
 } else{ # metric units
@@ -182,7 +182,7 @@ max.sdi <- switch(ineq,
                   1482,
                   1976,
                   1729,
-                  max.sdi,
+                  ifelse(max.sdi<=1394 & max.sdi>=1302, max.sdi, 1394),
                   max.sdi,
                   max.sdi)
 
@@ -484,7 +484,7 @@ if(!use.metric){ #English units
                      c(100, 150, 200, 300, 400, 500 ),
                      c(100, 200, 300, 400, 500, 600 ),
                      c(100, 200, 300, 400, 500, 600 ),
-                     c(118, 177, 207, 325, 354, 395 ),
+                     c(100, 125, 175, 250, 350, 450 ),
                      c(100, 200, 300, 400, 500, 600 ),
                      c(100, 150, 200, 300, 400, 500 ) )
 } else{  # metric units
@@ -498,7 +498,7 @@ if(!use.metric){ #English units
                      c(250, 370,  500,  740, 1000, 1240 ),
                      c(250, 500,  750, 1000, 1250, 1500 ),
                      c(250, 500,  750, 1000, 1250, 1500 ),
-                     c(118, 177,  207,  325,  354,  395 ),
+                     c(250, 300,  375,  500, 750,  1125 ),
                      c(250, 450,  750, 1000, 1250, 1500 ),
                      c(250, 375,  500,  750, 1000, 1250 ))
 
@@ -544,7 +544,7 @@ isod.adj<- switch(ineq,
                   c(210, 300, 12, 5),   #7
                   c(210, 300, 12, 5),   #8
                   c(210, 400, 12, 5),   #9
-                  c(210, 510, 12, 5),   #10
+                  c(210, 750, 12, 5),   #10
                   c(210, 1000, 12, 5),  #11
                   c(210, 750, 12, 5) )  #12
 
@@ -664,10 +664,34 @@ if(!use.metric){ # for English units
 
 # lower limit of the mgt zone in x dim was at line 403; moved on 5/22 mwr
 #lx.mz.1    <- lsd*(max.y/sdi.index)^(-(slp))
-lx.mz.1 <- min.x
+lx.mz.1 <- switch(ineq,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  lsd*(max.y/sdi.index)^(-(slp)),
+                  min.x,
+                  min.x)
 
 #lx.mz.2    <- usd*(max.y/sdi.index)^(-(slp))
-lx.mz.2 <- min.x
+lx.mz.2 <- switch(ineq,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  min.x,
+                  usd*(max.y/sdi.index)^(-(slp)),
+                  min.x,
+                  min.x)
 
 # parameters for volume
 vty <- 1   # one solid, two dashed, three dotted

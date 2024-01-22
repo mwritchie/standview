@@ -45,6 +45,7 @@ dmd.view(ineq=2, insdr=TRUE, insdl=FALSE)
 ![](README-fig1.show-1.png)<!-- -->
 
 ``` r
+
 par(opar)
 #dev.off()
 ```

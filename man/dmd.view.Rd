@@ -53,7 +53,7 @@ Selects the values from a published DMD source (ineq=1-10) or a generic
 
     Value of 9 for McCarter and Long (1986) lodgepole pine.
 
-    Value of 10 for Woodall and Weiskittel (2021) spruce-fir
+    Value of 10 for Weiskittel and Woodall (2023). Maine spruce-fir
 
     Value of 11 for Ritchie and Berrill (2022) redwood/Douglas-fir
 
@@ -86,14 +86,17 @@ Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that s
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi). There is no default limit to SDI. This value is set
   by the selection of ineq. If ineq=1, 6, 10, 11 or 12 the user must specify a value. If use.metric=TRUE this value must be in
-  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 (Woodall and Weiskittel 2021),
-  ineq=11 or ineq=12 the only DMD options where the
-  user may actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
+  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 (Weiskittel and Woodall 2023),
+  ineq=11 or ineq=12 (Ritchie and Berrill 2022) are the only DMD options where the
+  user must actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
   by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to
-  render the DMD. At ineq=6, the max.sdi must range from 450 to 600 (inclusive).
-  A value of ineq=10 requires English-unit max.sdi to be from 580 to 600 (inclusive).
-  A value of ineq=11 requires English-unit max.sdi to be from 750 to 1000 (inclusive).
-  A value of ineq=12 requires English-unit max.sdi to be from 550 to 700 (inclusive).
+  render the DMD.
+  A value of ineq=1, requires English-unit max.sdi to be from 300-1000 (inclusive).
+  A value of ineq=6, requires English-unit max.sdi to be from 450-600 (inclusive).
+  A value of ineq=10 requires English-unit max.sdi to be from 527-564 (inclusive).
+  A value of ineq=11 requires English-unit max.sdi to be from 750-1000 (inclusive).
+  A value of ineq=12 requires English-unit max.sdi to be from 550-700 (inclusive).
+
 }
   \item{dmd.title}{
 Character string for title to be displayed. As an example could take the form of dmd.title="Ponderosa Pine".
@@ -174,9 +177,8 @@ Returns no value.
     Stewart, W. (editor) Reforestation practices for conifers in California. Davis CA:
     University of California, Agriculture and Natural Resources.
 
-    Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has
-    shifted to higher levels over the last two decades with important implications for
-    future dynamics. Scientific Reports 11(1), 1-12. doi.org/10.1038/s41598-021-98244-w
+    Weiskittel, A. & Woodall, C. 2023. Stand density index and relative density calculator
+    for the United States. figshare. Software. https://doi.org/10.6084/m9.figshare.24412246.v1
 
     Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
     dynamics in white fir (Abies concolor) forests in northeast California, USA.
