@@ -58,7 +58,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |    7    | Douglas-fir               | Long et al. (1988)           |
 |    8    | White fir                 | Zhang et al. (2007)          |
 |    9    | Lodgepole pine            | McCarter and Long (1986)     |
-|   10    | Maine spruce-fir          | Woodall and Weiskittel (2021)|
+|   10    | Maine spruce-fir          | Weiskittel and Woodall (2023)|
 |   11    | redwood/Douglas-fir       | Ritchie and Berrill (2022)   |
 |   12    | Douglas-fir/redwood       | Ritchie and Berrill (2022)   |
 
@@ -179,9 +179,8 @@ Ritchie, M.W. and J.-P. Berrill (2022) Precommercial thinning in California Fore
   Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
   University of California, Agriculture and Natural Resources.  
 
-Woodall, C.W., and A.R. Weiskittel (2021) Relative density of United States forests has shifted to 
-  higher levels over the last two decades with important implications for future dynamics. 
-  Scientific Reports 11(1), 18848. doi.org/10.1038/s41598-021-98244-w
+Weiskittel, A. & Woodall, C. (2023) Stand density index and relative density calculator
+    for the United States. figshare. Software. https://doi.org/10.6084/m9.figshare.24412246.v1
   
 Zeide, B. (1983). The mean diameter for stand density index. Can. J. For. Res. 13:1023-1024.
 

@@ -177,7 +177,7 @@ Returns no value.
     Stewart, W. (editor) Reforestation practices for conifers in California. Davis CA:
     University of California, Agriculture and Natural Resources.
 
-    Weiskittel, A. & Woodall, C. 2023. Stand density index and relative density calculator
+    Weiskittel, A. & Woodall, C. (2023) Stand density index and relative density calculator
     for the United States. figshare. Software. https://doi.org/10.6084/m9.figshare.24412246.v1
 
     Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
