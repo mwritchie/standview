@@ -58,7 +58,9 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |    7    | Douglas-fir               | Long et al. (1988)           |
 |    8    | White fir                 | Zhang et al. (2007)          |
 |    9    | Lodgepole pine            | McCarter and Long (1986)     |
-|   10    | Maine spruce-fir          | Weiskittel and Woodall (2023)|
+|   10    | spruce-fir                | Weiskittel and Woodall (2023)|
+|   10    | red spruce                | Weiskittel and Woodall (2023)|
+|   10    | balsam fir                | Weiskittel and Woodall (2023)|
 |   11    | redwood/Douglas-fir       | Ritchie and Berrill (2022)   |
 |   12    | Douglas-fir/redwood       | Ritchie and Berrill (2022)   |
 
