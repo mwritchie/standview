@@ -35,19 +35,23 @@ if(is.null(max.sdi) & (ineq %in% c(1, 6))){
   message("Limiting sdi not specified by max.sdi for dmd.iso, iso-lines not rendered")
   return()
 }
-
+  # note I have put all ineq values in here even though we are limited to 2, 3, 6, 7, 9
 if(!use.metric){   # English Units
   max.sdi <- switch(ineq,
-                    ifelse(max.sdi<=1000 & max.sdi>=300, max.sdi , 400),
+                    ifelse(max.sdi<=1000 && max.sdi>=300, max.sdi , 400),
                     450,
                     400,
                     410,
                     365,
-                    ifelse(!(max.sdi<=600 & max.sdi>=450), 550, max.sdi),
+                    ifelse(max.sdi<=600 && max.sdi>=450, max.sdi, 550),
                     600,
                     800,
                     700,
-                    ifelse(!(max.sdi<=600 & max.sdi>=580), 590, max.sdi) )
+                    ifelse((max.sdi<=564 && max.sdi>=527), max.sdi, 527),
+                    ifelse((max.sdi<=608 && max.sdi>=547), max.sdi, 547),
+                    ifelse((max.sdi<=669 && max.sdi>=502), max.sdi, 502),
+                    max.sdi,
+                    max.sdi)
 } else{            # metric units
   max.sdi <- switch(ineq,
                     ifelse(max.sdi<=2470 & max.sdi>=741, max.sdi , 988),
@@ -59,7 +63,11 @@ if(!use.metric){   # English Units
                     1482,
                     1976,
                     1729,
-                    ifelse(!(max.sdi<=1483 & max.sdi>=1433), 1458, max.sdi) )
+                    ifelse((max.sdi<=1394 & max.sdi>=1302), max.sdi, 1302),
+                    ifelse((max.sdi<=1502 & max.sdi>=1352), max.sdi, 1352),
+                    ifelse((max.sdi<=1653 & max.sdi>=1240), max.sdi, 1240),
+                    max.sdi,
+                    max.sdi)
 }
 
 # volume functions

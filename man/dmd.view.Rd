@@ -53,11 +53,15 @@ Selects the values from a published DMD source (ineq=1-10) or a generic
 
     Value of 9 for McCarter and Long (1986) lodgepole pine.
 
-    Value of 10 for Weiskittel and Woodall (2023). Maine spruce-fir
+    Value of 10 for Weiskittel and Woodall (2023) spruce-fir.
 
-    Value of 11 for Ritchie and Berrill (2022) redwood/Douglas-fir
+    Value of 11 for Weiskittel and Woodall (2023) red spruce
 
-    Value of 12 for Ritchie and Berrill (2022) Douglas-fir/redwood
+    Value of 12 for Weiskittel and Woodall (2023) balsam fir
+
+    Value of 13 for Ritchie and Berrill (2022) redwood/Douglas-fir
+
+    Value of 14 for Ritchie and Berrill (2022) Douglas-fir/redwood
 
 
     Default=3.
@@ -94,8 +98,10 @@ Defines upper limit of stand density index (maximum sdi). There is no default li
   A value of ineq=1, requires English-unit max.sdi to be from 300-1000 (inclusive).
   A value of ineq=6, requires English-unit max.sdi to be from 450-600 (inclusive).
   A value of ineq=10 requires English-unit max.sdi to be from 527-564 (inclusive).
-  A value of ineq=11 requires English-unit max.sdi to be from 750-1000 (inclusive).
-  A value of ineq=12 requires English-unit max.sdi to be from 550-700 (inclusive).
+  A value of ineq=11 requires English-unit max.sdi to be from 547-608 (inclusive).
+  A value of ineq=12 requires English-unit max.sdi to be from 502-669 (inclusive).
+  A value of ineq=13 requires English-unit max.sdi to be from 750-1000 (inclusive).
+  A value of ineq=14 requires English-unit max.sdi to be from 550-700 (inclusive).
 
 }
   \item{dmd.title}{

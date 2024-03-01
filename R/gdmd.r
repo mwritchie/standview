@@ -64,11 +64,19 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=10 (527-564 TPA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==11 && !((max.sdi>=700) && (max.sdi<=1000))){
+    if(ineq==11 && !((max.sdi>=547) && (max.sdi<=608))){
+      message("sdi upper limit for ineq=10 (547-608 TPA) invalid: DMD not rendered")
+      return()
+    }
+    if(ineq==12 && !((max.sdi>=502) && (max.sdi<=669))){
+      message("sdi upper limit for ineq=10 (502-669 TPA) invalid: DMD not rendered")
+      return()
+    }
+    if(ineq==13 && !((max.sdi>=700) && (max.sdi<=1000))){
       message("sdi upper limit for ineq=11 (700-1000 TPA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==12 && !((max.sdi>=550) && (max.sdi<=700))){
+    if(ineq==14 && !((max.sdi>=550) && (max.sdi<=700))){
       message("sdi upper limit for ineq=12 (550-700 TPA) invalid: DMD not rendered")
       return()
     }
@@ -86,11 +94,19 @@ if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
       message("sdi upper limit for ineq=10 (1302-1394 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==11 && !((max.sdi>=1605) && (max.sdi<=2223))){
+    if(ineq==11 && !((max.sdi>=1352) && (max.sdi<=1502))){
+      message("sdi upper limit for ineq=10 (1352-1502 TPHA) invalid: DMD not rendered")
+      return()
+    }
+    if(ineq==12 && !((max.sdi>=1240) && (max.sdi<=1653))){
+      message("sdi upper limit for ineq=10 (1240-1653 TPHA) invalid: DMD not rendered")
+      return()
+    }
+    if(ineq==13 && !((max.sdi>=1605) && (max.sdi<=2223))){
       message("sdi upper limit for ineq=11 (1605-2223 TPHA) invalid: DMD not rendered")
       return()
     }
-    if(ineq==12 && !((max.sdi>=1360) && (max.sdi<=1730))){
+    if(ineq==14 && !((max.sdi>=1360) && (max.sdi<=1730))){
       message("sdi upper limit for ineq=12 (1360-1730 TPHA) invalid: DMD not rendered")
       return()
     }
@@ -173,18 +189,20 @@ if(dmd.title==" "){
                   "Coastal Douglas-Fir (Long et al 1988)",             #7
                   "California White Fir (Zhang et al 2007)",           #8
                   "Lodgepole pine (McCarter and Long 1988)",           #9
-                  "Maine Spruce-Fir (Weiskittel and Woodall 2023)",   #10
-                  "Redwood/Douglas-fir (Ritchie and Berrill 2022)",   #11
-                  "Douglas-fir/Redwood (Ritchie and Berrill 2022)")   #12
+                  "Spruce-Fir (Weiskittel and Woodall 2023)",         #10
+                  "Red Spruce (Weiskittel and Woodall 2023)",         #11
+                  "Balsam Fir (Weiskittel and Woodall 2023)",         #12
+                  "Redwood/Douglas-fir (Ritchie and Berrill 2022)",   #13
+                  "Douglas-fir/Redwood (Ritchie and Berrill 2022)")   #14
 }
 #                        1      2     3     4     5     6     7     8      9    10
 #inrd    <- switch(ineq, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,  TRUE, TRUE )
-if(!use.metric){
-  max.x   <- switch(ineq,   600,   600,  600,  600,  600,  600,  600,  800,  800,  1000, 1000, 800 )
-  max.y   <- switch(ineq,   450,   350,  300,  350,  250,  450,  500,  700,  550,   450,  900, 600 )
+if(!use.metric){        #     1      2     3     4     5     6     7     8     9     10    11    12    13   14
+  max.x   <- switch(ineq,   600,   600,  600,  600,  600,  600,  600,  800,  800,  1000, 1000, 1000, 1000, 800 )
+  max.y   <- switch(ineq,   450,   350,  300,  350,  250,  450,  500,  700,  550,   450,  450,  450,  900, 600 )
 } else{
-  max.x   <- switch(ineq,  1500,  1500, 1500, 1500, 1500, 1500, 1500, 2000, 2000,  2500, 2500, 1500 )
-  max.y   <- switch(ineq,   150,    80,   70,   80,   60,  110,  120,  170,  125,   150,  300,  200 )
+  max.x   <- switch(ineq,  1500,  1500, 1500, 1500, 1500, 1500, 1500, 2000, 2000,  2500, 2500, 2500, 2500, 1500 )
+  max.y   <- switch(ineq,   150,    80,   70,   80,   60,  110,  120,  170,  125,   150,  150,  150,  300,  200 )
 }
 
 if(!use.metric){
@@ -199,6 +217,8 @@ if(!use.metric){
                     800,
                     700,
                     max.sdi,
+                    max.sdi,
+                    max.sdi,
                     900,
                     700)
 } else {
@@ -212,6 +232,8 @@ if(!use.metric){
                     1482,
                     1977,
                     1730,
+                    max.sdi,
+                    max.sdi,
                     max.sdi,
                     2228,
                     1733)
@@ -228,6 +250,8 @@ slp     <- switch(ineq,
                   1.500,
                   1.605,
                   1.605,
+                  1.605,
+                  1.605,
                   1.600,
                   1.600)
 
@@ -241,6 +265,8 @@ mgt.zone <-switch(ineq,
                  c(0.35, 0.55),
                  c(0.20, 0.55),
                  c(0.20, 0.55),
+                 mgt.zone,
+                 mgt.zone,
                  mgt.zone,
                  c(0.35, 0.55),
                  c(0.35, 0.55))
@@ -268,6 +294,8 @@ if(!use.metric){
                 24,
                 20,
                 16,
+                16,
+                16,
                 30,
                 30)
 } else {
@@ -281,6 +309,8 @@ if(!use.metric){
                 60,
                 60,
                 50,
+                40,
+                40,
                 40,
                 76,
                 76)
@@ -309,10 +339,14 @@ if(!use.metric){
                   c(8:16, 18),
                   c(8:16, 18),
                   c(8:14, 16, 18),
+                  c(8:14, 16, 18),
+                  c(8:14, 16, 18),
                   c(8:16, 18),
                   c(8:16, 18))
 } else {
   space <- switch(ineq,
+                  seq(3,5.5,0.5),
+                  seq(3,5.5,0.5),
                   seq(3,5.5,0.5),
                   seq(3,5.5,0.5),
                   seq(3,5.5,0.5),
@@ -341,6 +375,8 @@ if(!use.metric){
                 10* round((0.20*max.sdi/10), 0),
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
+                ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
+                ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz))
 } else {
   lsd     <- switch(ineq,
@@ -353,6 +389,8 @@ if(!use.metric){
                 10* round((0.30*max.sdi/10), 0),
                 10* round((0.20*max.sdi/10), 0),
                 10* round((0.20*max.sdi/10), 0),
+                ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
+                ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz),
                 ifelse(!is.na(mgt.zone[1]), round(mgt.zone[1]*max.sdi,0), lmz))
@@ -371,6 +409,8 @@ if(!use.metric){
                 10 * round((0.55*max.sdi/10),0),
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
+                ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
+                ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz))
 } else {
   usd     <- switch(ineq,
@@ -385,6 +425,8 @@ if(!use.metric){
                 10 * round((0.55*max.sdi/10),0),
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
+                ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
+                ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz),
                 ifelse(!is.na(mgt.zone[2]), round(mgt.zone[2]*max.sdi,0), umz))
 }
 
@@ -392,17 +434,17 @@ if(!use.metric){
 # bump of RD annotation on the y-axis (multiplied by rd percent)
 if(!use.metric){
   y.off <- 6
-  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.069, 0.200, 0.063, 0.063, 0.063, 0.066)
+  y.bump  <- switch(ineq, 0.025, 0.025, 0.025, 0.025, 0.000, 0.0400, 0.069, 0.200, 0.063, 0.063, 0.063, 0.063, 0.063, 0.066)
 } else {
   y.off <- 1.3
-  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0200, 0.044, 0.040, 0.030, 0.030, 0.030, 0.032)
+  y.bump  <- switch(ineq, 0.025, 0.010, 0.002, 0.015, 0.000, 0.0200, 0.044, 0.040, 0.030, 0.030, 0.030, 0.030, 0.030, 0.032)
 }
 
 # bump the qmd lable
 if(!use.metric){
-  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.07, 1.07, 1.08, 1.08, 1.08, 1.08)
+  q.offy<-switch(ineq, 1.10, 1.09, 1.10, 1.10, 1.10, 1.10, 1.07, 1.07, 1.08, 1.08, 1.08, 1.08, 1.08, 1.08)
 } else {
-  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.06, 1.08, 1.06, 1.06, 1.06, 1.06)
+  q.offy<-switch(ineq, 1.08, 1.07, 1.08, 1.08, 1.08, 1.07, 1.06, 1.08, 1.06, 1.06, 1.06, 1.06, 1.06, 1.06)
 }
 # location of x-axis tpa lable increment
 x.ann.at<-switch(use.metric+1, 100, 200)
