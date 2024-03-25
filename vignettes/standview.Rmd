@@ -59,10 +59,10 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |    8    | White fir                 | Zhang et al. (2007)          |
 |    9    | Lodgepole pine            | McCarter and Long (1986)     |
 |   10    | spruce-fir                | Weiskittel and Woodall (2023)|
-|   10    | red spruce                | Weiskittel and Woodall (2023)|
-|   10    | balsam fir                | Weiskittel and Woodall (2023)|
-|   11    | redwood/Douglas-fir       | Ritchie and Berrill (2022)   |
-|   12    | Douglas-fir/redwood       | Ritchie and Berrill (2022)   |
+|   11    | red spruce                | Weiskittel and Woodall (2023)|
+|   12    | balsam fir                | Weiskittel and Woodall (2023)|
+|   13    | redwood/Douglas-fir       | Ritchie and Berrill (2022)   |
+|   14    | Douglas-fir/redwood       | Ritchie and Berrill (2022)   |
 
 
 Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below). The dmd.view function is set up to render well in a 6wx8h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=6, height=8).
@@ -145,12 +145,13 @@ Figures can be rendered in r a number of different formats. The pdf function wor
 
 ## References  
 
-Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
-  hardwood forests in the central states. For. Sci. 13(1):38-53.
 
 Cochran, P.H., and J.W. Barrett (1992) Stocking levels and underlying assumptions 
   for uneven-aged ponderosa pine stands. Res. Note PNW-509. USDA For. Serv. Pac. 
   Northwest For. and Range Exp. Stn. 10p.
+
+Gingrich, S. (1967) Measuring and evaluating stocking and stand density in upland
+  hardwood forests in the central states. For. Sci. 13(1):38-53.
 
 Jang, W.S., M.W. Ritchie, and J. Zhang (2021) Improved equations for the density management
   diagram isolines of ponderosa pine stands. For. Sci. 67(1):93-102.
@@ -178,7 +179,7 @@ Ritchie, M.W. (2005) Ecological research at the Goosenest Adaptive Management Ar
   Stn. 120 p.
   
 Ritchie, M.W. and J.-P. Berrill (2022) Precommercial thinning in California Forests. In:
-  Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
+  Stewart, W. (editor) Reforestation practices for conifers in California. Davis CA:
   University of California, Agriculture and Natural Resources.  
 
 Weiskittel, A. & Woodall, C. (2023) Stand density index and relative density calculator
