@@ -55,13 +55,15 @@ Selects the values from a published DMD source (ineq=1-10) or a generic
 
     Value of 10 for Weiskittel and Woodall (2023) spruce-fir.
 
-    Value of 11 for Weiskittel and Woodall (2023) red spruce
+    Value of 11 for Weiskittel and Woodall (2023) red spruce.
 
-    Value of 12 for Weiskittel and Woodall (2023) balsam fir
+    Value of 12 for Weiskittel and Woodall (2023) balsam fir.
 
-    Value of 13 for Ritchie and Berrill (2022) redwood/Douglas-fir
+    Value of 13 for Ritchie and Berrill (2022) redwood/Douglas-fir.
 
-    Value of 14 for Ritchie and Berrill (2022) Douglas-fir/redwood
+    Value of 14 for Ritchie and Berrill (2022) Douglas-fir/redwood.
+
+    Value of 15 for Williams (1994) loblolly pine.
 
 
     Default=3.
@@ -79,19 +81,20 @@ Selects for presentation of a management zone polygon. Boundaries for the
     Default=TRUE.
 }
   \item{insdr}{
-Selects for annotation of sdi lines on right of graph. Default=FALSE. Note that selecting true for this variable makes no
-  sense unless insdi=TRUE.
+Selects for annotation of sdi lines on right of graph. Default=FALSE. Note that selecting true for this variable is
+  useless unless insdi=TRUE.
 }
   \item{insdl}{
-Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that selecting true for this variable makes no
-  sense unless insdi=TRUE. Note that if the sdi.lines settings place lines too close together, these annotations may overlap
+Selects for annotation of sdi lines on left of graph. Default=FALSE. Note that selecting true for this variable is
+  useless unless insdi=TRUE. Note that if the sdi.lines settings place lines too close together, these annotations
+  may overlap. Use of insdl may be preferred over inslr if invol=T. This will avoid overlap of annotations.
 
 }
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi). There is no default limit to SDI. This value is set
   by the selection of ineq. If ineq=1, 6, 10, 11 or 12 the user must specify a value. If use.metric=TRUE this value must be in
-  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 (Weiskittel and Woodall 2023),
-  ineq=11 or ineq=12 (Ritchie and Berrill 2022) are the only DMD options where the
+  metric units. Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 or 11 (Weiskittel and Woodall 2023),
+  ineq=13 or 14 (Ritchie and Berrill 2022) are the only DMD options where the
   user must actually specify this value. For most published DMDs the upper limit is fixed by the author and cannot be changed
   by user over-ride; in such cases, any user-specified upper limit will be ignored and the published value will be used to
   render the DMD.
@@ -100,7 +103,7 @@ Defines upper limit of stand density index (maximum sdi). There is no default li
   A value of ineq=10 requires English-unit max.sdi to be from 527-564 (inclusive).
   A value of ineq=11 requires English-unit max.sdi to be from 547-608 (inclusive).
   A value of ineq=12 requires English-unit max.sdi to be from 502-669 (inclusive).
-  A value of ineq=13 requires English-unit max.sdi to be from 750-1000 (inclusive).
+  A value of ineq=13 requires English-unit max.sdi to be from 700-1000 (inclusive).
   A value of ineq=14 requires English-unit max.sdi to be from 550-700 (inclusive).
 
 }
@@ -115,19 +118,19 @@ An array of values for plotting sdi iso-lines in the density management diagram.
 }
   \item{mgt.zone}{
 Explicitly sets the upper and lower limits of the management zone by proportion of the max.sdi.
-    By defalut this is set to mgt.zone=c(0.35, 0.60). As such this will overwrite the 3rd and 5th
-    elements in the sdi.lines array. If the User wishes to use fixed values for the management zone using
-    the argument sdi.lines, then set mgt.zone=c(NA, NA). Acceptable Values for mgt.zone are 0.2 to 0.4 for
+    This will overwrite the 3rd and 5th elements in the sdi.lines array.
+    If the User wishes to use fixed values for the management zone using the argument sdi.lines,
+    then set mgt.zone=c(NA, NA). Acceptable Values for mgt.zone are 0.2 to 0.4 for
     lower limit (mgt.zone[1]), and 0.5 to 0.7 for upper limit (mgt.zone[2]).
 }
   \item{reineke.term}{
-This is the inverse of the slope of sdi lines in sdi space. Default=1.605, the value derived by Reineke (1933).
+This is the inverse of the slope of sdi lines in sdi space. The value presented by Reineke (1933) is 1.605.
     Limits are 1.3 and 2.0.
 }
   \item{bsi}{
 This is Barrett's site index (Barrett 1978) for use in the Cochran (1992) pine DMD (ineq=5). The default units
   for this argument is feet. If use.metric=TRUE is selected then the value for bsi should be reset by the user
-  to meters.
+  to meters. Value in English units must be between 70 and 100 feet. Value in metric must be between 21 and 34 m.
 }
   \item{mzcol}{
   Specifies color for management zone. Default="grey".
@@ -186,6 +189,9 @@ Returns no value.
     Weiskittel, A. & Woodall, C. (2023) Stand density index and relative density calculator
     for the United States. figshare. Software. https://doi.org/10.6084/m9.figshare.24412246.v1
 
+    Williams, R.A. (1994) Stand density management diagram for loblolly pine plantations
+    in north Louisiana. South. J. Appl. For. 18(1):40-45.
+
     Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
     dynamics in white fir (Abies concolor) forests in northeast California, USA.
     For. Ecol. and Manage. 244:50-59.
@@ -208,6 +214,9 @@ It is important to note that the dmd.view function is designed to render a 6wx8h
     slope to remove some of this apparent error. See Drew and Flewelling (1979), page 521.
 Also, some default values will depend on the ineq value selected. Defaults shown here are for ineq=1
     and may change according to selection of ineq to match published data.
+The user should be aware that annotations can sometimes be in conflict, causing overwriting.
+    In this case it is best to try turning experimenting with the logical inputs that control the
+    presence of these annotations to the figure.
 
 }
 

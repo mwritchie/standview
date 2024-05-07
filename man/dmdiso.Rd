@@ -23,11 +23,12 @@ dmd.iso(ineq           = 3,
 \arguments{
   \item{ineq}{
   Selects volume and dominant height equations. This must be an integer value: 2, 3, 6, 7, or 9.
-    Value 2 is for Long and Shaw (2005) Ponderosa pine equations.
-    Value 3 is for Jang et al. (2021) Ponderosa pine equations.
+    Value 2 is for Long and Shaw (2005) ponderosa pine.
+    Value 3 is for Jang et al. (2021) ponderosa pine.
     Value 6 is for Long and Shaw (2012) California mixed-conifer.
     Value 7 is for Drew and Flewelling (1979) Douglas-fir.
     Value 9 is for McCarter and Long (1986) lodgepole pine.
+    Value 15 is for Williams (1994) loblolly pine.
     Default=3.
 }
   \item{v.at}{
@@ -91,6 +92,11 @@ Returns a data frame with tpa, qmd, ba, volume (cubic feet per acre),
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged
       forests. J. Ag. Res. 46:627-638.
+
+    Williams, R.A. (1994) Stand density management diagram for loblolly pine plantations
+      in north Louisiana. South. J. Appl. For. 18(1):40-45.
+
+
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.

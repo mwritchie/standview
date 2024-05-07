@@ -31,7 +31,7 @@ ac.to.ha <- 2.471054
 in.to.cm <- 2.54
 feet.to.m <- 0.3048
 ft2.to.m2 <- 0.092903
-max.ineq  <- 14
+max.ineq  <- 15
 
 # Error Checking Section
 
@@ -67,7 +67,7 @@ if(ineq==5){
 #}
 
 #check values of max.sdi
-if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12){
+if(ineq==1 || ineq==6 || ineq==10 || ineq==11 || ineq==12 || ineq==13 || ineq==14){
   if(is.na(max.sdi)){
     message("Error: User must specify max.sdi if ineq=1, 6, 10, 11, 12, 13, or 14. DMD not rendered")
     return()
@@ -171,10 +171,11 @@ if(dmd.title==" "){
                     "Red Spruce (Weiskittel and Woodall 2023)",         #11
                     "Balsam Fir (Weiskittel and Woodall 2023)",         #12
                     "Redwood/Douglas-fir (Ritchie and Berrill 2022)",   #13
-                    "Douglas-fir/Redwood (Ritchie and Berrill 2022)" )  #14
+                    "Douglas-fir/Redwood (Ritchie and Berrill 2022)",   #14
+                    "loblolly pine (Williams 1994)" )                   #15
 }
 
-# Set the Max SDI
+# Set the Max SDI as a function of ineq
 if(!use.metric){ # English Units
 max.sdi <- switch(ineq,
                   ifelse(max.sdi<=1000 && max.sdi>=300, max.sdi , 400),  #1
@@ -189,112 +190,122 @@ max.sdi <- switch(ineq,
                   ifelse(max.sdi<=564 && max.sdi>=527, max.sdi, 527 ),   #10
                   ifelse(max.sdi<=608 && max.sdi>=547, max.sdi, 547 ),   #11
                   ifelse(max.sdi<=669 && max.sdi>=502, max.sdi, 502 ),   #12
-                  max.sdi,                                               #13
-                  max.sdi)                                               #14
+                  ifelse(max.sdi<=1000 && max.sdi>=700, max.sdi, 900),   #13
+                  ifelse(max.sdi<=700 && max.sdi>=500, max.sdi, 700),    #14
+                  400 )                                                  #15
 } else{ # metric units
 max.sdi <- switch(ineq,
                   ifelse(max.sdi<=2470 && max.sdi>=741, max.sdi , 988),
-                  1112,
+                  1110,
                   988,
                   1013,
-                  902,
+                  901,
                   ifelse(!(max.sdi<=1482 && max.sdi>=1112), 1359, max.sdi),
                   1482,
-                  1976,
-                  1729,
+                  1977,
+                  1730,
                   ifelse(max.sdi<=1394 && max.sdi>=1302, max.sdi, 1302),
                   ifelse(max.sdi<=1502 && max.sdi>=1352, max.sdi, 1352),
                   ifelse(max.sdi<=1653 && max.sdi>=1240, max.sdi, 1240),
-                  max.sdi,
-                  max.sdi)
+                  ifelse(max.sdi<=2470 && max.sdi>=1730, max.sdi, 2223),
+                  ifelse(max.sdi<=1730 && max.sdi>=1235, max.sdi, 1730),
+                  988)
 
 }
 
 tcex    <- switch(ineq, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50,
-                        0.50, 0.50, 0.50, 0.50)
+                        0.50, 0.50, 0.50, 0.50, 0.50)
 acex    <- switch(ineq, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75,
-                        0.75, 0.75, 0.75, 0.75)
+                        0.75, 0.75, 0.75, 0.75, 0.75)
 # size of text for sdi annotation:
 scex    <- switch(ineq, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.65,
-                        0.65, 0.65, 0.65, 0.65)
+                        0.65, 0.65, 0.65, 0.65, 0.75)
 sdilw   <- switch(ineq, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-                        1.00, 1.00, 1.00, 1.00)
+                        1.00, 1.00, 1.00, 1.00, 1.00)
 
-gridcol <- switch(ineq, "grey","grey","grey","grey","grey","grey","grey","grey","grey", "grey",
-                        "grey", "grey")
+gridcol <- switch(ineq, "grey", "grey", "grey", "grey", "grey", "grey", "grey", "grey", "grey", "grey",
+                        "grey", "grey", "grey", "grey", "grey")
 gridlw  <- switch(ineq, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2,
-                        0.2, 0.2)
+                        0.2, 0.2, 0.2, 0.2, 0.2)
 
 # min for x and y axis
 if(!use.metric){
-  min.x   <- switch(ineq, 40, 40, 15, 40, 40, 40, 50, 50, 80, 40, 40, 40, 40, 40)
-  min.y   <- switch(ineq,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1)
+  min.x   <- switch(ineq, 40, 40, 15, 40, 40, 40, 50, 50, 80, 40, 40, 40, 40, 40, 40)
+  min.y   <- switch(ineq,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1)
 } else {
-  min.x   <- switch(ineq, 100, 100, 40, 100, 100, 100, 120, 120, 200, 100, 100, 100, 100, 100)
-  min.y   <- switch(ineq,   3,   3,  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3)
+  min.x   <- switch(ineq, 100, 100, 40, 100, 100, 100, 120, 120, 200, 100, 100, 100, 100, 100, 100)
+  min.y   <- switch(ineq,   3,   3,  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3)
 }
 
 # max for x and y axis
 if(!use.metric){
-  max.x   <- switch(ineq, 2000, 1000, 1000,  1200,  1000,  1000,  1000,  2000, 2000, 2000, 2000, 2000, 2000, 2000 )
-  max.y   <- switch(ineq,   30,   36,   36,    30,    36,    36,    36,    36,   26,   16,   16,   16,   36,   36 )
+  max.x   <- switch(ineq, 2000, 1000, 1000,  1200,  1000,  1000,  1000,  2000, 2000, 2000,
+                          2000, 2000, 2000,  2000,  1200 )
+  max.y   <- switch(ineq,   30,   36,   36,    30,    36,    36,    36,    36,   26,   18,
+                            18,   18,   36,    36,    24 )
 } else {
-  max.x   <- switch(ineq, 5000, 2500, 2500,  3000,  2500,  2500,  2500,  5000, 5000, 5000, 5000, 5000,  5000, 5000 )
-  max.y   <- switch(ineq,   76,   92,   92,    92,    92,    92,    92,    92,   66,   40,   40,   40,    92,   92 )
+  max.x   <- switch(ineq, 5000, 2500, 2500,  3000,  2500,  2500,  2500,  5000, 5000, 5000,
+                          5000, 5000,  5000, 5000,  3000 )
+  max.y   <- switch(ineq,   76,   92,   92,    92,    92,    92,    92,    92,   66,   46,
+                            46,   46,    92,   92,    60 )
 }
 
 # This is the slope term from Reineke Space
 slp     <- switch(ineq,
-                  reineke.term,
-                  1.6000,
-                  1.7721,
-                  1.66113,
-                  1.7721,
-                  1.600,
-                  1.605,
-                  1.500,
-                  1.600,
-                  1.605,
-                  1.605,
-                  1.605,
-                  1.600,
-                  1.600)
+                  reineke.term,        #1
+                  1.6000,              #2
+                  1.7721,              #3
+                  1.66113,             #4
+                  1.7721,              #5
+                  1.600,               #6
+                  1.605,               #7
+                  1.500,               #8
+                  1.600,               #9
+                  1.605,               #10
+                  1.605,               #11
+                  1.605,               #12
+                  1.605,               #13
+                  1.605,               #14
+                  1.5053)              #15
 islp    <- 1/slp              # inverse of the slope
 
 # x-array for some plots
 tx <- seq(from=min.x, to=max.x, by=1)
 
 ylim.adj<- switch(ineq,
-                  c( 0.90, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10),
-                  c( 0.88, 1.10) )
+                  c( 0.90, 1.10),      #1
+                  c( 0.88, 1.10),      #2
+                  c( 0.88, 1.10),      #3
+                  c( 0.88, 1.10),      #4
+                  c( 0.88, 1.10),      #5
+                  c( 0.88, 1.10),      #6
+                  c( 0.88, 1.10),      #7
+                  c( 0.88, 1.10),      #8
+                  c( 0.88, 1.10),      #9
+                  c( 0.88, 1.10),      #10
+                  c( 0.88, 1.10),      #11
+                  c( 0.88, 1.10),      #12
+                  c( 0.88, 1.10),      #13
+                  c( 0.88, 1.10),      #14
+                  c( 0.88, 1.10))      #15
+
 # sets lower and upper limit of plotable stuff
 xlim.adj<- switch(ineq,
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20),
-                  c( 0.70, 1.20))
+                  c( 0.70, 1.20),     #1
+                  c( 0.70, 1.20),     #2
+                  c( 0.70, 1.20),     #3
+                  c( 0.70, 1.20),     #4
+                  c( 0.70, 1.20),     #5
+                  c( 0.70, 1.20),     #6
+                  c( 0.70, 1.20),     #7
+                  c( 0.70, 1.20),     #8
+                  c( 0.70, 1.20),     #9
+                  c( 0.70, 1.20),     #10
+                  c( 0.70, 1.20),     #11
+                  c( 0.70, 1.20),     #12
+                  c( 0.70, 1.20),     #13
+                  c( 0.70, 1.20),     #14
+                  c( 0.70, 1.20) )    #15
 
 # tick marks on x axis
 if(!use.metric){  # for English Units
@@ -337,7 +348,9 @@ if(!use.metric){  # for English Units
                       seq(1000, 1900, 100), max.x),
                     c(min.x, 60, 70, 80, 90, 100, 120, 140, 160, 180,
                       200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
-                      seq(1000, 1900, 100), max.x) )
+                      seq(1000, 1900, 100), max.x),
+                    c(min.x, 50, 60, 70, 80, 90, 100, 120, 140, 170,
+                      200, 250, 300, 350, 400, 500, 600, 700, 800, 900, 1000, 1100, max.x))
 }else{  # for metric
   x.at    <- switch(ineq,
                     c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
@@ -384,7 +397,9 @@ if(!use.metric){  # for English Units
                       4400, 4600, 4800, max.x),
                     c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
                       900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
-                      seq(2200,max.x,200)) )
+                      seq(2200,max.x,200)),
+                    c(min.x, 120, 150, 170, 200, 230, 260, 300, 350, 400, 500, 600,
+                      700, 800, 900, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, max.x) )
 }
 
 # This is the list of annotations for x-axis (levels of tpa)
@@ -403,7 +418,8 @@ if(!use.metric){
                     x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #11
                     x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #12
                     x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #13
-                    x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))] )   #14
+                    x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #14
+                    x.at[c(1, seq(3,length(x.at)-4,2), length(x.at))] )                   #15
 } else{
   xaxl    <- switch(ineq,
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #1
@@ -419,7 +435,8 @@ if(!use.metric){
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #11
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #12
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #13
-                    x.at[c(1, 3, 5, 7, 9, 11, 14, 18, 23, 28, length(x.at))] )   #14
+                    x.at[c(1, 3, 5, 7, 9, 11, 14, 18, 23, 28, length(x.at))],    #14
+                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))] )          #15
 }
 # tick marks on y-axis
 if(!use.metric){
@@ -433,27 +450,29 @@ y.at    <- switch(ineq,
                   c(min.y, seq(from=1.5, to=6.5, by=0.5), 7:max.y),  #7
                   c(min.y, seq(from=1.5, to=6.5, by=0.5), 7:max.y),  #8
                   c(min.y, seq(from=1.5, to=6.5, by=0.5), 7:max.y),  #9
-                  seq(from=min.y, to=max.y, by=0.5),                 #10
-                  seq(from=min.y, to=max.y, by=0.5),                 #11
-                  seq(from=min.y, to=max.y, by=0.5),                 #12
+                  c(seq(from=min.y, to=12, by=0.5), 11:max.y),       #10
+                  c(seq(from=min.y, to=12, by=0.5), 11:max.y),       #11
+                  c(seq(from=min.y, to=12, by=0.5), 11:max.y),       #12
                   c(seq(from=min.y, to=16.0, by=0.5), 17:max.y),     #13
-                  c(seq(from=min.y, to=16.0, by=0.5), 17:max.y) )    #14
+                  c(seq(from=min.y, to=16.0, by=0.5), 17:max.y),     #14
+                  c(min.y, seq(from=1.5, to=6.5, by=0.5), 7:22, max.y) ) #15
 } else{
 y.at    <- switch(ineq,
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:20, seq(from=22, to=max.y, by=2)),
-                  c(min.y:20, seq(from=22, to=max.y, by=2)),
-                  c(min.y:20, seq(from=22, to=max.y, by=2)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),
-                  c(min.y:30, seq(from=33, to=max.y, by=3)) )
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #1
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #2
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #3
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #4
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #5
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #6
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #7
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #8
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #9
+                  c(min.y:18, seq(from=20, to=max.y, by=2)),    #10
+                  c(min.y:18, seq(from=20, to=max.y, by=2)),    #11
+                  c(min.y:18, seq(from=20, to=max.y, by=2)),    #12
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #13
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #14
+                  c(min.y:30, seq(from=33, to=max.y, by=3)) )   #15
 }
 
 # This is the list of annotations for y-axis (levels of qmd)
@@ -472,7 +491,8 @@ if(!use.metric){ #English units
                    c(seq(from=min.y, to=10, by=1), seq(12, max.y, 2)),  #11
                    c(seq(from=min.y, to=10, by=1), seq(12, max.y, 2)),  #12
                    c(seq(from=min.y, to=10, by=1), seq(12, max.y, 2)),  #13
-                   c(seq(from=min.y, to=10, by=1), seq(12, max.y, 2)) ) #14
+                   c(seq(from=min.y, to=10, by=1), seq(12, max.y, 2)),  #14
+                   c(seq(from=min.y, to=10, by=1), seq(12, max.y, 2)) ) #15
 } else{ # metric units
   yaxl   <- switch(ineq,
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #1
@@ -484,11 +504,12 @@ if(!use.metric){ #English units
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #7
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #8
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #9
-                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #10
-                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #11
-                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #12
+                   c(seq(min.y, 12, 1), seq(14, to=max.y, by=2)),       #10
+                   c(seq(min.y, 12, 1), seq(14, to=max.y, by=2)),       #11
+                   c(seq(min.y, 12, 1), seq(14, to=max.y, by=2)),       #12
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #13
-                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)) )      #14
+                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #14
+                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)) )      #15
 }
 # vertical grid lines at:
 v.grid <- x.at[2:length(x.at)]
@@ -499,6 +520,7 @@ h.grid <- y.at[2:length(y.at)]
 #grid.lw <- switch(ineq, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2)
 
 # this is the tx[] array offset for starting the plot of max sdi line
+if(!use.metric){ #English units
 sdi.strt<- switch(ineq,
                   1,
                   7,
@@ -513,24 +535,45 @@ sdi.strt<- switch(ineq,
                   trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
                   trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
                   trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
-                  trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1)
+                  trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
+                  4)
+} else {
+  sdi.strt<- switch(ineq,
+                    2.54,
+                    7,
+                    4,
+                    4,
+                    1,
+                    4,
+                    4,
+                    4,
+                    4,
+                    trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
+                    trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
+                    trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
+                    trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
+                    trunc(max.sdi*(max.y/sdi.index)^(-(slp)) )- min.x + 1,
+                    4)
+}
 
 # this is the adjustments on the upper limit annotation
 ul.loc<- switch(ineq,
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.41, 1.08, 0.94, 1.35),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.51, 1.08, 0.94, 1.60),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25),
-                c(2.21, 1.08, 0.94, 1.25) )
+                c(2.21, 1.08, 0.94, 1.25),    #1
+                c(2.21, 1.08, 0.94, 1.25),    #2
+                c(2.41, 1.08, 0.94, 1.35),    #3
+                c(2.21, 1.08, 0.94, 1.25),    #4
+                c(2.51, 1.08, 0.94, 1.60),    #5
+                c(2.21, 1.08, 0.94, 1.25),    #6
+                c(2.21, 1.08, 0.94, 1.25),    #7
+                c(2.21, 1.08, 0.94, 1.25),    #8
+                c(2.21, 1.08, 0.94, 1.25),    #9
+                c(2.21, 1.08, 0.94, 1.25),   #10
+                c(2.21, 1.08, 0.94, 1.25),   #11
+                c(2.21, 1.08, 0.94, 1.25),   #12
+                c(2.21, 1.08, 0.94, 1.25),   #13
+                c(2.21, 1.08, 0.94, 1.25),   #14
+                c(2.21, 1.08, 0.94, 1.25) )  #15
+
 if(!use.metric){ #English units
   sdi.lines<- switch(ineq,
                      sdi.lines,                           #1
@@ -538,7 +581,7 @@ if(!use.metric){ #English units
                      c(50,  100, 150, 200, 250, 325 ),    #3
                      c(50,  100, 150, 200, 250, 325 ),    #4
                      c(50,  100, 150, 200, 250, 300 ),    #5
-                     c(50,  100, 150, 200, 300, 450 ),    #6
+                     c(50,  100, 150, 200, 300, 400 ),    #6
                      c(100, 150, 200, 300, 400, 500 ),    #7
                      c(100, 200, 300, 400, 500, 600 ),    #8
                      c(100, 200, 300, 400, 500, 600 ),    #9
@@ -546,7 +589,8 @@ if(!use.metric){ #English units
                      c(100, 125, 175, 250, 350, 450 ),   #11
                      c(100, 125, 175, 250, 350, 450 ),   #12
                      c(100, 200, 300, 400, 500, 600 ),   #13
-                     c(100, 150, 200, 300, 400, 500 ) )  #14
+                     c(100, 150, 200, 300, 400, 500 ),   #14
+                     c(50,  100, 150, 200, 250, 300 ) )  #15
 } else{  # metric units
   sdi.lines<- switch(ineq,
                      sdi.lines,                             #1
@@ -554,15 +598,16 @@ if(!use.metric){ #English units
                      c(125, 250,  375,  500,  625, 800  ),  #3
                      c(125, 250,  375,  500,  625, 800  ),  #4
                      c(125, 250,  375,  500,  625, 740  ),  #5
-                     c(125, 250,  375,  500,  600, 1100 ),  #6
+                     c(125, 200,  300,  450,  700, 1000 ),  #6
                      c(250, 370,  500,  740, 1000, 1200 ),  #7
                      c(250, 500,  750, 1000, 1250, 1500 ),  #8
                      c(250, 500,  750, 1000, 1250, 1500 ),  #9
-                     c(250, 300,  375,  500, 850,  1100 ),  #10
-                     c(250, 300,  375,  500, 850,  1100 ),  #12
-                     c(250, 300,  375,  500, 850,  1100 ),  #13
+                     c(250, 310,  435,  620, 865,  1115 ),  #10
+                     c(250, 310,  435,  620, 865,  1115 ),  #12
+                     c(250, 310,  435,  620, 865,  1115 ),  #13
                      c(250, 450,  750, 1000, 1250, 1500 ),  #14
-                     c(250, 375,  500,  750, 1000, 1250 ))  #14
+                     c(250, 375,  500,  750, 1000, 1250 ),  #14
+                     c(125, 250,  375,  500,  625, 740 ) )  #15
 
 }
 
@@ -575,19 +620,8 @@ if(max(sdi.lines >= max.sdi)){
 
 # upper limit of the mz in x dim
 ux.mz      <- switch(ineq, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.x,
-                           max.x, max.x, max.x, max.x)
+                           max.x, max.x, max.x, max.x, max.x)
 
-# these are who knows? not used now.
-#mx.parms<- switch(ineq,
-#                  c(sdi.lines[5], sdi.lines[3], min.x*(1+2/3), max.x),  #1
-#                  c(250, 150, 25, max.x),  #2
-#                  c(220, 100, 20, max.x),  #3
-#                  c(220, 100, 20, max.x),
-#                  c(220, 100, 20, max.x),
-#                  c(220, 100, 20, max.x),
-#                  c(220, 100, 20, max.x),
-#                  c(220, 100, 20, max.x),
-#                  c(220, 100, 20, max.x))
 
 # these guide placement of the iso lines and annotation
 # What the hell are these? I don't remember how this works, mwr 5/22
@@ -596,65 +630,63 @@ ux.mz      <- switch(ineq, max.x, max.x, max.x, max.x, max.x, max.x, max.x, max.
 # the first is vestigal, no longer in use
 # the second is measured in sdi english units only,
 # this is a bug because it does not account for metric
-isod.adj<- switch(ineq,
-                  c(160, 300, 12, 5),   #1
-                  c(360, 440, 12, 5),   #2
-                  c(210, 300, 12, 5),   #3
-                  c(330, 400, 12, 5),   #4
-                  c(210, 300, 12, 5),   #5
-                  c(210, 300, 12, 5),   #6
-                  c(210, 300, 12, 5),   #7
-                  c(210, 300, 12, 5),   #8
-                  c(210, 400, 12, 5),   #9
-                  c(210, 750, 12, 5),   #10
-                  c(210, 750, 12, 5),   #11
-                  c(210, 750, 12, 5),   #12
-                  c(210, 1000, 12, 5),  #13
-                  c(210, 750,  12, 5) )  #14
-
+if(!use.metric){ #English units
+  isod.adj<- switch(ineq,
+                    c(160, 300, 12, 5),   #1
+                    c(360, 440, 12, 5),   #2
+                    c(210, 300, 12, 5),   #3
+                    c(330, 400, 12, 5),   #4
+                    c(210, 300, 12, 5),   #5
+                    c(210, 300, 12, 5),   #6
+                    c(210, 300, 12, 5),   #7
+                    c(210, 300, 12, 5),   #8
+                    c(210, 400, 12, 5),   #9
+                    c(210, 750, 12, 5),   #10
+                    c(210, 750, 12, 5),   #11
+                    c(210, 750, 12, 5),   #12
+                    c(210, 1000, 12, 5),  #13
+                    c(210, 750,  12, 5),  #14
+                    c(330, 400, 12, 5) )  #15
+} else {
+  isod.adj<- switch(ineq,
+                    c(160, 300,  12, 5),     #1
+                    c(360, 440,  12, 5),     #2
+                    c(210, 300,  12, 5),     #3
+                    c(330, 400,  12, 5),     #4
+                    c(210, 740,  30.5, 5),   #5
+                    c(210, 740,  30.5, 5),   #6
+                    c(210, 740,  30.5, 5),   #7
+                    c(210, 740,  30.5, 5),   #8
+                    c(210, 990,  30.5, 5),   #9
+                    c(210, 1852, 30.5, 5),   #10
+                    c(210, 1852, 30.5, 5),   #11
+                    c(210, 1852, 30.5, 5),   #12
+                    c(210, 2475, 30.5, 5),   #13
+                    c(210, 1856, 30.5, 5),   #14
+                    c(330,  990, 30.5, 5) )  #15
+}
 # this is an annotation vert adjustment for max sdi
 #                     1    2    3    4     5    6    7    8    9    10
 ulanny<-switch(ineq, 0.0, 0.0, 0.0, 0.0, -4.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                     0.0, 0.0, 0.0, 0.0)
+                     0.0, 0.0, 0.0, 0.0,  0.0)
 
-# place holder not used right now
-#sdl.x <- switch(ineq,                #placeholder
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)))
-# this is a placeholder for adjustment on left annotations
-#sdl.y <- switch(ineq,                #placeholder
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#                ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)),
-#               ifelse(!use.metric, c(1,2,3,4,5,6,7), c(1,2,3,4,5,6,7)))
 #adjustment for annotations on right side of graph
 sdra<- switch(ineq,
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150),
-              ifelse(!use.metric, 1.150, 1.150) )
+              ifelse(!use.metric, 1.150, 1.150),   #1
+              ifelse(!use.metric, 1.150, 1.150),   #2
+              ifelse(!use.metric, 1.150, 1.150),   #3
+              ifelse(!use.metric, 1.150, 1.150),   #4
+              ifelse(!use.metric, 1.150, 1.150),   #5
+              ifelse(!use.metric, 1.150, 1.150),   #6
+              ifelse(!use.metric, 1.150, 1.150),   #7
+              ifelse(!use.metric, 1.150, 1.150),   #8
+              ifelse(!use.metric, 1.150, 1.150),   #9
+              ifelse(!use.metric, 1.150, 1.150),   #10
+              ifelse(!use.metric, 1.150, 1.150),   #11
+              ifelse(!use.metric, 1.150, 1.150),   #12
+              ifelse(!use.metric, 1.150, 1.150),   #13
+              ifelse(!use.metric, 1.150, 1.150),   #14
+              ifelse(!use.metric, 1.150, 1.150) )  #15
 
 # lower sdi limit of the management zone
 lsd     <- switch(ineq,
@@ -685,38 +717,44 @@ lsd     <- switch(ineq,
                          round(mgt.zone[1]*max.sdi,0),
                          sdi.lines[3]),
                   10* round((0.35*max.sdi/10), 0),     #13
-                  10* round((0.35*max.sdi/10), 0) )    #14
+                  10* round((0.35*max.sdi/10), 0),     #14
+                  10* round((0.40*max.sdi/10), 0) )    #15
 
 # upper sdi limit of the management zone
 usd     <- switch(ineq,
-                  ifelse(!is.na(mgt.zone[2]),
+                  ifelse(!is.na(mgt.zone[2]),                         #1
                          round(mgt.zone[2]*max.sdi,0),
                          200 ),
-                  ifelse(!use.metric,
+                  ifelse(!use.metric,                                 #2
                          250,
                          618 ),
-                  10 * round((0.55*max.sdi/10),0),
-                  10 * round((0.60*max.sdi/10),0),
-                  ifelse(!use.metric,
-                         round(max.sdi*(-0.36+0.01*bsi),0 ),
-                         round(max.sdi*(-0.36+0.01*bsi/feet.to.m),0 ) ),
-                  ifelse(!is.na(mgt.zone[2]),
+                  10 * round((0.55*max.sdi/10),0),                    #3
+                  10 * round((0.60*max.sdi/10),0),                    #4
+                  ifelse(!use.metric,                                 #5
+                     round(max.sdi*(-0.36+0.01*bsi),0 ),
+                     round(max.sdi*(-0.36+0.01*bsi/feet.to.m),0 ) ),
+                  ifelse(!is.na(mgt.zone[2]),                         #6
                          round(mgt.zone[2]*max.sdi,0),
                          300 ),
-                  10 * round((0.55*max.sdi/10),0),
-                  10 * round((0.55*max.sdi/10),0),
-                  10 * round((0.55*max.sdi/10),0),
+                  10 * round((0.55*max.sdi/10),0),                    #7
                   ifelse(!is.na(mgt.zone[2]),
                          round(mgt.zone[2]*max.sdi,0),
-                         300 ),
-                  ifelse(!is.na(mgt.zone[2]),
+                         440),                                        #8
+                  10 * round((0.55*max.sdi/10),0),                    #9
+                  ifelse(!is.na(mgt.zone[2]),                         #10
                          round(mgt.zone[2]*max.sdi,0),
                          300 ),
-                  ifelse(!is.na(mgt.zone[2]),
+                  ifelse(!is.na(mgt.zone[2]),                         #11
                          round(mgt.zone[2]*max.sdi,0),
                          300 ),
-                  10 * round((0.55*max.sdi/10),0),
-                  10 * round((0.55*max.sdi/10),0) )
+                  ifelse(!is.na(mgt.zone[2]),                         #12
+                         round(mgt.zone[2]*max.sdi,0),
+                         300 ),
+                  10 * round((0.55*max.sdi/10),0),                    #13
+                  10 * round((0.55*max.sdi/10),0),                    #14
+                  10 * round((0.55*max.sdi/10),0))                    #15
+
+##################################This is where I left off on 3/28/2024##########
 
 if( lsd>=usd || is.na(lsd) || is.na(usd)){
   message("Invalid management zone limits, figure failed to render")
@@ -743,20 +781,21 @@ if(!use.metric){ # for English units
 # lower limit of the mgt zone in x dim was at line 403; moved on 5/22 mwr
 #lx.mz.1    <- lsd*(max.y/sdi.index)^(-(slp))
 lx.mz.1 <- switch(ineq,
-                  min.x,
-                  min.x,
-                  min.x,
-                  min.x,
-                  min.x,
-                  min.x,
-                  min.x,
-                  min.x,
-                  min.x,
-                  lsd*(max.y/sdi.index)^(-(slp)),
-                  lsd*(max.y/sdi.index)^(-(slp)),
-                  lsd*(max.y/sdi.index)^(-(slp)),
-                  min.x,
-                  min.x)
+                  min.x,                                     #1
+                  min.x,                                     #2
+                  min.x,                                     #3
+                  min.x,                                     #4
+                  min.x,                                     #5
+                  min.x,                                     #6
+                  min.x,                                     #7
+                  min.x,                                     #8
+                  min.x,                                     #9
+                  lsd*(max.y/sdi.index)^(-(slp)),            #10
+                  lsd*(max.y/sdi.index)^(-(slp)),            #11
+                  lsd*(max.y/sdi.index)^(-(slp)),            #12
+                  min.x,                                     #13
+                  min.x,                                     #14
+                  lsd*(max.y/sdi.index)^(-(slp)) )          #15
 
 #lx.mz.2    <- usd*(max.y/sdi.index)^(-(slp))
 lx.mz.2 <- switch(ineq,
@@ -773,7 +812,8 @@ lx.mz.2 <- switch(ineq,
                   usd*(max.y/sdi.index)^(-(slp)),
                   usd*(max.y/sdi.index)^(-(slp)),
                   min.x,
-                  min.x)
+                  min.x,
+                  usd*(max.y/sdi.index)^(-(slp)) )
 
 # parameters for volume
 vty <- 1   # one solid, two dashed, three dotted
@@ -904,7 +944,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
     graphics::text((max.sdi*(yyloc/sdi.index)^(-slp))*ul.loc[1], yyloc*ul.loc[2] ,
                    "Stand Density Index",      cex=scex, col=sdicol)
     graphics::text((max.sdi*(yyloc/sdi.index)^(-slp))*ul.loc[1], yyloc      ,
-                   paste("Upper Limit of:", max.sdi), cex=scex, col=sdicol)
+                   paste("Upper Limit of", max.sdi), cex=scex, col=sdicol)
     graphics::text((max.sdi*(yyloc/sdi.index)^(-slp))*ul.loc[1], yyloc*ul.loc[3] ,
                    paste("Reineke Value of", slp), cex=scex, col=sdicol)
     if(inply){
@@ -948,7 +988,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
 
       yyann <- isd[1] # just set this as the default, not really necessary
 
-      if(isd[1] <= max.y * 1.10){  # if it starts no more than 1.10 times the max y
+      if(isd[1] <= max.y * 1.05){  # if it starts no more than 1.10 times the max y
         graphics::lines(tx[1:irng], isd[1:irng],
                         type="l", col=sdicol, lwd=sdilw)
         xxann <- 0.66 * min.x
@@ -1018,7 +1058,9 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                NULL,
                NULL,
                NULL,
-               NULL)
+               NULL,
+               c(50, 200, 400, 600, 1000, 1500, 2000,
+                 3000, 4000, 5000, 6000, 8000))
     dmd.iso(ineq,
             v.at=vol.levels,
             range.x=c(min.x, max.x),
@@ -1047,10 +1089,12 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                    NULL,
                    NULL,
                    NULL,
-                   NULL)
+                   NULL,
+                   c(30, 45, 60, 75, 150,
+                     200, 300, 400, 500, 600, 800))
       dmd.iso(ineq,
-              v.at=vol.levels,
-              range.x=c(min.x, max.x),
+              v.at=vol.levels,             #already set to english or metric
+              range.x=c(min.x, max.x),     #already set to english or metric
               max.sdi=max.sdi,
               reineke.term=slp,
               show.vol=TRUE,

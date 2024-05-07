@@ -31,7 +31,7 @@ gdmd.view(ineq  = 1,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ineq}{
-Selects limiting SDI and other parameters. This must be an integer value from 1 to 10.
+Selects limiting SDI and other parameters. This must be an integer value from 1 to 14.
     Value of 1 generates a generic DMD space, no published volumes.
 
     Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
@@ -60,6 +60,8 @@ Selects limiting SDI and other parameters. This must be an integer value from 1 
 
     Value of 14 for Ritchie and Berrill (2022) Douglas-fir/redwood
 
+    Value of 15 for Williams (1994) loblolly pine
+
     Default=1.
 }
   \item{inul}{
@@ -84,10 +86,10 @@ Selects for presentation of square spacing guide on x-axis. Default=TRUE.
   \item{max.sdi}{
 Defines upper limit of stand density index (maximum sdi).
   This is only used some of the ineq values. For ineq=1 Default is 400 and
-  acceptable range is . If ineq=1, 6, 10, 11 or 12 the user must specify a value.
+  acceptable range is . If ineq=1, 6, 10, 11, 12, 13 or 14 the user must specify a value.
   If use.metric=TRUE this value must be in metric units.
-  Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10 (Weiskittel and Woodall 2023),
-  ineq=11 or ineq=12 (Ritchie and Berrill 2022) are the only DMD options where the
+  Currently ineq=1 (generic DMD), ineq=6 (Long and Shaw 2012), ineq=10-12 (Weiskittel and Woodall 2023),
+  ineq=13-14 (Ritchie and Berrill 2022), or are the only DMD options where the
   user must actually specify this value.
   For most published DMDs the upper limit is fixed by the author and cannot be changed
   by user over-ride; in such cases, any user-specified upper limit will be ignored and
@@ -96,9 +98,9 @@ Defines upper limit of stand density index (maximum sdi).
   A value of ineq=6, requires English-unit max.sdi to be from 450-600 (inclusive).
   A value of ineq=10 requires English-unit max.sdi to be from 527-564 (inclusive).
   A value of ineq=11 requires English-unit max.sdi to be from 547-608 (inclusive).
-  A value of ineq=11 requires English-unit max.sdi to be from 502-669 (inclusive).
-  A value of ineq=12 requires English-unit max.sdi to be from 750-1000 (inclusive).
-  A value of ineq=13 requires English-unit max.sdi to be from 550-700 (inclusive).
+  A value of ineq=12 requires English-unit max.sdi to be from 502-669 (inclusive).
+  A value of ineq=13 requires English-unit max.sdi to be from 700-1000 (inclusive).
+  A value of ineq=14 requires English-unit max.sdi to be from 500-700 (inclusive).
 }
   \item{umz}{
 Defines upper limit of management zone, only used when mgt.zone[2] is NA.
@@ -175,8 +177,11 @@ Returns no value.
       Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
       University of California, Agriculture and Natural Resources.
 
-    Weiskittel, A. & Woodall, C. 2023. Stand density index and relative density calculator
+    Weiskittel, A. & Woodall, C. (2023) Stand density index and relative density calculator
       for the United States. figshare. Software. https://doi.org/10.6084/m9.figshare.24412246.v1
+
+    Williams, R.A. (1994) Stand density  management diagram for loblolly pine plantations in north
+      Louisiana South. J. Appl. For. 18(1):40-45.
 
     Zhang, J., W.W. Oliver and M.W. Ritchie (2007) Effect of stand densities on stand
       dynamics in white fir (Abies concolor) forests in northeast California, USA.

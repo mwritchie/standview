@@ -22,15 +22,17 @@ dmd.volume(ineq  = 2,
   \item{ineq}{
 Selects supplimental equations. This must be an integer value  2, 3, 6, 7, or 9.
 
-    Value is 2 for Long and Shaw (2005) Ponderosa pine equations,
+    Value is 2 for Long and Shaw (2005) Ponderosa pine,
 
-    Value of 3 for Jang et al. (2021) Ponderosa pine equations.
+    Value of 3 for Jang et al. (2021) Ponderosa pine.
 
-    Value of 6 for Long and Shaw (2012) California mixed-conifer
+    Value of 6 for Long and Shaw (2012) California mixed-conifer.
 
-    Value of 7 for Drew and Flewelling (1979); Long et al. (1988).
+    Value of 7 Drew and Flewelling (979); Long et al. (1988) Douglas-fir.
 
-    Value of 9 for McCarter and Long (1986).
+    Value of 9 for McCarter and Long (1986) Lodgepole pine.
+
+    Value of 15 for Williams (1994).
 
     Default=3.
 }
@@ -89,6 +91,10 @@ the delta method (manuscript in preparation).
 
     Reineke, L.H. (1933) Perfecting a stand density index for even-aged forests.
       J. Ag. Res. 46:627-638.
+
+    Williams, R.A. (1994) Stand density management diagram for loblolly pine plantations
+      in north Louisiana. South. J. Appl. For. 18(1):40-45.
+
 }
 \author{
 Martin W. Ritchie, Research Forester, US Forest Service, Pacific Southwest Research Station.

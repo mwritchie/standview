@@ -64,6 +64,17 @@ McC1986height<-function(tpa, qmd){ # McCarter and Long (1986)
   height <- (1/1.27)*(mess1^(1/0.916)/mess2)^(1/1.09)
   return(height)
 }
+
+Wl1994height<-function(qmd,mV){ # Williams (1994) in English units
+  if(mV<=0){
+    message("Invalid volume calculation, negative mean Vol")
+    return()
+  }
+  mess1 <- (log(mV)/0.9749) - (-5.5943/0.9749) - ((1.8919*log(qmd))/0.9749)
+  height<- exp(mess1)
+  return(height)
+}
+
 ################################################################################
 dmd.volume<-function(ineq  = 2,
                      max.sdi=NULL,
@@ -280,15 +291,21 @@ cc.se_d03<-function(tpa, qmd){
   }
 # calculate volumes in cubic feet per acre, change to metric if directed by use.metric
   volume <- switch(ineq,
-                          NA,
-                          -152+0.017*tpae*qmde^2.8,
-                          vol.fun03(tpa=tpae, qmd=qmde),
-                          NA,
-                          NA,
-                          0.007*(tpae^1.146)*(qmde^2.808),
-                          dfvol(tpae, qmde, max.sdie),
-                          NA,
-                          (tpae/54.4)*((( qmde/(1-0.00759*tpae^0.446) )^(1/0.361))-5.14) )
+                    NA,
+                    -152+0.017*tpae*qmde^2.8,
+                    vol.fun03(tpa=tpae, qmd=qmde),
+                    NA,
+                    NA,
+                    0.007*(tpae^1.146)*(qmde^2.808),
+                    dfvol(tpae, qmde, max.sdie),
+                    NA,
+                    (tpae/54.4)*((( qmde/(1-0.00759*tpae^0.446) )^(1/0.361))-5.14),
+                    NA,
+                    NA,
+                    NA,
+                    NA,
+                    NA,
+                    0.022954*(qmde^3.370408)*tpae^1.220762)
 
   volume <- (volume+abs(volume))/2     #get rid of neg values
   vole<-volume
@@ -308,7 +325,13 @@ cc.se_d03<-function(tpa, qmd){
                       NA,                           #6. L&S (2012)
                       NA,                           #7. D&F
                       NA,                           #8. ZWF
-                      NA)                           #9. McC (1986)
+                      NA,                           #9. McC (1986)
+                      NA,                           #10
+                      NA,                           #11
+                      NA,                           #12
+                      NA,                           #13
+                      NA,                           #14
+                      NA)                           #15
 
   if(!use.metric){
     stands$vol.se.ft3ac <- vol.se
@@ -319,19 +342,26 @@ cc.se_d03<-function(tpa, qmd){
 # calculate Dominant Height in feet, change to metric if directed by use.metric
 
   height <- switch(ineq,
-                     NA,                          #1. NULL
-                     NA,                          #2. L&S (2005)
+                     NA,                           #1. NULL
+                     NA,                           #2. L&S (2005)
                      ht.fun03(tpa=tpae, qmd=qmde), #3. JR&Z (2020)
-                     NA,                        #4. CE  (1988)
-                     NA,                        #5. PC  (1992)
+                     NA,                           #4. CE  (1988)
+                     NA,                           #5. PC  (1992)
                      ls2012height(tpa=tpae,
-                                  qmd=qmde),    #6. L&S (2012)
+                                  qmd=qmde),       #6. L&S (2012)
                      df1979height(tpa=tpae,
                                   qmd=qmde,
-                                  dfvol=vole),  #7. D&F
-                     NA,                        #8. ZWF
+                                  dfvol=vole),     #7. D&F
+                     NA,                           #8. ZWF
                      McC1986height(tpa=tpae,
-                                   qmd=qmde))   #9. McC (1986)
+                                   qmd=qmde),      #9. McC (1986)
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     Wl1994height(qmd=qmde,
+                                  mV=vole/tpae) )
 
   if(!use.metric){
     stands$height.ft <- height
@@ -348,8 +378,13 @@ cc.se_d03<-function(tpa, qmd){
                       NA,                           #6. L&S (2012)
                       NA,                           #7. D&F
                       NA,                           #8. ZWF
-                      NA)                           #9. McC (1986)
-
+                      NA,                           #9. McC (1986)
+                      NA,
+                      NA,
+                      NA,
+                      NA,
+                      NA,
+                      NA)
   if(!use.metric){
     stands$height.se.ft <- height.se
   } else {
@@ -367,7 +402,13 @@ cc.se_d03<-function(tpa, qmd){
                           NA,
                           NA,
                           NA,
-                          NA )
+                          NA,
+                          NA,
+                          NA,
+                          NA,
+                          NA,
+                          NA,
+                          NA)
   if(!use.metric){
     stands$biomass.Tonsac <- biomass
   } else {
@@ -385,7 +426,13 @@ cc.se_d03<-function(tpa, qmd){
                       NA,                           #6. L&S (2012)
                       NA,                           #7. D&F
                       NA,                           #8. ZWF
-                      NA)                           #9. McC (1986)
+                      NA,                           #9. McC (1986)
+                      NA,
+                      NA,
+                      NA,
+                      NA,
+                      NA,
+                      NA)                           #15 Williams (1994)
 
   if(!use.metric){
     stands$biomass.se.Tonsac <- biomass.se
@@ -406,7 +453,13 @@ cc.se_d03<-function(tpa, qmd){
                            NA,
                            NA,
                            NA,
-                           NA )
+                           NA,
+                           NA,
+                           NA,
+                           NA,
+                           NA,
+                           NA,
+                           NA)
   stands$ccpct  <- ccpct
 
     cc.se <- switch(ineq,
@@ -418,7 +471,13 @@ cc.se_d03<-function(tpa, qmd){
                        NA,                           #6. L&S (2012)
                        NA,                           #7. D&F
                        NA,                           #8. ZWF
-                       NA)                           #9. McC (1986)
+                       NA,                            #9. McC (1986)
+                       NA,
+                       NA,
+                       NA,
+                       NA,
+                       NA,
+                       NA)
 
     stands$ccpct.se  <- cc.se
 

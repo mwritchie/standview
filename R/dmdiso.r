@@ -11,7 +11,7 @@ dmd.iso<-function(ineq         = 3,
                   v.ann        = TRUE,
                   use.metric   = FALSE){
 
-if(!(ineq %in% c(2, 3, 6, 7, 9))){
+if(!(ineq %in% c(2, 3, 6, 7, 9, 15))){
   message("Invalid equation number provided to dmd.iso, iso-lines not rendered")
   return()
 }
@@ -35,7 +35,7 @@ if(is.null(max.sdi) & (ineq %in% c(1, 6))){
   message("Limiting sdi not specified by max.sdi for dmd.iso, iso-lines not rendered")
   return()
 }
-  # note I have put all ineq values in here even though we are limited to 2, 3, 6, 7, 9
+  # note I have put all ineq values in here even though we are limited to 2, 3, 6, 7, 9 and 15
 if(!use.metric){   # English Units
   max.sdi <- switch(ineq,
                     ifelse(max.sdi<=1000 && max.sdi>=300, max.sdi , 400),
@@ -50,6 +50,7 @@ if(!use.metric){   # English Units
                     ifelse((max.sdi<=564 && max.sdi>=527), max.sdi, 527),
                     ifelse((max.sdi<=608 && max.sdi>=547), max.sdi, 547),
                     ifelse((max.sdi<=669 && max.sdi>=502), max.sdi, 502),
+                    max.sdi,
                     max.sdi,
                     max.sdi)
 } else{            # metric units
@@ -66,6 +67,7 @@ if(!use.metric){   # English Units
                     ifelse((max.sdi<=1394 & max.sdi>=1302), max.sdi, 1302),
                     ifelse((max.sdi<=1502 & max.sdi>=1352), max.sdi, 1352),
                     ifelse((max.sdi<=1653 & max.sdi>=1240), max.sdi, 1240),
+                    max.sdi,
                     max.sdi,
                     max.sdi)
 }
@@ -105,6 +107,11 @@ vf9<-function(vvv, ttt){
   return(ivv)
 }
 
+vf15<-function(vvv, ttt){
+  ivv <- exp(1.830 + 0.2967*log(vvv/ttt) - 0.0655*log(ttt))
+  return(ivv)
+}
+
 # dominant height functions
 #hf3<-function(hhh,ttt){
 #  hp <- c(  276.49514, -124.88647, -0.0335065, 0.0452437,  1.1606388 ) #height parms for ineq=3
@@ -140,13 +147,13 @@ if(show.vol){
   v.array<-v.at
 
   range.x<-sort(range.x)
-  tx<-range.x[1]:range.x[2]
+  tx<-range.x[1]:range.x[2]      #this tx is either metric or English
 
   islp<-1/reineke.term
   # array of volumes to be produced in cubic feet per acre
   v.array<-sort(v.array)
   for(k in 1:length(v.array)){
-    if(!use.metric){
+    if(!use.metric){    #for English units
       ivol<- switch(ineq,
                     NULL,
                     vf2(v.array[k], tx),
@@ -157,13 +164,19 @@ if(show.vol){
                     vf7(v.array[k], tx),
                     NULL,
                     vf9(v.array[k], tx),
-                    NULL)
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL,
+                    vf15(v.array[k], tx))
       iaa  <- 10*(max.sdi/tx)^(islp)
       qq   <- sum((iaa-ivol)>0)
     }else{
-      txe <- tx*.404686 #convert to Englgish
-      v.arraye <- v.array*35.3147*.404686 #Convert volume to English
-      ivol<- switch(ineq,  # so ivol is english units
+      txe <- tx * 0.404686 #convert trees to back to English
+      v.arraye <- v.array*35.3147*.404686 #Convert volume to English also
+      #These Conversions are made to faclilitate enlish unit functions
+      ivol<- switch(ineq,  # so ivol is metric units
                     NULL,
                     vf2(v.arraye[k], txe),
                     vf3(v.arraye[k], txe),
@@ -173,7 +186,12 @@ if(show.vol){
                     vf7(v.arraye[k], txe),
                     NULL,
                     vf9(v.arraye[k], txe),
-                    NULL)
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL,
+                    vf15(v.arraye[k], txe))
       iaa  <- 10*((max.sdi*.404686)/txe)^(islp)  #iaa is also english units
       qq   <- sum((iaa-ivol)>0)  # count how many are less than the max.sdi
     }
