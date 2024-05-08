@@ -48,3 +48,4 @@ The current version of standview has a brief vignette. Also, at this time, the p
 
 The author contact is:
 Martin W. Ritchie, Pacific Southwest Research Station, Redding CA. martin.ritchie at usda.gov
+I will be retiring in September of 2024. Future contact is mwr.forester at protonmail.com
