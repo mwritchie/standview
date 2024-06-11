@@ -145,6 +145,18 @@ if(ineq==1){
   }
 }
 
+if(ineq>=2){
+  if(!is.na(sdi.lines)){
+  sdi.lines<-sort(sdi.lines)
+  # check to see if the sdi.lines are less than max.sdi
+  if(min(max.sdi-sdi.lines)<=0){
+    message("Invalid sdi.lines are not all less than sdi maximum")
+    return()
+    }
+  }
+}
+
+
 # test for acceptable reineke term must be between 1.30 and 2.0
 if(!(reineke.term>=1.30 & reineke.term<=2.00)){
   message("Invalid argument reineke.term; must be between 1.30 and 2.00")
@@ -230,23 +242,23 @@ gridlw  <- switch(ineq, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2,
 
 # min for x and y axis
 if(!use.metric){
-  min.x   <- switch(ineq, 40, 40, 30, 40, 40, 50, 50, 50, 80, 40, 40, 40, 40, 40, 40)
+  min.x   <- switch(ineq, 40, 40, 30, 40, 40, 50, 50, 50, 80, 60, 60, 60, 40, 40, 40)
   min.y   <- switch(ineq,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1)
 } else {
-  min.x   <- switch(ineq, 100, 100, 80, 100, 125, 100, 120, 120, 200, 100, 100, 100, 100, 100, 100)
+  min.x   <- switch(ineq, 100, 100, 80, 100, 125, 125, 125, 120, 200, 150, 150, 150, 100, 100, 100)
   min.y   <- switch(ineq,   3,   3,  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3)
 }
 
 # max for x and y axis
 if(!use.metric){
-  max.x   <- switch(ineq, 2000, 1000, 1000,  1200,  1000,  1000,  1000,  2000, 2000, 2000,
-                          2000, 2000, 2000,  2000,  1200 )
+  max.x   <- switch(ineq, 2000, 1000, 1000,  1200,  1000,  1000,  1000,  2000, 2000, 1500,
+                          1500, 1500, 2000,  2000,  1200 )
   max.y   <- switch(ineq,   30,   36,   36,    36,    36,    36,    36,    36,   26,   18,
                             18,   18,   36,    36,    24 )
 } else {
-  max.x   <- switch(ineq, 5000, 2500, 2500,  3000,  2500,  2500,  2500,  5000, 5000, 5000,
-                          5000, 5000,  5000, 5000,  3000 )
-  max.y   <- switch(ineq,   76,   92,   92,    92,    92,    92,    92,    92,   66,   46,
+  max.x   <- switch(ineq, 5000, 2500, 2500,  3000,  2500,  2500,  2500,  5000, 5000, 4000,
+                          4000, 4000,  5000, 5000,  3000 )
+  max.y   <- switch(ineq,   76,   92,   92,    92,    92,    92,    96,    92,   66,   46,
                             46,   46,    92,   92,    60 )
 }
 
@@ -334,15 +346,15 @@ if(!use.metric){  # for English Units
                     c(min.x, 90, 100, 120, 140, 170,
                       200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
                       seq(1000, 1900, 100), max.x),
-                    c(min.x, 60, 70, 80, 90, 100, 120, 140, 160, 180,
-                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
-                      seq(1000, 1900, 100), max.x),
-                    c(min.x, 60, 70, 80, 90, 100, 120, 140, 160, 180,
-                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
-                      seq(1000, 1900, 100), max.x),
-                    c(min.x, 60, 70, 80, 90, 100, 120, 140, 160, 180,
-                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
-                      seq(1000, 1900, 100), max.x),
+                    c(min.x, 70, 80, 90, 100, 120, 140, 160, 180,
+                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000,
+                      1100, 1200, 1300, 1400, max.x),
+                    c(min.x, 70, 80, 90, 100, 120, 140, 160, 180,
+                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000,
+                      1100, 1200, 1300, 1400, max.x),
+                    c(min.x, 70, 80, 90, 100, 120, 140, 160, 180,
+                      200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000,
+                       1100, 1200, 1300, 1400, max.x),
                     c(min.x, 60, 70, 80, 90, 100, 120, 140, 160, 180,
                       200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900,
                       seq(1000, 1900, 100), max.x),
@@ -368,7 +380,7 @@ if(!use.metric){  # for English Units
                     c(min.x, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800,
                       900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900,
                       2000, 2100, 2200, 2300, 2400, max.x),
-                    c(min.x, 150, 170, 200, 230, 260, 300, 350, 400, 450, 500,
+                    c(min.x, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500,
                       550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1200, 1300,
                       1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
                       2400, max.x),
@@ -379,18 +391,15 @@ if(!use.metric){  # for English Units
                     c(min.x, 250, 300, 350, 400, 500, 600, 700, 800, 900, 1000,
                       1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000,
                       3200, 3400, 3600, 3800, 4000, 4200, 4400, 4600, 4800, max.x),
-                    c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
+                    c(min.x, 200, 250, 300, 350, 400, 500, 600, 700, 800,
                       900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
-                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200,
-                      4400, 4600, 4800, max.x),
-                    c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
+                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, max.x),
+                    c(min.x, 200, 250, 300, 350, 400, 500, 600, 700, 800,
                       900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
-                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200,
-                      4400, 4600, 4800, max.x),
-                    c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
+                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, max.x),
+                    c(min.x, 200, 250, 300, 350, 400, 500, 600, 700, 800,
                       900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
-                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200,
-                      4400, 4600, 4800, max.x),
+                      2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, max.x),
                     c(min.x, 160, 200, 250, 300, 350, 400, 500, 600, 700, 800,
                       900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
                       2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200,
@@ -414,29 +423,29 @@ if(!use.metric){
                     x.at[c(1, 2,  4, 6, 10, 14, 18, 22, 26, length(x.at))],               #7
                     x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #8
                     x.at[c(1, 3, 5, 7, 9, 11, 13, 15, 18, 23, length(x.at))],             #9
-                    x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #10
-                    x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #11
-                    x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #12
+                    x.at[c(1, 3,  5, 7, 10, 12, 14, 16, 17, 19, 21,  length(x.at))],    #10
+                    x.at[c(1, 3,  5, 7, 10, 12, 14, 16, 17, 19, 21,  length(x.at))],    #11
+                    x.at[c(1, 3,  5, 7, 10, 12, 14, 16, 17, 19, 21,  length(x.at))],    #12
                     x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #13
                     x.at[c(1, 2,  4, 6, 8, 11, 13, 15, 17, 19, 22, 27, length(x.at))],    #14
                     x.at[c(1, seq(3,length(x.at)-4,2), length(x.at))] )                   #15
 } else{
   xaxl    <- switch(ineq,
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #1
-                    x.at[c(seq(1,length(x.at)-2,2), length(x.at))],              #2
-                    x.at[c(seq(1, 11, 2), 13, 16, 19, length(x.at))],            #3
-                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))],           #4
-                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))],           #5
-                    x.at[c(seq(1, 10, 2), 13, 18, length(x.at))],                #6
-                    x.at[c(seq(1, 9, 2), 13, 17, 21, 26, 31, length(x.at))],     #7
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #8
-                    x.at[c(1, 3, 5, 7, 9, 11, 16, 21, length(x.at))],            #9
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #10
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #11
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #12
-                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],    #13
-                    x.at[c(1, 3, 5, 7, 9, 11, 14, 18, 23, 28, length(x.at))],    #14
-                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))] )          #15
+                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],        #1
+                    x.at[c(seq(1,length(x.at)-2,2), length(x.at))],                  #2
+                    x.at[c(seq(1, 11, 2), 13, 16, 19, length(x.at))],                #3
+                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))],               #4
+                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))],               #5
+                    x.at[c(seq(1, 10, 2), 13, 18, length(x.at))],                    #6
+                    x.at[c(1, 2, 4, 6, 7, 9, 13, 17, 21, 26, 31, length(x.at))],     #7
+                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],        #8
+                    x.at[c(1, 3, 5, 7, 9, 11, 16, 21, length(x.at))],                #9
+                    x.at[c(1, 2, 4, 6, 8, 10, 12, 17, 22, 27, length(x.at))],        #10
+                    x.at[c(1, 2, 4, 6, 8, 10, 12, 17, 22, 27, length(x.at))],        #11
+                    x.at[c(1, 2, 4, 6, 8, 10, 12, 17, 22, 27, length(x.at))],        #12
+                    x.at[c(1, 3, 5, 7, 9, 11, 13, 18, 23, 28, length(x.at))],        #13
+                    x.at[c(1, 3, 5, 7, 9, 11, 14, 18, 23, 28, length(x.at))],        #14
+                    x.at[c(1, seq(3,length(x.at)-2,2), length(x.at))] )              #15
 }
 # tick marks on y-axis
 if(!use.metric){
@@ -458,21 +467,21 @@ y.at    <- switch(ineq,
                   c(min.y, seq(from=1.5, to=6.5, by=0.5), 7:22, max.y) ) #15
 } else{
 y.at    <- switch(ineq,
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #1
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #2
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #3
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #4
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #5
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #6
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #7
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #8
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #9
-                  c(min.y:18, seq(from=20, to=max.y, by=2)),    #10
-                  c(min.y:18, seq(from=20, to=max.y, by=2)),    #11
-                  c(min.y:18, seq(from=20, to=max.y, by=2)),    #12
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #13
-                  c(min.y:30, seq(from=33, to=max.y, by=3)),    #14
-                  c(min.y:30, seq(from=33, to=max.y, by=3)) )   #15
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #1
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #2
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #3
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #4
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #5
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #6
+                  c(min.y:30, seq(from=33, to=72, by=3), 78, 84, 90, 96),    #7
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #8
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                 #9
+                  c(min.y:18, seq(from=20, to=max.y, by=2)),                #10
+                  c(min.y:18, seq(from=20, to=max.y, by=2)),                #11
+                  c(min.y:18, seq(from=20, to=max.y, by=2)),                #12
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                #13
+                  c(min.y:30, seq(from=33, to=max.y, by=3)),                #14
+                  c(min.y:30, seq(from=33, to=max.y, by=3)) )               #15
 }
 
 # This is the list of annotations for y-axis (levels of qmd)
@@ -503,7 +512,7 @@ if(!use.metric){ #English units
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #6
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #7
                    c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #8
-                   c(seq(min.y, 30, 3), seq(36, to=max.y, by=6)),       #9
+                   c(seq(min.y, 36, 3), seq(42, to=max.y, by=6)),       #9
                    c(seq(min.y, 12, 1), seq(14, to=max.y, by=2)),       #10
                    c(seq(min.y, 12, 1), seq(14, to=max.y, by=2)),       #11
                    c(seq(min.y, 12, 1), seq(14, to=max.y, by=2)),       #12
@@ -655,7 +664,7 @@ if(!use.metric){ #English units
                     c(330, 400,  12, 5),     #4
                     c(210, 740,  30.5, 5),   #5
                     c(210, 740,  30.5, 5),   #6
-                    c(210, 740,  30.5, 5),   #7
+                    c(210, 1300, 31, 5),   #7
                     c(210, 740,  30.5, 5),   #8
                     c(210, 990,  30.5, 5),   #9
                     c(210, 1852, 30.5, 5),   #10
@@ -909,7 +918,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
                  min.y*0.90,
                  paste(xaxl[length(xaxl)]), cex=acex)
 
-# draw y axis#
+# draw y axis ################################################################
   graphics::axis(side=2,
      at = y.at,
      labels= FALSE,
@@ -933,12 +942,12 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
 
   fhgrid(h.grid, slp, max.sdi, max.x, min.x)
 
-# now draw in the max sdi line and annotate ###################
+# now draw in the max sdi line and annotate #############################
   graphics::lines(tx[sdi.strt:length(tx)],
                   ((max.sdi/tx[sdi.strt:length(tx)])^islp)*sdi.index,
                   type="l", col=sdicol, lwd=sdilw)
 
-# maximum sdi annotation elements
+# maximum sdi annotation elements #######################################
   if(inul){
     yyloc <- max.y + ulanny
     graphics::text((max.sdi*(yyloc/sdi.index)^(-slp))*ul.loc[1], yyloc*ul.loc[2] ,
@@ -988,7 +997,7 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
 
       yyann <- isd[1] # just set this as the default, not really necessary
 
-      if(isd[1] <= max.y * 1.08){  # if it starts no more than 1.05 times the max y
+      if(isd[1] <= max.y * 1.08){  # if it starts no more than 1.08 times the max y
         graphics::lines(tx[1:irng], isd[1:irng],
                         type="l", col=sdicol, lwd=sdilw)
         xxann <- 0.66 * min.x
@@ -1000,14 +1009,14 @@ wmy<- c(30, 25,  20,  15,  10,   9,   8,   7,    6,    5,    4)
         }
       } else if(sdi.lines[jsd]>=isod.adj[2]){
         graphics::lines(tx[isod.adj[3]:length(tx)],
-                        isd[isod.adj[3]:length(isd)],
+                        isd[isod.adj[3]:length(tx)],
                         type="l", col=sdicol, lwd=sdilw)
         xxann <- 0.90 * tx[isod.adj[3]]
         yyann <- 1.00 * isd[isod.adj[3]]
       } else{
-        strtln.x <- trunc(sdi.lines[jsd]*(max.y/sdi.index)^(-(slp)) - (min.x)*0.96)
+        strtln.x <- trunc(sdi.lines[jsd]*(max.y/sdi.index)^(-(slp)) - (min.x)*1.0)
         graphics::lines(tx[strtln.x:length(tx)],
-                        isd[strtln.x:length(isd)],
+                        isd[strtln.x:length(tx)],
                         type="l", col=sdicol, lwd=sdilw)
         xxann <- 0.90 * tx[strtln.x]
         yyann <- 1.05 * isd[strtln.x]

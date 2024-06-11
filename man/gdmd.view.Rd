@@ -9,7 +9,7 @@ This package provides function(s) to generate customizable stand density managem
   to the 6x8 ratio for dmd.view in translated Reineke space (Reineke 1933).
 }
 \usage{
-gdmd.view(ineq  = 1,
+gdmd.view(ineq  = 3,
           inul  = TRUE,
           inrd = TRUE,
           rdlabel = TRUE,
@@ -174,7 +174,7 @@ Returns no value.
       J. Ag. Res. 46:627-638.
 
     Ritchie, M.W. and J.-P. Berrill (2022) Precommercial thinning in California Forests. In:
-      Stewart, W. (editor) Reforestation practices fro conifers in California. Davis CA:
+      Stewart, W. (editor) Reforestation practices for conifers in California. Davis CA:
       University of California, Agriculture and Natural Resources.
 
     Weiskittel, A. & Woodall, C. (2023) Stand density index and relative density calculator

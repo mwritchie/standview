@@ -17,15 +17,15 @@ knitr::opts_chunk$set(
 )
 ```
 ## Introduction
-The standview package is an R-package for rendering a high-resolution-graphic stand density management diagram (DMD). A stand density management diagram is a visual aid used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`. 
+The standview package is an R-package for rendering a high-resolution-graphic stand density management diagram (DMD). A stand density management diagram is a visual aid  used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`. 
 
-The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1, 6, 10, 11, 12, 13, or 14 the user must specify a limiting sdi with the argument: max.sdi=*xxx*. Thus care should be taken to assure that the limiting sdi and sdi lines are rendered in proper units (English or metric).
+The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1, 6, 10, 11, 12, 13, or 14 the user must specify a limiting sdi with the argument: max.sdi=*xxx*. Thus, care should be taken to assure that the limiting sdi and sdi lines are rendered in proper units (English or metric) as dictated by the use.metric argument.
 
 By default, stem density is trees acre^-1^ and basal area is square feet acre^-1^. Also, by default, quadratic mean diameter is in inches, and is defined as the diameter of the tree of mean basal area in a stand. If the user is employing the summation method (Long and Daniel 1990) to calculate stand density index then it is important to recognize that the stand diameter implied by the summation method is the generalized mean diameter (Zeide 1983), not the quadratic mean diameter. As such, the Gingrich-style DMD should not be used with the summation method because iso-lines for generalized diameter cannot be rendered in a way that is consistent with the Reineke format.
 
 ### Access
 
-The package is not currently available from CRAN, but the latest version can be installed from the R console by pulling it from github with the following two lines of code:
+The package is not currently available from CRAN, but the latest version can be installed from the R console by pulling it from github with the following commands:
 
 ```{r, results=FALSE, eval=FALSE}
 install.packages("devtools")

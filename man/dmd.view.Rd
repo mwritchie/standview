@@ -69,7 +69,7 @@ Selects the values from a published DMD source (ineq=1-10) or a generic
     Default=3.
 }
   \item{inul}{
-Selects to add label for the upper limit to the sdi line. Default=TRUE.
+Selects to add Annotation for Upper limit, Reineke value and the upper limit to the sdi line. Default=TRUE.
 }
   \item{insdi}{
 Selects intermediate sdi lines to be drawn. The placement of these lines is

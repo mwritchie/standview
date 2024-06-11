@@ -22,8 +22,7 @@ The standview package provides functions to create forest density management dia
       20 research plots at the Goosenest Adaptive Management Area from 2005 (Ritchie 2005).
 
     If you happen to find a problem with the package, please email the author with the script causing
-      the problem, as well as the version number. The version number is shown below or it
-      can be obtained with function call:
+      the problem, as well as the version number. The version number can be obtained with function call:
 
     \preformatted{packageDescription("standview")$Version}
 
