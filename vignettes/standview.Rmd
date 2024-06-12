@@ -81,7 +81,7 @@ dmd.view(ineq=9, insdr=TRUE)
 
 
 ```
-In this particular example the insdr argument is set to true for SDI limits placed on right side of the figure.
+In this particular example the insdr argument is set to true for SDI limits placed on right side of the figure. Although standview has default values provided for sdi.lines for all ineq>1, the user can over-ride these defaults. The recommended length for sdi.lines is no more than six and they should all be less than the sdi.max value.
 
 ## Gingrich Space Density Management Diagrams
 

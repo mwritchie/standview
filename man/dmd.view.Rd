@@ -112,9 +112,12 @@ Character string for title to be displayed. As an example could take the form of
 }
   \item{sdi.lines}{
 An array of values for plotting sdi iso-lines in the density management diagram. There is no default
-    value for ineq=1. Note that, as with max.sdi, the sdi.lines are fixed
-    unless a generic DMD (ineq=1) is chosen. If the user selects to make a generic DMD in metric
-    units, then this argument must be set to metric units.
+    array for ineq=1 and the user must supply this array.
+    For ineq>1, sdi.lines has default values. If the user selects to input an array
+    for sdi.lines, thus replacing the default values, then care must be taken to select the proper units
+    and provide well-spaced values. The default length of sdi.lines is six. Although not recommended,
+    The user can provide a vector of values for sdi.lines that exceeds
+    length of six but only the first six will be labeled.
 }
   \item{mgt.zone}{
 Explicitly sets the upper and lower limits of the management zone by proportion of the max.sdi.
