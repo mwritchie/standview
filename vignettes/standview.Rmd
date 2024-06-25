@@ -17,15 +17,15 @@ knitr::opts_chunk$set(
 )
 ```
 ## Introduction
-The standview package is an R-package for rendering a high-resolution-graphic stand density management diagram (DMD). A stand density management diagram is a visual aid  used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`. 
+The standview package is an R-package for rendering a high-resolution stand density management diagram (DMD). A stand density management diagram is a visual aid  used by foresters to evaluate stands based on stem density (number of trees per unit area) and either a mean tree size such as quadratic mean diameter, or basal area per unit area. In standview, one of two different formats may be generated. The first format is a plot in Reineke-space (Reineke 1933) and is called with the dmd.view function: `dmd(ineq=i,...)`. The second option generates a figure in Gingrich-space (Gingrich 1967) and it is called with the gdmd.view function: `gdmd.view(ineq=i, ...)`. 
 
-The functions presented in standview use English units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1, 6, 10, 11, 12, 13, or 14 the user must specify a limiting sdi with the argument: max.sdi=*xxx*. Thus, care should be taken to assure that the limiting sdi and sdi lines are rendered in proper units (English or metric) as dictated by the use.metric argument.
+The functions presented in standview use Imperial units as a default setting of the use.metric argument: use.metric=FALSE. When use.metric=TRUE, then the DMD will be rendered in metric units. Users should note that the change to metric units may come with an attendant change in other inputs as well. If ineq=1, 6, 10, 11, 12, 13, or 14 the user must specify a limiting sdi with the argument: max.sdi=*xxx*. Thus, care should be taken to assure that the limiting sdi and sdi lines are rendered in proper units (Imperial or metric) as dictated by the use.metric argument.
 
-By default, stem density is trees acre^-1^ and basal area is square feet acre^-1^. Also, by default, quadratic mean diameter is in inches, and is defined as the diameter of the tree of mean basal area in a stand. If the user is employing the summation method (Long and Daniel 1990) to calculate stand density index then it is important to recognize that the stand diameter implied by the summation method is the generalized mean diameter (Zeide 1983), not the quadratic mean diameter. As such, the Gingrich-style DMD should not be used with the summation method because iso-lines for generalized diameter cannot be rendered in a way that is consistent with the Reineke format.
+By default, stem density is trees acre^-1^ and basal area is square feet acre^-1^. Also, by default, diameter is in inches, and was originally defined as the quadratic mean (the diameter of the tree of mean basal area in a stand). If the user is employing the summation method (Long and Daniel 1990) to calculate stand density index then it is important to recognize that the implied stand diameter is the generalized mean diameter (Zeide 1983), not the quadratic mean diameter. As such, the Gingrich-style DMD should not be selected with the summation method because iso-lines for generalized mean diameter cannot be rendered in a way that is consistent with the generalized mean diameter. That is to say that basal area cannot be derived from the generalized mean.
 
 ### Access
 
-The package is not currently available from CRAN, but the latest version can be installed from the R console by pulling it from github with the following commands:
+The package is not currently available from CRAN, but the latest version can be installed from the R console by pulling it from github in a two-step process. First, if the user does not have the devtools package installed, the install.packages function must be called with the argument "devtools". Then the standview package may be installed with a call to the install_github function provided by devtools:
 
 ```{r, results=FALSE, eval=FALSE}
 install.packages("devtools")
@@ -41,9 +41,9 @@ library(standview)
 ```
 The current version of standview is `r packageVersion("standview")`.
 
-## Reineke Space Density Management Diagrams
+## Reineke-Space Density Management Diagrams
 
-The dmd.view function will produce a Reineke-space diagram with the natural log of stem density on the x-axis and natural log of diameter on the y-axis. Although there are 17 items in the argument list for this function, in most instances only a few will be needed as the default values will generally suffice. The most important argument is ineq; it specifies which species, or species group, is required. The ineq argument must be specified as an integer between 1 and 15 in the current version. The ineq value defines the inverse slope of the limiting sdi (most often reineke.term=1.605), the value for limiting sdi (max.sdi), as well as volume and dominant height estimation functions if appropriate.
+The dmd.view function will produce a Reineke-space diagram with the natural log of stem density on the x-axis and natural log of diameter on the y-axis. This will appear very similar to the figures produced in Reineke (1933) with the axes switched. Although there are 17 potential items in the argument list for this function, in most instances only a few will be needed as the default values will generally suffice. The most important argument is ineq; it specifies which species, or species group, is required. The ineq argument must be specified as an integer between 1 and 15 in the current version. The ineq value defines the inverse slope of the limiting sdi (most often reineke.term=1.605), the value for limiting sdi (max.sdi), as well as volume and dominant height estimation functions if appropriate. It is important to note that the default units are Imperial.
 
 Table 1. Definitions of species and reference for DMD rendering by index of equations (ineq) in standview.
 
@@ -66,7 +66,7 @@ Table 1. Definitions of species and reference for DMD rendering by index of equa
 |   15    | loblolly pine             | Williams (1994)              |
 
 
-Note that volume estimation in Reineke-space has traditionally been presented as a series of iso-volume lines which the user then employs to visually approximate the estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below). The dmd.view function is set up to render well in a 6wx8h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=6, height=8).
+Note that volume estimation in Reineke-space has traditionally often presented as a series of iso-volume lines which the user then employs to visually approximate the volume estimate. This imprecise analog approach is no longer necessary. In R, these volumes estimates can be maintained, with greater precision, in a data frame. Nonetheless, dmd.view will draw iso-volume lines if the user specifies invol=TRUE in the argument list (see section on dmd.volume below). The dmd.view function is set up to render well in a 6wx8h canvas. For this reason opening a pdf is recommended: pdf("mydmdfile.pdf", width=6, height=8).
 
 ### Generic DMD in Reineke Space: ineq=1
 
@@ -81,7 +81,7 @@ dmd.view(ineq=9, insdr=TRUE)
 
 
 ```
-In this particular example the insdr argument is set to true for SDI limits placed on right side of the figure. Although standview has default values provided for sdi.lines for all ineq>1, the user can over-ride these defaults. The recommended length for sdi.lines is no more than six and they should all be less than the sdi.max value.
+In this particular example the insdr argument is set to true for SDI limits placed on right side of the figure. Although standview has default values provided for sdi.lines for all ineq>1, the user can over-ride these defaults. The recommended length for sdi.lines is no more than six and they must all be less than the sdi.max value.
 
 ## Gingrich Space Density Management Diagrams
 
@@ -138,7 +138,7 @@ DF
 ```
 This function only works for those diagrams which provide volume estimates (ineq=2, 3, 6, 7, 9, 15).
 
-Note that by default, dmd.volume produces estimates in English units. For metric units, the argument list must include `use.metric=TRUE`.
+Note that by default, dmd.volume produces estimates in Imperial units. For metric units, the argument list must include `use.metric=TRUE`.
 
 ## File Formats
 
